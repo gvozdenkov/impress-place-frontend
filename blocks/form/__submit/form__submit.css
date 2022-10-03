@@ -1,0 +1,19 @@
+.form__submit {
+  height: 50px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  background-color: var(--color-accent-neutral);
+  color: var(--color-content-inverted-primary);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.21;
+  transition: all var(--trans-short) ease-out;
+}
+
+.form__submit:hover,
+.form__submit:focus {
+  cursor: pointer;
+  background-color: rgba(0 0 0 / 0.8);
+}

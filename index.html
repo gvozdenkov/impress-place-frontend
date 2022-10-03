@@ -6,8 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body class="page">
+    <div class="popup popup_opened">
+      <div class="popup__container">
+        <div class="popup__close-btn"></div>
+        <form action="/" class="form">
+          <p class="form__title">Редактировать профиль</p>
+          <fieldset class="form__fieldset">
+            <input
+              type="text"
+              class="form__input"
+              id="name"
+              placeholder="Введите своё имя"
+              required
+            />
+            <input
+              type="text"
+              class="form__input"
+              id="about"
+              placeholder="Напишите о себе"
+              required
+            />
+          </fieldset>
+          <fieldset class="form__fieldset form__fieldset_handlers">
+            <button class="form__submit">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
