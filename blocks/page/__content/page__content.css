@@ -6,6 +6,12 @@
   flex-flow: column nowrap;
   align-items: center;
   min-height: 100vh;
-  padding-top: 45px;
+  padding: 45px 0 56px;
   box-sizing: border-box;
+}
+
+@media (max-width: 568px) {
+  .page__content {
+    padding: 28px 0 36px;
+  }
 }

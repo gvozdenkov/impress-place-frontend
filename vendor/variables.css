@@ -11,4 +11,24 @@
 
   --trans-short: 0.2s;
   --trans-medium: 0.3s;
+
+  --gutter-side: 0px;
+}
+
+@media (max-width: 940px) {
+  :root {
+    --gutter-side: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gutter-side: 30px;
+  }
+}
+
+@media (max-width: 568px) {
+  :root {
+    --gutter-side: 19px;
+  }
 }
