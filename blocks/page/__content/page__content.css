@@ -1,0 +1,9 @@
+.page__content {
+  max-width: 1280px;
+  min-width: 320px;
+  margin: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  min-height: 100vh;
+}
