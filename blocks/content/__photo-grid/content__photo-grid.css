@@ -1,0 +1,4 @@
+.content__photo-grid {
+  margin-left: var(--gutter-side);
+  margin-right: var(--gutter-side);
+}
