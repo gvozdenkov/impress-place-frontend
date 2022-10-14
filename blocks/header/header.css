@@ -13,3 +13,12 @@
   transform: translate(-50%, -50%);
   opacity: 0.7;
 }
+
+@media (max-width: 568px) {
+  .header {
+    padding-bottom: 32px;
+  }
+  .header::after {
+    width: calc(100% + var(--gutter-side) * 2);
+  }
+}
