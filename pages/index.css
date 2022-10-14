@@ -6,10 +6,24 @@
 @import url(../blocks/page/__content/page__content.css);
 @import url(../blocks/page/__section/page__section.css);
 
+@import url(../blocks/link-hover/link-hover.css);
+@import url(../blocks/link-hover/_place/link-hover_place_light.css);
+
 @import url(../blocks/header/header.css);
 
 /* ========== content ================= */
 @import url(../blocks/content/content.css);
+
+@import url(../blocks/photo-grid/photo-grid.css);
+
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__figure/card__figure.css);
+@import url(../blocks/card/__img/card__img.css);
+@import url(../blocks/card/__footer/card__footer.css);
+@import url(../blocks/card/__title/card__title.css);
+@import url(../blocks/card/__like/card__like.css);
+@import url(../blocks/card/__like/_active/card__like_active.css);
+
 /* ========== footer ================= */
 @import url(../blocks/footer/footer.css);
 
