@@ -1,0 +1,26 @@
+.footer__copyright {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.22;
+  margin: 0;
+  color: var(--color-content-secondary);
+}
+
+@media (max-width: 1000px) {
+  .footer__copyright {
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+}
+
+@media (max-width: 320px) {
+  .footer__copyright {
+    text-align: left;
+  }
+}

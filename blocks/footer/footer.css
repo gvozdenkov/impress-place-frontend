@@ -1,25 +1,9 @@
 .footer {
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.22;
-  color: var(--color-content-secondary);
   padding-top: 66px;
-}
-
-@media (max-width: 1000px) {
-  .footer {
-    text-align: center;
-  }
 }
 
 @media (max-width: 568px) {
   .footer {
     padding-top: 48px;
-  }
-}
-
-@media (max-width: 320px) {
-  .footer {
-    text-align: left;
   }
 }
