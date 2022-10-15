@@ -7,6 +7,13 @@
   max-width: 430px;
   box-sizing: border-box;
   padding: 35px;
-  background-color: var(--color-background-default);
+  color: var(--color-content-primary-inverted);
+  background-color: var(--color-background-inverted);
   border-radius: var(--border-radius);
+}
+
+@media (max-width: 650px) {
+  .popup__container {
+    padding: 25px 22px;
+  }
 }
