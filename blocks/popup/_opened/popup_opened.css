@@ -1,3 +1,5 @@
 .popup_opened {
-  display: block;
+  /* smooth appear from zero opacity */
+  opacity: 1;
+  visibility: visible;
 }

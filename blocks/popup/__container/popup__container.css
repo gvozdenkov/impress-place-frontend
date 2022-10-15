@@ -5,6 +5,7 @@
   transform: translate(-50%, -50%);
   min-width: 282px;
   max-width: 430px;
+  width: calc(100% - var(--gutter-side) * 2);
   box-sizing: border-box;
   padding: 35px;
   color: var(--color-content-primary-inverted);
