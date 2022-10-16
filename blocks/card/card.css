@@ -1,6 +1,7 @@
 .card {
-  width: 282px;
-  height: 362px;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
   background-color: var(--color-background-inverted);
   color: var(--color-content-primary-inverted);
   border-radius: var(--border-radius);

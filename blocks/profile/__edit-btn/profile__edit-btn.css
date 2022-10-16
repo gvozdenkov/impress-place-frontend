@@ -9,3 +9,10 @@
   background-color: transparent;
   padding: 0;
 }
+
+@media (max-width: 560px) {
+  .profile__edit-btn {
+    width: 18px;
+    height: 18px;
+  }
+}

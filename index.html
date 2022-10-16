@@ -5,10 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Arty Gvozdenkov" />
-    <meta
-      name="description"
-      content="Делитесь фотографиями любимых мест со всем миром."
-    />
+    <meta name="description" content="Делитесь фотографиями мест со всеми." />
     <meta name="keywords" content="фото альбом, делиться фото, mesto" />
     <link rel="shortcut icon" href="favicon.ico?v2" type="image/x-icon" />
     <link rel="stylesheet" href="./pages/index.css" />
@@ -25,120 +22,114 @@
       </header>
       <main class="content page__section">
         <section class="profile content__profile">
-          <div
+          <img
+            src="./images/avatar.jpg"
+            alt="Аватар пользователя."
             class="profile__avatar"
-            role="img"
-            aria-label="Аватар. Нажмите для редактирования"
-          ></div>
+          />
           <div class="profile__info">
             <h1 class="profile__title">Arty Gvozdenkov</h1>
             <button
-              class="profile__edit-btn link-hover link-hover_place_dark"
+              class="profile__edit-btn link-hover"
               aria-label="Редактировать профиль"
               type="button"
             ></button>
             <p class="profile__about">web разработчик</p>
           </div>
           <button
-            class="profile__add-btn link-hover link-hover_place_dark"
+            class="profile__add-btn link-hover"
             aria-label="Добавить место"
             type="button"
           ></button>
         </section>
         <section class="photo-grid" aria-label="Фото галерея">
           <article class="card">
-            <figure class="card__figure">
-              <img
-                src="https://images.unsplash.com/photo-1490879112094-281fea0883dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80"
-                alt="Байкал."
-                class="card__img"
-              />
-            </figure>
+            <img
+              src="./images/photo-grid/photo-grid_001.jpg"
+              alt="Байкал."
+              class="card__img"
+            />
             <div class="card__footer">
               <h2 class="card__title">Байкал</h2>
               <button
                 class="card__like link-hover link-hover_place_light"
                 aria-label="Поставить лайк"
+                type="button"
               ></button>
             </div>
           </article>
           <article class="card">
-            <figure class="card__figure">
-              <img
-                src="https://images.unsplash.com/photo-1605653799416-595e2b020d08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1467&q=80"
-                alt="Камчатка."
-                class="card__img"
-              />
-            </figure>
+            <img
+              src="./images/photo-grid/photo-grid_002.jpg"
+              alt="Камчатка."
+              class="card__img"
+            />
             <div class="card__footer">
               <h2 class="card__title">Камчатка</h2>
               <button
                 class="card__like link-hover link-hover_place_light"
                 aria-label="Поставить лайк"
+                type="button"
               ></button>
             </div>
           </article>
           <article class="card">
-            <figure class="card__figure">
-              <img
-                src="https://images.unsplash.com/photo-1630763741321-16e7bff61e2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                alt="Карелия."
-                class="card__img"
-              />
-            </figure>
+            <img
+              src="./images/photo-grid/photo-grid_003.jpg"
+              alt="Карелия."
+              class="card__img"
+            />
             <div class="card__footer">
               <h2 class="card__title">Карелия</h2>
               <button
                 class="card__like link-hover link-hover_place_light"
                 aria-label="Поставить лайк"
+                type="button"
               ></button>
             </div>
           </article>
           <article class="card">
-            <figure class="card__figure">
-              <img
-                src="https://images.unsplash.com/photo-1611177239857-4776c833e3b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1846&q=80"
-                alt="Куршская коса."
-                class="card__img"
-              />
-            </figure>
+            <img
+              src="./images/photo-grid/photo-grid_004.jpg"
+              alt="Куршская коса."
+              class="card__img"
+            />
             <div class="card__footer">
               <h2 class="card__title">Куршская коса</h2>
               <button
                 class="card__like link-hover link-hover_place_light"
                 aria-label="Поставить лайк"
+                type="button"
               ></button>
             </div>
           </article>
           <article class="card">
-            <figure class="card__figure">
-              <img
-                src="https://images.unsplash.com/photo-1641297136561-17697bdb017b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                alt="Тверь."
-                class="card__img"
-              />
-            </figure>
+            <img
+              src="./images/photo-grid/photo-grid_005.jpg"
+              alt="Тверь."
+              class="card__img"
+            />
             <div class="card__footer">
               <h2 class="card__title">Тверь</h2>
               <button
                 class="card__like link-hover link-hover_place_light"
                 aria-label="Поставить лайк"
+                type="button"
               ></button>
             </div>
           </article>
           <article class="card">
-            <figure class="card__figure">
-              <img
-                src="https://images.unsplash.com/photo-1662325652850-fd2426e684b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                alt="Калуга."
-                class="card__img"
-              />
-            </figure>
+            <img
+              src="./images/photo-grid/photo-grid_006.jpg"
+              alt="Калуга."
+              class="card__img"
+            />
             <div class="card__footer">
               <h2 class="card__title">Калуга</h2>
               <button
                 class="card__like link-hover link-hover_place_light"
                 aria-label="Поставить лайк"
+                type="button"
               ></button>
             </div>
           </article>
@@ -148,42 +139,40 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
-    <div class="popup popup_opened">
-      <div class="popup__body">
-        <div
-          class="popup__container"
-          role="dialog"
-          aria-labelledby="form-title"
-          aria-modal="true"
-        >
-          <button
-            class="popup__close-btn"
-            aria-label="Закрыть попап"
-            type="button"
-          ></button>
-          <form action="/" class="form" name="edit-profile">
-            <p class="form__title" id="form-title">Редактировать профиль</p>
-            <fieldset class="form__fieldset">
-              <input
-                type="text"
-                class="form__input"
-                id="name"
-                placeholder="Введите своё имя"
-                required
-                aria-label="Имя"
-              />
-              <input
-                type="text"
-                class="form__input"
-                id="about"
-                placeholder="Напишите о себе"
-                required
-                aria-label="Информация о себе"
-              />
-            </fieldset>
-            <button type="submit" class="form__button">Сохранить</button>
-          </form>
-        </div>
+    <div class="popup">
+      <div
+        class="popup__container"
+        role="dialog"
+        aria-labelledby="form-title"
+        aria-modal="true"
+      >
+        <button
+          class="popup__close-btn link-hover"
+          aria-label="Закрыть попап"
+          type="button"
+        ></button>
+        <form action="/" class="form" name="edit-profile">
+          <h2 class="form__title" id="form-title">Редактировать профиль</h2>
+          <fieldset class="form__fieldset">
+            <input
+              type="text"
+              name="name"
+              class="form__input"
+              placeholder="Введите своё имя"
+              required
+              aria-label="Имя"
+            />
+            <input
+              type="text"
+              name="about"
+              class="form__input"
+              placeholder="Напишите о себе"
+              required
+              aria-label="Информация о себе"
+            />
+          </fieldset>
+          <button type="submit" class="form__button">Сохранить</button>
+        </form>
       </div>
     </div>
   </body>

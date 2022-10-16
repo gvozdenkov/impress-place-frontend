@@ -8,6 +8,7 @@
   color: var(--color-content-primary-inverted);
   background-color: var(--color-background-inverted);
   border-radius: var(--border-radius);
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 650px) {

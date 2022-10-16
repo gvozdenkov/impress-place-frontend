@@ -1,5 +1,6 @@
 .profile__add-btn {
   background: url(../../../images/plus.svg) center no-repeat;
+  background-size: 22px 22px;
   width: 150px;
   height: 50px;
   border: 2px solid var(--color-content-primary);
@@ -20,6 +21,7 @@
 
 @media (max-width: 650px) {
   .profile__add-btn {
+    background-size: 16px 16px;
     margin-left: 0;
     margin-top: 33px;
     width: 100%;

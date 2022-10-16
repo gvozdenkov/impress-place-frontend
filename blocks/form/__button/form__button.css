@@ -18,3 +18,9 @@
   cursor: pointer;
   background-color: rgba(0 0 0 / 0.8);
 }
+
+@media (max-width: 650px) {
+  .form__button {
+    height: 46px;
+  }
+}

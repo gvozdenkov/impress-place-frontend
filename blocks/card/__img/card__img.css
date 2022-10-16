@@ -1,12 +1,6 @@
 .card__img {
-  width: 0;
-  min-width: 100%;
-  height: 100%;
+  width: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
-  cursor: pointer;
-  transition: scale var(--trans-medium) ease-out;
-}
-
-.card__img:hover {
-  scale: 1.03;
+  user-select: none;
 }

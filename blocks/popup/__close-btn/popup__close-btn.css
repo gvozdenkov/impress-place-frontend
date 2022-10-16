@@ -10,11 +10,6 @@
   padding: 0;
 }
 
-.popup__close-btn:hover {
-  cursor: pointer;
-  opacity: 0.6;
-}
-
 @media (max-width: 640px) {
   .popup__close-btn {
     right: 0;
