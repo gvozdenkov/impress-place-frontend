@@ -12,6 +12,9 @@
   --trans-medium: 0.3s;
 
   --gutter-side: 0px;
+
+  --profile-edit-btn-size: 24px;
+  --profile-edit-btn-space: 18px;
 }
 
 @media (max-width: 940px) {
@@ -23,6 +26,8 @@
 @media (max-width: 768px) {
   :root {
     --gutter-side: 30px;
+    --profile-edit-btn-size: 18px;
+    --profile-edit-btn-space: 10px;
   }
 }
 

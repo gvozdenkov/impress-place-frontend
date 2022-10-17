@@ -3,16 +3,26 @@
   background-position: center;
   background-size: 100%;
   background-repeat: no-repeat;
-  width: 24px;
-  height: 24px;
+  width: var(--profile-edit-btn-size);
+  height: var(--profile-edit-btn-size);
   border: 0;
   background-color: transparent;
   padding: 0;
+  grid-area: edit;
+  align-self: end;
+  margin-left: var(--profile-edit-btn-space);
+  margin-bottom: 12px;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 940px) {
   .profile__edit-btn {
-    width: 18px;
-    height: 18px;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 767px) {
+  .profile__edit-btn {
+    margin-bottom: 0;
+    align-self: center;
   }
 }

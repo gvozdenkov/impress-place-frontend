@@ -6,24 +6,16 @@
   border: 2px solid var(--color-content-primary);
   border-radius: 2px;
   padding: 0;
-  margin-left: auto;
+  grid-area: add;
 }
 
 .profile__add-btn:active {
   scale: 0.95;
 }
 
-@media (max-width: 940px) {
-  .profile__add-btn {
-    width: 100px;
-  }
-}
-
-@media (max-width: 650px) {
+@media (max-width: 767px) {
   .profile__add-btn {
     background-size: 16px 16px;
-    margin-left: 0;
-    margin-top: 33px;
     width: 100%;
   }
-}
+} */
