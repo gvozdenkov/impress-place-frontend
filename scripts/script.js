@@ -1,9 +1,14 @@
 // ============== page elements
 const content = document.querySelector(".content");
+// buttons
 const editProfileButton = content.querySelector(".profile__edit-btn");
+const addCardButton = content.querySelector(".profile__add-btn");
+
 // popups
 const editProfilePopup = document.querySelector(".popup_edit-profile");
-const editProfileForm = document.querySelector(".form_type_edit-profile");
+const editProfileForm = document.querySelector(".form_edit-profile");
+const addCardPopup = document.querySelector(".popup_add-card");
+const addCardForm = document.querySelector(".form_add-card");
 // profile info
 let profileName = content.querySelector(".profile__name");
 let profileAbout = content.querySelector(".profile__about");
@@ -44,7 +49,6 @@ const handleEditProfileSubmit = (evt) => {
   const { name, about } = getFormInputValues(inputList);
   profileName.textContent = name;
   profileAbout.textContent = about;
-  console.log(evt.target);
   cleanFormInputs(evt.target);
   closePopup(evt.target.closest(".popup"));
 };
@@ -64,3 +68,5 @@ editProfileButton.addEventListener("click", () => {
   handlePopupOpen(editProfilePopup);
   fillEditProfileFormInputs();
 });
+
+addCardButton.addEventListener("click", () => handlePopupOpen(addCardPopup));

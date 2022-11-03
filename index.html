@@ -151,7 +151,7 @@
         ></button>
         <form
           action="/"
-          class="form form_type_edit-profile"
+          class="form form_edit-profile"
           name="edit-profile-form"
         >
           <h2 class="form__title" id="form-title">Редактировать профиль</h2>
@@ -174,6 +174,44 @@
             />
           </fieldset>
           <button type="submit" class="form__button">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add card popup -->
+    <div class="popup popup_add-card">
+      <div
+        class="popup__container"
+        role="dialog"
+        aria-labelledby="form-title"
+        aria-modal="true"
+      >
+        <button
+          class="popup__close-btn link-hover"
+          aria-label="Закрыть попап"
+          type="button"
+        ></button>
+        <form action="/" class="form form_add-card" name="add-card-form">
+          <h2 class="form__title" id="form-title">Новое место</h2>
+          <fieldset class="form__fieldset">
+            <input
+              type="text"
+              name="title"
+              class="form__input form__input_type_title"
+              placeholder="Название"
+              required
+              aria-label="Название места"
+            />
+            <input
+              type="url"
+              name="url"
+              class="form__input form__input_type_url"
+              placeholder="Ссылка на картинку"
+              required
+              aria-label="Ссылка на картинку"
+            />
+          </fieldset>
+          <button type="submit" class="form__button">Создать</button>
         </form>
       </div>
     </div>
