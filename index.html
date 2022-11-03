@@ -137,7 +137,7 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
-    <div class="popup">
+    <div class="popup popup_edit-profile">
       <div
         class="popup__container"
         role="dialog"
@@ -149,13 +149,17 @@
           aria-label="Закрыть попап"
           type="button"
         ></button>
-        <form action="/" class="form" name="edit-profile">
+        <form
+          action="/"
+          class="form form_type_edit-profile"
+          name="edit-profile-form"
+        >
           <h2 class="form__title" id="form-title">Редактировать профиль</h2>
           <fieldset class="form__fieldset">
             <input
               type="text"
               name="name"
-              class="form__input"
+              class="form__input form__input_type_name"
               placeholder="Введите своё имя"
               required
               aria-label="Имя"
@@ -163,7 +167,7 @@
             <input
               type="text"
               name="about"
-              class="form__input"
+              class="form__input form__input_type_about"
               placeholder="Напишите о себе"
               required
               aria-label="Информация о себе"
@@ -173,5 +177,6 @@
         </form>
       </div>
     </div>
+    <script src="./scripts/script.js"></script>
   </body>
 </html>
