@@ -23,15 +23,21 @@ const closePopup = (popup) => {
 };
 
 const setPopupCloseListeners = (popup) => {
-  const closePopupButton = popup.querySelector(".popup__close-btn");
-  closePopupButton.addEventListener("click", () => closePopup(popup));
+  const popupCloseButton = popup.querySelector(".popup__close-btn");
+  popupCloseButton.addEventListener("click", () => closePopup(popup));
+
+  popup.addEventListener("mousedown", (evt) => {
+    const isPopupOutsideClick = Boolean(
+      !evt.target.closest(".popup__container")
+    );
+    if (isPopupOutsideClick) closePopup(popup);
+  });
 };
 
 const getFormInputValues = (form) => {
-  return Array.from(form.elements).reduce(
-    (acc, input) => ({ ...acc, [input.name]: input.value }),
-    {}
-  );
+  const formData = new FormData(form);
+  const formProps = Object.fromEntries(formData);
+  return formProps;
 };
 
 const cleanFormInputs = (form) => {
