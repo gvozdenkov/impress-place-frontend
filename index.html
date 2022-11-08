@@ -41,96 +41,7 @@
           ></button>
         </section>
         <section class="photo-grid" aria-label="Фото галерея">
-          <article class="card">
-            <img
-              src="./images/photo-grid/photo-grid_001.jpg"
-              alt="Байкал."
-              class="card__img"
-            />
-            <div class="card__footer">
-              <h2 class="card__title">Байкал</h2>
-              <button
-                class="card__like link-hover link-hover_place_light"
-                aria-label="Поставить лайк"
-                type="button"
-              ></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              src="./images/photo-grid/photo-grid_002.jpg"
-              alt="Камчатка."
-              class="card__img"
-            />
-            <div class="card__footer">
-              <h2 class="card__title">Камчатка</h2>
-              <button
-                class="card__like link-hover link-hover_place_light"
-                aria-label="Поставить лайк"
-                type="button"
-              ></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              src="./images/photo-grid/photo-grid_003.jpg"
-              alt="Карелия."
-              class="card__img"
-            />
-            <div class="card__footer">
-              <h2 class="card__title">Карелия</h2>
-              <button
-                class="card__like link-hover link-hover_place_light"
-                aria-label="Поставить лайк"
-                type="button"
-              ></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              src="./images/photo-grid/photo-grid_004.jpg"
-              alt="Куршская коса."
-              class="card__img"
-            />
-            <div class="card__footer">
-              <h2 class="card__title">Куршская коса</h2>
-              <button
-                class="card__like link-hover link-hover_place_light"
-                aria-label="Поставить лайк"
-                type="button"
-              ></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              src="./images/photo-grid/photo-grid_005.jpg"
-              alt="Тверь."
-              class="card__img"
-            />
-            <div class="card__footer">
-              <h2 class="card__title">Тверь</h2>
-              <button
-                class="card__like link-hover link-hover_place_light"
-                aria-label="Поставить лайк"
-                type="button"
-              ></button>
-            </div>
-          </article>
-          <article class="card">
-            <img
-              src="./images/photo-grid/photo-grid_006.jpg"
-              alt="Калуга."
-              class="card__img"
-            />
-            <div class="card__footer">
-              <h2 class="card__title">Калуга</h2>
-              <button
-                class="card__like link-hover link-hover_place_light"
-                aria-label="Поставить лайк"
-                type="button"
-              ></button>
-            </div>
-          </article>
+          <!-- Cards added here -->
         </section>
       </main>
       <footer class="footer page__section">
@@ -196,7 +107,7 @@
           <fieldset class="form__fieldset">
             <input
               type="text"
-              name="title"
+              name="name"
               class="form__input form__input_type_title"
               placeholder="Название"
               required
@@ -204,7 +115,7 @@
             />
             <input
               type="url"
-              name="url"
+              name="link"
               class="form__input form__input_type_url"
               placeholder="Ссылка на картинку"
               required
@@ -215,6 +126,25 @@
         </form>
       </div>
     </div>
+
+    <!-- Card Template -->
+    <template id="card-template">
+      <article class="card">
+        <img
+          src="./images/photo-grid/photo-grid_001.jpg"
+          alt="Байкал."
+          class="card__img"
+        />
+        <div class="card__footer">
+          <h2 class="card__title">Байкал</h2>
+          <button
+            class="card__like link-hover link-hover_place_light"
+            aria-label="Поставить лайк"
+            type="button"
+          ></button>
+        </div>
+      </article>
+    </template>
     <script src="./scripts/script.js"></script>
   </body>
 </html>

@@ -1,5 +1,7 @@
 // ============== page elements
 const content = document.querySelector(".content");
+
+const cardsContainer = content.querySelector(".photo-grid");
 // buttons
 const editProfileButton = content.querySelector(".profile__edit-btn");
 const addCardButton = content.querySelector(".profile__add-btn");
@@ -12,6 +14,33 @@ const addCardForm = document.querySelector(".form_add-card");
 // profile info
 let profileName = content.querySelector(".profile__name");
 let profileAbout = content.querySelector(".profile__about");
+
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+];
 
 // ============== Popup functions =============================================
 const openPopup = (popup) => {
@@ -46,6 +75,20 @@ const cleanFormInputs = (form) => {
   });
 };
 
+// //=============== Card functions ==========================================
+const generateCardElement = (data) => {
+  const cardTemplate = document.querySelector("#card-template").content;
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  cardElement.querySelector(".card__title").textContent = data.name;
+  cardElement.querySelector(".card__img").src = data.link;
+
+  return cardElement;
+};
+
+const renderCard = (cardElement, cardsContainer) => {
+  cardsContainer.prepend(cardElement);
+};
+
 //=============== Form functions ==============================================
 const handleEditProfileSubmit = (evt) => {
   evt.preventDefault();
@@ -58,7 +101,12 @@ const handleEditProfileSubmit = (evt) => {
 
 const handleAddCardSubmit = (evt) => {
   evt.preventDefault();
+
   const form = evt.target;
+  const data = getFormInputValues(form);
+  const cardElement = generateCardElement(data);
+
+  renderCard(cardElement, cardsContainer);
   cleanFormInputs(form);
   closePopup(form.closest(".popup"));
 };
@@ -80,4 +128,10 @@ editProfileButton.addEventListener("click", () => {
 addCardButton.addEventListener("click", () => {
   setPopupCloseListeners(addCardPopup);
   openPopup(addCardPopup);
+});
+
+// ============== Render Initial cards =======================================
+initialCards.forEach((data) => {
+  const cardElement = generateCardElement(data);
+  renderCard(cardElement, cardsContainer);
 });
