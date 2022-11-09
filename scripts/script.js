@@ -82,11 +82,21 @@ const generateCardElement = (data) => {
   cardElement.querySelector(".card__title").textContent = data.name;
   cardElement.querySelector(".card__img").src = data.link;
 
+  setCardListeners(cardElement);
+
   return cardElement;
 };
 
 const renderCard = (cardElement, cardsContainer) => {
   cardsContainer.prepend(cardElement);
+};
+
+const setCardListeners = (cardElement) => {
+  const likeButton = cardElement.querySelector(".card__like");
+  likeButton.addEventListener("click", (evt) => {
+    console.log(evt.target);
+    evt.target.classList.toggle("card__like_active");
+  });
 };
 
 //=============== Form functions ==============================================
