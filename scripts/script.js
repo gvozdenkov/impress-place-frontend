@@ -93,9 +93,15 @@ const renderCard = (cardElement, cardsContainer) => {
 
 const setCardListeners = (cardElement) => {
   const likeButton = cardElement.querySelector(".card__like");
+  const deleteButton = cardElement.querySelector(".card__delete-btn");
+
   likeButton.addEventListener("click", (evt) => {
-    console.log(evt.target);
     evt.target.classList.toggle("card__like_active");
+  });
+
+  deleteButton.addEventListener("click", (evt) => {
+    const cardElement = evt.target.closest(".card");
+    cardElement.remove();
   });
 };
 
