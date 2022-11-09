@@ -33,8 +33,8 @@
 @import url(../blocks/card/__img/card__img.css);
 @import url(../blocks/card/__footer/card__footer.css);
 @import url(../blocks/card/__title/card__title.css);
-@import url(../blocks/card/__like/card__like.css);
-@import url(../blocks/card/__like/_active/card__like_active.css);
+@import url(../blocks/card/__like-btn/card__like-btn.css);
+@import url(../blocks/card/__like-btn/_active/card__like-btn_active.css);
 @import url(../blocks/card/__delete-btn/card__delete-btn.css);
 
 /* ========== footer ================= */

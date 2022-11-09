@@ -92,11 +92,11 @@ const renderCard = (cardElement, cardsContainer) => {
 };
 
 const setCardListeners = (cardElement) => {
-  const likeButton = cardElement.querySelector(".card__like");
+  const likeButton = cardElement.querySelector(".card__like-btn");
   const deleteButton = cardElement.querySelector(".card__delete-btn");
 
   likeButton.addEventListener("click", (evt) => {
-    evt.target.classList.toggle("card__like_active");
+    evt.target.classList.toggle("card__like-btn_active");
   });
 
   deleteButton.addEventListener("click", (evt) => {
