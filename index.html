@@ -54,7 +54,7 @@
       <div
         class="popup__container"
         role="dialog"
-        aria-labelledby="form-title"
+        aria-labelledby="form_edit-profile-title"
         aria-modal="true"
       >
         <button
@@ -67,7 +67,9 @@
           class="form form_edit-profile"
           name="edit-profile-form"
         >
-          <h2 class="form__title" id="form-title">Редактировать профиль</h2>
+          <h2 class="form__title" id="form_edit-profile-title">
+            Редактировать профиль
+          </h2>
           <fieldset class="form__fieldset">
             <input
               type="text"
@@ -96,7 +98,7 @@
       <div
         class="popup__container"
         role="dialog"
-        aria-labelledby="form-title"
+        aria-labelledby="form_add-card-title"
         aria-modal="true"
       >
         <button
@@ -105,7 +107,7 @@
           type="button"
         ></button>
         <form action="/" class="form form_add-card" name="add-card-form">
-          <h2 class="form__title" id="form-title">Новое место</h2>
+          <h2 class="form__title" id="form_add-card-title">Новое место</h2>
           <fieldset class="form__fieldset">
             <input
               type="text"
@@ -134,7 +136,7 @@
       <div
         class="popup__container popup__container_type_image"
         role="dialog"
-        aria-labelledby="popup__title"
+        aria-labelledby="popup-image-title"
         aria-modal="true"
       >
         <button
@@ -142,8 +144,8 @@
           aria-label="Закрыть попап"
           type="button"
         ></button>
-        <img src="" alt="" class="popup__image" />
-        <p class="popup__image-title">test</p>
+        <img src="/" alt="/" class="popup__image" />
+        <p class="popup__image-title" id="popup-image-title"></p>
       </div>
     </div>
 

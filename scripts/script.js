@@ -4,15 +4,15 @@ const cardsContainer = content.querySelector(".photo-grid");
 // DOM elements
 const editProfileButton = content.querySelector(".profile__edit-btn");
 const addCardButton = content.querySelector(".profile__add-btn");
-let profileName = content.querySelector(".profile__name");
-let profileAbout = content.querySelector(".profile__about");
+const profileName = content.querySelector(".profile__name");
+const profileAbout = content.querySelector(".profile__about");
 
 // popups
 const editProfilePopup = document.querySelector(".popup_edit-profile");
 const addCardPopup = document.querySelector(".popup_add-card");
 const cardPopup = document.querySelector(".popup_type_image");
-let cardPopupImage = cardPopup.querySelector(".popup__image");
-let cardPopupTitle = cardPopup.querySelector(".popup__image-title");
+const cardPopupImage = cardPopup.querySelector(".popup__image");
+const cardPopupTitle = cardPopup.querySelector(".popup__image-title");
 
 // forms
 const editProfileForm = document.querySelector(".form_edit-profile");
@@ -101,8 +101,7 @@ const setCardListeners = (cardElement) => {
   });
 
   deleteButton.addEventListener("click", (evt) => {
-    const cardElement = evt.target.closest(".card");
-    cardElement.remove();
+    evt.target.closest(".card").remove();
   });
 
   cardImage.addEventListener("click", (evt) => {
@@ -113,7 +112,7 @@ const setCardListeners = (cardElement) => {
     cardPopupImage.src = cardImageElement.src;
     cardPopupImage.alt = `${cardTitle.textContent}.`;
     cardPopupTitle.textContent = cardTitle.textContent;
-    
+
     setPopupCloseListeners(cardPopup);
     openPopup(cardPopup);
   });
@@ -141,9 +140,9 @@ const handleAddCardSubmit = (evt) => {
 
   const form = evt.target;
   const data = getFormInputValues(form);
-  const cardElement = generateCardElement(data);
+  const card = generateCardElement(data);
 
-  renderCard(cardElement, cardsContainer);
+  renderCard(card, cardsContainer);
   cleanFormInputs(form);
   closePopup(form.closest(".popup"));
 };
@@ -156,7 +155,7 @@ addCardForm.addEventListener("submit", handleAddCardSubmit);
 editProfileButton.addEventListener("click", () => {
   setPopupCloseListeners(editProfilePopup);
   openPopup(editProfilePopup);
-  
+
   const nameInput = editProfileForm.querySelector(".form__input_type_name");
   const aboutInput = editProfileForm.querySelector(".form__input_type_about");
   nameInput.value = profileName.textContent;
@@ -169,7 +168,6 @@ addCardButton.addEventListener("click", () => {
 });
 
 // ============== Render Initial cards =======================================
-initialCards.forEach((data) => {
-  const cardElement = generateCardElement(data);
-  renderCard(cardElement, cardsContainer);
-});
+initialCards.forEach((data) =>
+  renderCard(generateCardElement(data), cardsContainer)
+);
