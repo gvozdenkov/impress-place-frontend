@@ -1,0 +1,8 @@
+.popup__container_type_image {
+  min-width: 75vw;
+  max-width: 75vw;
+  padding: 0;
+  border-radius: 0;
+  color: var(--color-content-primary);
+  background-color: transparent;
+}

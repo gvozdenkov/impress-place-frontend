@@ -1,7 +1,7 @@
-.card__img {
+.popup__image {
+  display: block;
   width: 100%;
-  aspect-ratio: 1;
+  max-height: 75vh;
   object-fit: cover;
   user-select: none;
-  cursor: pointer;
 }
