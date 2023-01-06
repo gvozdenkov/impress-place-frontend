@@ -30,15 +30,26 @@ const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
 };
 
-const setPopupCloseListeners = (popup) => {
-  const popupCloseButton = popup.querySelector(".popup__close-btn");
-  popupCloseButton.addEventListener("click", () => closePopup(popup));
+const setPopupCloseListeners = () => {
+  document.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("popup__close-btn")) {
+      const openedPopup = evt.currentTarget.querySelector(".popup_opened");
+      closePopup(openedPopup);
+    }
+  });
 
-  popup.addEventListener("mousedown", (evt) => {
-    const isPopupOutsideClick = Boolean(
-      !evt.target.closest(".popup__container")
-    );
-    isPopupOutsideClick ? closePopup(popup) : null;
+  document.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(evt.target);
+    }
+  });
+
+  document.addEventListener("keydown", (evt) => {
+    const openedPopup = document.querySelector(".popup_opened");
+
+    if (openedPopup && evt.key === "Escape") {
+      closePopup(openedPopup);
+    }
   });
 };
 
@@ -134,13 +145,10 @@ btnOpenPopupAddCard.addEventListener("click", () => {
   openPopup(popupAddCard);
 });
 
-// ==========================================================================
-const allPopups = document.querySelectorAll(".popup");
-allPopups.forEach((popup) => setPopupCloseListeners(popup));
-
 // ============== Render Initial cards =======================================
 initialCards.forEach((data) =>
   renderCard(generateCardElement(data), cardsContainer)
 );
 
 setCardListeners();
+setPopupCloseListeners();
