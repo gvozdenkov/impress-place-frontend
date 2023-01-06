@@ -22,11 +22,13 @@
       </header>
       <main class="content page__section">
         <section class="profile content__profile">
-          <img
-            src="./images/avatar.jpg"
-            alt="Аватар пользователя."
-            class="profile__avatar"
-          />
+          <div class="profile__avatar">
+            <img
+              src="./images/avatar.jpg"
+              alt="Аватар пользователя."
+              class="profile__avatar-img"
+            />
+          </div>
           <h1 class="profile__name">Arty Gvozdenkov</h1>
           <button
             class="profile__edit-btn link-hover"
@@ -49,6 +51,38 @@
       </footer>
     </div>
 
+    <!-- Edit Avatar popup -->
+    <div class="popup popup_edit-avatar">
+      <div
+        class="popup__container"
+        role="dialog"
+        aria-labelledby="form_edit-avatar-title"
+        aria-modal="true"
+      >
+        <button
+          class="popup__close-btn link-hover"
+          aria-label="Закрыть попап"
+          type="button"
+        ></button>
+        <form action="/" class="form" name="editAvatarForm">
+          <h2 class="form__title" id="form_edit-avatar-title">
+            Обновить аватар
+          </h2>
+          <fieldset class="form__fieldset">
+            <input
+              type="url"
+              name="avatarLink"
+              class="form__input form__input_type_url"
+              placeholder="Ссылка на картинку"
+              required
+              aria-label="Ссылка на картинку"
+            />
+          </fieldset>
+          <button type="submit" class="form__button">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
     <!-- Edit Profile popup -->
     <div class="popup popup_edit-profile">
       <div
@@ -62,11 +96,7 @@
           aria-label="Закрыть попап"
           type="button"
         ></button>
-        <form
-          action="/"
-          class="form form_edit-profile"
-          name="editProfileForm"
-        >
+        <form action="/" class="form form_edit-profile" name="editProfileForm">
           <h2 class="form__title" id="form_edit-profile-title">
             Редактировать профиль
           </h2>
