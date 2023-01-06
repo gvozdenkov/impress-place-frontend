@@ -62,34 +62,30 @@ const generateCardElement = (data) => {
   cardElement.querySelector(".card__img").alt = `${data.name}.`;
   cardElement.querySelector(".card__title").textContent = data.name;
 
-  setCardListeners(cardElement);
-
   return cardElement;
 };
 
-const setCardListeners = (cardElement) => {
-  const likeButton = cardElement.querySelector(".card__like-btn");
-  const deleteButton = cardElement.querySelector(".card__delete-btn");
-  const cardImage = cardElement.querySelector(".card__img");
+const setCardListeners = () => {
+  cardsContainer.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("card__like-btn")) {
+      evt.target.classList.toggle("card__like-btn_active");
+    }
 
-  likeButton.addEventListener("click", (evt) => {
-    evt.target.classList.toggle("card__like-btn_active");
-  });
+    if (evt.target.classList.contains("card__delete-btn")) {
+      evt.target.closest(".card").remove();
+    }
 
-  deleteButton.addEventListener("click", (evt) => {
-    evt.target.closest(".card").remove();
-  });
+    if (evt.target.classList.contains("card__img")) {
+      const cardImageElement = evt.target;
+      const cardElement = evt.target.closest(".card");
+      const cardTitle = cardElement.querySelector(".card__title");
 
-  cardImage.addEventListener("click", (evt) => {
-    const cardImageElement = evt.target;
-    const cardElement = evt.target.closest(".card");
-    const cardTitle = cardElement.querySelector(".card__title");
+      cardPopupImage.src = cardImageElement.src;
+      cardPopupImage.alt = `${cardTitle.textContent}.`;
+      cardPopupTitle.textContent = cardTitle.textContent;
 
-    cardPopupImage.src = cardImageElement.src;
-    cardPopupImage.alt = `${cardTitle.textContent}.`;
-    cardPopupTitle.textContent = cardTitle.textContent;
-
-    openPopup(popupCard);
+      openPopup(popupCard);
+    }
   });
 };
 
@@ -146,3 +142,5 @@ allPopups.forEach((popup) => setPopupCloseListeners(popup));
 initialCards.forEach((data) =>
   renderCard(generateCardElement(data), cardsContainer)
 );
+
+setCardListeners();
