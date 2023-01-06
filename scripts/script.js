@@ -3,12 +3,15 @@ const cardsContainer = content.querySelector(".photo-grid");
 const cardTemplate = document.querySelector("#card-template").content;
 
 // DOM elements
+const avatarContainer = content.querySelector(".profile__avatar");
+const avatarImage = content.querySelector(".profile__avatar-img");
 const btnOpenPopupEditProfile = content.querySelector(".profile__edit-btn");
 const btnOpenPopupAddCard = content.querySelector(".profile__add-btn");
 const profileName = content.querySelector(".profile__name");
 const profileAbout = content.querySelector(".profile__about");
 
 // popups
+const popupEditAvatar = document.querySelector(".popup_edit-avatar");
 const popupEditProfile = document.querySelector(".popup_edit-profile");
 const popupAddCard = document.querySelector(".popup_add-card");
 const popupCard = document.querySelector(".popup_type_image");
@@ -16,10 +19,14 @@ const cardPopupImage = popupCard.querySelector(".popup__image");
 const cardPopupTitle = popupCard.querySelector(".popup__image-title");
 
 // forms
-const formEditProfile = document.forms.editProfileForm;
 const formAddCard = document.forms.addCardForm;
+
+const formEditProfile = document.forms.editProfileForm;
 const nameInput = formEditProfile.elements.name;
 const aboutInput = formEditProfile.elements.about;
+
+const formEditAvatar = document.forms.editAvatarForm;
+const avatarInput = formEditAvatar.elements.avatarLink;
 
 // ============== Popup functions =============================================
 const openPopup = (popup) => {
@@ -99,6 +106,11 @@ const renderCard = (cardElement, cardsContainer) => {
 };
 
 //=============== Form functions ==============================================
+function resetFormAndClosePopup(evt) {
+  evt.target.reset();
+  closePopup(evt.target.closest(".popup_opened"));
+}
+
 const handleEditProfileSubmit = (evt) => {
   evt.preventDefault();
 
@@ -119,13 +131,20 @@ const handleAddCardSubmit = (evt) => {
   const card = generateCardElement(data);
 
   renderCard(card, cardsContainer);
-  formAddCard.reset();
-  closePopup(popupAddCard);
+  resetFormAndClosePopup(evt);
+};
+
+const handleEditAvatarSubmit = (evt) => {
+  evt.preventDefault();
+
+  avatarImage.src = avatarInput.value;
+  resetFormAndClosePopup(evt);
 };
 
 // ============== form submit listeners =======================================
 formEditProfile.addEventListener("submit", handleEditProfileSubmit);
 formAddCard.addEventListener("submit", handleAddCardSubmit);
+formEditAvatar.addEventListener("submit", handleEditAvatarSubmit);
 
 // ============== popup button listeners ======================================
 btnOpenPopupEditProfile.addEventListener("click", () => {
@@ -137,6 +156,10 @@ btnOpenPopupEditProfile.addEventListener("click", () => {
 
 btnOpenPopupAddCard.addEventListener("click", () => {
   openPopup(popupAddCard);
+});
+
+avatarContainer.addEventListener("click", () => {
+  openPopup(popupEditAvatar);
 });
 
 // ============== Render Initial cards =======================================
