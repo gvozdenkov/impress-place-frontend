@@ -16,10 +16,10 @@ const cardPopupImage = popupCard.querySelector(".popup__image");
 const cardPopupTitle = popupCard.querySelector(".popup__image-title");
 
 // forms
-const formEditProfile = document.querySelector(".form_edit-profile");
-const nameInput = formEditProfile.querySelector(".form__input_type_name");
-const aboutInput = formEditProfile.querySelector(".form__input_type_about");
-const formAddCard = document.querySelector(".form_add-card");
+const formEditProfile = document.forms.editProfileForm;
+const formAddCard = document.forms.addCardForm;
+const nameInput = formEditProfile.elements.name;
+const aboutInput = formEditProfile.elements.about;
 
 // ============== Popup functions =============================================
 const openPopup = (popup) => {
@@ -57,12 +57,6 @@ const getFormInputValues = (form) => {
   const formData = new FormData(form);
   const formProps = Object.fromEntries(formData);
   return formProps;
-};
-
-const cleanFormInputs = (form) => {
-  [...form.elements].forEach((input) => {
-    input.nodeName === "INPUT" ? (input.value = "") : null;
-  });
 };
 
 // //=============== Card functions ==========================================
@@ -125,7 +119,7 @@ const handleAddCardSubmit = (evt) => {
   const card = generateCardElement(data);
 
   renderCard(card, cardsContainer);
-  cleanFormInputs(form);
+  formAddCard.reset();
   closePopup(popupAddCard);
 };
 
