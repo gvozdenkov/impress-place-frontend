@@ -69,13 +69,16 @@
             Обновить аватар
           </h2>
           <fieldset class="form__fieldset">
+            <label for="avatarLink" class="form__label sr-only"
+              >Ссылка на картинку
+            </label>
             <input
               type="url"
               name="avatarLink"
+              id="avatarLink"
               class="form__input form__input_type_url"
               placeholder="Ссылка на картинку"
               required
-              aria-label="Ссылка на картинку"
             />
           </fieldset>
           <button type="submit" class="form__button">Сохранить</button>
@@ -101,21 +104,25 @@
             Редактировать профиль
           </h2>
           <fieldset class="form__fieldset">
+            <label for="name" class="form__label sr-only">Имя</label>
             <input
               type="text"
               name="name"
+              id="name"
               class="form__input form__input_type_name"
               placeholder="Введите своё имя"
               required
-              aria-label="Имя"
             />
+            <label for="about" class="form__label sr-only"
+              >Информация о себе</label
+            >
             <input
               type="text"
               name="about"
+              id="about"
               class="form__input form__input_type_about"
               placeholder="Напишите о себе"
               required
-              aria-label="Информация о себе"
             />
           </fieldset>
           <button type="submit" class="form__button">Сохранить</button>
@@ -139,21 +146,28 @@
         <form action="/" class="form form_add-card" name="addCardForm">
           <h2 class="form__title" id="form_add-card-title">Новое место</h2>
           <fieldset class="form__fieldset">
+            <label for="place-name" class="form__label sr-only"
+              >Название места</label
+            >
             <input
               type="text"
               name="name"
+              id="place-name"
               class="form__input form__input_type_title"
               placeholder="Название"
               required
-              aria-label="Название места"
             />
+
+            <label for="place-link" class="form__label sr-only"
+              >Ссылка на картинку</label
+            >
             <input
               type="url"
               name="link"
+              id="place-link"
               class="form__input form__input_type_url"
               placeholder="Ссылка на картинку"
               required
-              aria-label="Ссылка на картинку"
             />
           </fieldset>
           <button type="submit" class="form__button">Создать</button>
@@ -187,7 +201,7 @@
           alt="Байкал."
           class="card__img"
         />
-        <div class="card__delete-btn link-hover"></div>
+        <button class="card__delete-btn link-hover"></button>
         <div class="card__footer">
           <h2 class="card__title">Байкал</h2>
           <button
