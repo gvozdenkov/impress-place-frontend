@@ -56,7 +56,7 @@
       <div
         class="popup__container"
         role="dialog"
-        aria-labelledby="form_edit-avatar-title"
+        aria-labelledby="edit-avatar-form-title"
         aria-modal="true"
       >
         <button
@@ -64,24 +64,32 @@
           aria-label="Закрыть попап"
           type="button"
         ></button>
-        <form action="/" class="form" name="editAvatarForm">
-          <h2 class="form__title" id="form_edit-avatar-title">
+        <form
+          action="/"
+          class="form edit-avatar-form"
+          name="editAvatarForm"
+          novalidate
+        >
+          <h2 class="form__title" id="edit-avatar-form-title">
             Обновить аватар
           </h2>
           <fieldset class="form__fieldset">
-            <label for="avatarLink" class="form__label sr-only"
-              >Ссылка на картинку
-            </label>
-            <input
-              type="url"
-              name="avatarLink"
-              id="avatarLink"
-              class="form__input form__input_type_url"
-              placeholder="Ссылка на картинку"
-              required
-            />
+            <div class="form__field">
+              <label for="avatar-link" class="form__label sr-only"
+                >Ссылка на картинку
+              </label>
+              <input
+                type="url"
+                name="avatar-link"
+                id="avatar-link"
+                class="form__input form__input_type_url"
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <span class="form__input-error avatar-link-error"></span>
+            </div>
           </fieldset>
-          <button type="submit" class="form__button">Сохранить</button>
+          <button type="submit" class="button form__submit">Сохранить</button>
         </form>
       </div>
     </div>
@@ -91,7 +99,7 @@
       <div
         class="popup__container"
         role="dialog"
-        aria-labelledby="form_edit-profile-title"
+        aria-labelledby="edit-profile-form-title"
         aria-modal="true"
       >
         <button
@@ -99,33 +107,52 @@
           aria-label="Закрыть попап"
           type="button"
         ></button>
-        <form action="/" class="form form_edit-profile" name="editProfileForm">
-          <h2 class="form__title" id="form_edit-profile-title">
+        <form
+          action="/"
+          class="form edit-profile-form"
+          name="editProfileForm"
+          novalidate
+        >
+          <h2 class="form__title" id="edit-profile-form-title">
             Редактировать профиль
           </h2>
           <fieldset class="form__fieldset">
-            <label for="name" class="form__label sr-only">Имя</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              class="form__input form__input_type_name"
-              placeholder="Введите своё имя"
-              required
-            />
-            <label for="about" class="form__label sr-only"
-              >Информация о себе</label
-            >
-            <input
-              type="text"
-              name="about"
-              id="about"
-              class="form__input form__input_type_about"
-              placeholder="Напишите о себе"
-              required
-            />
+            <div class="form__field">
+              <label for="name" class="form__label sr-only">Имя</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                class="form__input"
+                placeholder="Введите своё имя"
+                minlength="2"
+                maxlength="40"
+                pattern="[^a-zа-я -]/gi"
+                data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
+                required
+              />
+              <span class="form__input-error name-error"></span>
+            </div>
+            <div class="form__field">
+              <label for="about" class="form__label sr-only"
+                >Информация о себе</label
+              >
+              <input
+                type="text"
+                name="about"
+                id="about"
+                class="form__input"
+                placeholder="Напишите о себе"
+                minlength="2"
+                maxlength="200"
+                pattern="[^a-zа-я -]/gi"
+                data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
+                required
+              />
+              <span class="form__input-error about-error"></span>
+            </div>
           </fieldset>
-          <button type="submit" class="form__button">Сохранить</button>
+          <button type="submit" class="button form__submit">Сохранить</button>
         </form>
       </div>
     </div>
@@ -135,7 +162,7 @@
       <div
         class="popup__container"
         role="dialog"
-        aria-labelledby="form_add-card-title"
+        aria-labelledby="add-card-form-title"
         aria-modal="true"
       >
         <button
@@ -143,34 +170,49 @@
           aria-label="Закрыть попап"
           type="button"
         ></button>
-        <form action="/" class="form form_add-card" name="addCardForm">
-          <h2 class="form__title" id="form_add-card-title">Новое место</h2>
+        <form
+          action="/"
+          class="form add-card-form"
+          name="addCardForm"
+          novalidate
+        >
+          <h2 class="form__title" id="add-card-form-title">Новое место</h2>
           <fieldset class="form__fieldset">
-            <label for="place-name" class="form__label sr-only"
-              >Название места</label
-            >
-            <input
-              type="text"
-              name="name"
-              id="place-name"
-              class="form__input form__input_type_title"
-              placeholder="Название"
-              required
-            />
+            <div class="form__field">
+              <label for="place-name" class="form__label sr-only"
+                >Название места</label
+              >
+              <input
+                type="text"
+                name="name"
+                id="place-name"
+                class="form__input form__input_type_title"
+                placeholder="Название"
+                minlength="2"
+                maxlength="30"
+                pattern="[^a-zа-я -]/gi"
+                data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
+                required
+              />
+              <span class="form__input-error place-name-error"></span>
+            </div>
 
-            <label for="place-link" class="form__label sr-only"
-              >Ссылка на картинку</label
-            >
-            <input
-              type="url"
-              name="link"
-              id="place-link"
-              class="form__input form__input_type_url"
-              placeholder="Ссылка на картинку"
-              required
-            />
+            <div class="form__field">
+              <label for="place-link" class="form__label sr-only"
+                >Ссылка на картинку</label
+              >
+              <input
+                type="url"
+                name="link"
+                id="place-link"
+                class="form__input form__input_type_url"
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <span class="form__input-error place-link-error"></span>
+            </div>
           </fieldset>
-          <button type="submit" class="form__button">Создать</button>
+          <button type="submit" class="button form__submit">Создать</button>
         </form>
       </div>
     </div>
