@@ -1,8 +1,9 @@
-.form__button {
+.button {
   height: 50px;
   width: 100%;
   padding: 0;
   border: 0;
+  border-radius: 2px;
   outline: 0;
   box-sizing: border-box;
   background-color: var(--color-background-default);
@@ -13,14 +14,14 @@
   transition: all var(--trans-short) ease-out;
 }
 
-.form__button:hover,
-.form__button:focus {
+.button:hover,
+.button:focus {
   cursor: pointer;
   background-color: rgba(0 0 0 / 0.8);
 }
 
 @media (max-width: 650px) {
-  .form__button {
+  .button {
     height: 46px;
     font-size: 14px;
   }

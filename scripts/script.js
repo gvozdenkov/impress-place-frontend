@@ -19,14 +19,14 @@ const cardPopupImage = popupCard.querySelector(".popup__image");
 const cardPopupTitle = popupCard.querySelector(".popup__image-title");
 
 // forms
-const formAddCard = document.forms.addCardForm;
+const formAddCard = document.querySelector(".add-card-form");
 
-const formEditProfile = document.forms.editProfileForm;
-const nameInput = formEditProfile.elements.name;
-const aboutInput = formEditProfile.elements.about;
+const formEditProfile = document.querySelector(".edit-profile-form");
+const nameInput = document.querySelector("#name");
+const aboutInput = document.querySelector("#about");
 
-const formEditAvatar = document.forms.editAvatarForm;
-const avatarInput = formEditAvatar.elements.avatarLink;
+const formEditAvatar = document.querySelector(".edit-avatar-form");
+const avatarInput = document.querySelector("#avatar-link");
 
 // ============== Popup functions =============================================
 const openPopup = (popup) => {
@@ -146,6 +146,65 @@ formEditProfile.addEventListener("submit", handleEditProfileSubmit);
 formAddCard.addEventListener("submit", handleAddCardSubmit);
 formEditAvatar.addEventListener("submit", handleEditAvatarSubmit);
 
+// ============== form validation =============================================
+function showInputError(form, input, message) {
+  const errorElement = form.querySelector(`.${input.id}-error`);
+
+  input.classList.add("form__input_type_error");
+  errorElement.textContent = message;
+  errorElement.classList.add("form__input-error_active");
+}
+
+function hideInputError(form, input) {
+  const errorElement = form.querySelector(`.${input.id}-error`);
+
+  input.classList.remove("form__input_type_error");
+  errorElement.classList.remove("form__input-error_active");
+  errorElement.textContent = "";
+}
+
+function isFormValid(form) {
+  const inputs = Array.from(form.querySelectorAll(".form__input"));
+  return inputs.every((input) => input.validity.valid);
+}
+
+function setButtonState(button, isFormValid) {
+  if (isFormValid) {
+    button.removeAttribute("disabled");
+    button.classList.remove("button_disabled");
+  } else {
+    button.setAttribute("disabled", true);
+    button.classList.add("button_disabled");
+  }
+}
+
+function isValid(form, input) {
+  input.validity.patternMismatch
+    ? input.setCustomValidity(input.dataset.errorMessage)
+    : input.setCustomValidity("");
+
+  !input.validity.valid
+    ? showInputError(form, input, input.validationMessage)
+    : hideInputError(form, input);
+}
+
+function setFormEventListeners(form) {
+  const inputs = Array.from(form.querySelectorAll(".form__input"));
+  inputs.forEach((input) => {
+    input.addEventListener("input", () => {
+      isValid(form, input);
+
+      const submitButton = form.querySelector(".form__submit");
+      setButtonState(submitButton, isFormValid(form));
+    });
+  });
+}
+
+function enableValidation() {
+  const forms = Array.from(document.querySelectorAll(".form"));
+  forms.forEach((form) => setFormEventListeners(form));
+}
+
 // ============== popup button listeners ======================================
 btnOpenPopupEditProfile.addEventListener("click", () => {
   openPopup(popupEditProfile);
@@ -155,10 +214,14 @@ btnOpenPopupEditProfile.addEventListener("click", () => {
 });
 
 btnOpenPopupAddCard.addEventListener("click", () => {
+  const submitButton = popupAddCard.querySelector(".form__submit");
+  setButtonState(submitButton, false);
   openPopup(popupAddCard);
 });
 
 avatarContainer.addEventListener("click", () => {
+  const submitButton = popupEditAvatar.querySelector(".form__submit");
+  setButtonState(submitButton, false);
   openPopup(popupEditAvatar);
 });
 
@@ -169,3 +232,4 @@ initialCards.forEach((data) =>
 
 setCardListeners();
 setPopupCloseListeners();
+enableValidation();
