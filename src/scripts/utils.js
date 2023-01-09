@@ -1,8 +1,6 @@
-import { popupConfig as pc } from "./config.js";
-
 export function resetFormAndClosePopup(evt) {
   evt.target.reset();
-  closePopup(evt.target.closest(pc.popupOpenedSelector));
+  closePopup(evt.target.closest(".popup_opened"));
 }
 
 export function getFormInputValues(form) {

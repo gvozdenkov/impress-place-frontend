@@ -7,10 +7,4 @@ const formConfig = {
   errorClass: "form__input-error_active",
 };
 
-const popupConfig = {
-  popupOpenedClass: "popup_opened",
-  popupOpenedSelector: ".popup_opened",
-  popupCloseButtonClass: ".popup__close-btn",
-};
-
-export { formConfig, popupConfig };
+export { formConfig };
