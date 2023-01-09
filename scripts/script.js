@@ -20,6 +20,8 @@ import {
   initialCards,
 } from "./constants.js";
 
+import { formConfig as fc } from "./config.js";
+
 import { setButtonState, enableValidation } from "./validate.js";
 
 //=============== Form events =====================================
@@ -67,13 +69,13 @@ btnOpenPopupEditProfile.addEventListener("click", () => {
 });
 
 btnOpenPopupAddCard.addEventListener("click", () => {
-  const submitButton = popupAddCard.querySelector(".form__submit");
+  const submitButton = popupAddCard.querySelector(fc.submitButtonSelector);
   setButtonState(submitButton, false);
   openPopup(popupAddCard);
 });
 
 avatarContainer.addEventListener("click", () => {
-  const submitButton = popupEditAvatar.querySelector(".form__submit");
+  const submitButton = popupEditAvatar.querySelector(fc.submitButtonSelector);
   setButtonState(submitButton, false);
   openPopup(popupEditAvatar);
 });
@@ -85,4 +87,4 @@ initialCards.forEach((data) =>
 
 setCardListeners();
 setPopupCloseListeners();
-enableValidation();
+enableValidation(fc);
