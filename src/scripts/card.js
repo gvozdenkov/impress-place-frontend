@@ -1,4 +1,12 @@
-import { cardTemplate, cardsContainer } from "./constants.js";
+import {
+  cardTemplate,
+  cardsContainer,
+  cardPopupImage,
+  cardPopupTitle,
+  popupCard,
+} from "./constants.js";
+
+import { openPopup } from "./modal.js";
 
 const generateCardElement = (data) => {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
