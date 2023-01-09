@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
   entry: { main: "./src/index.js" },
@@ -27,8 +28,20 @@ module.exports = {
         exclude: "/node_modules/",
       },
       {
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        test: /\.(png|jpg|ico|gif|woff(2)?|eot|ttf|otf)$/,
         type: "asset/resource",
+      },
+      {
+        test: /\.svg$/,
+        type: "asset/resource",
+        use: [
+          {
+            loader: "svgo-loader",
+            options: {
+              configFile: "./svgo.config.js",
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
@@ -41,6 +54,28 @@ module.exports = {
           "postcss-loader",
         ],
       },
+    ],
+  },
+
+  optimization: {
+    minimizer: [
+      "...",
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.svgoMinify,
+          options: {
+            encodeOptions: {
+              // Pass over SVGs multiple times to ensure all optimizations are applied. False by default
+              multipass: true,
+              plugins: [
+                // set of built-in plugins enabled by default
+                // see: https://github.com/svg/svgo#default-preset
+                "preset-default",
+              ],
+            },
+          },
+        },
+      }),
     ],
   },
 
