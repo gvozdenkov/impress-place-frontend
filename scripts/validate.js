@@ -1,31 +1,33 @@
+import { formConfig as fc } from "./config.js";
+
 function showInputError(form, input, message) {
   const errorElement = form.querySelector(`.${input.id}-error`);
 
-  input.classList.add("form__input_type_error");
+  input.classList.add(form.inputErrorClass);
   errorElement.textContent = message;
-  errorElement.classList.add("form__input-error_active");
+  errorElement.classList.add(fc.errorClass);
 }
 
 function hideInputError(form, input) {
   const errorElement = form.querySelector(`.${input.id}-error`);
 
-  input.classList.remove("form__input_type_error");
-  errorElement.classList.remove("form__input-error_active");
+  input.classList.remove(fc.inputErrorClass);
+  errorElement.classList.remove(fc.errorClass);
   errorElement.textContent = "";
 }
 
 function isFormValid(form) {
-  const inputs = Array.from(form.querySelectorAll(".form__input"));
+  const inputs = Array.from(form.querySelectorAll(fc.inputSelector));
   return inputs.every((input) => input.validity.valid);
 }
 
 function setButtonState(button, isFormValid) {
   if (isFormValid) {
     button.removeAttribute("disabled");
-    button.classList.remove("button_disabled");
+    button.classList.remove(fc.inactiveButtonClass);
   } else {
     button.setAttribute("disabled", true);
-    button.classList.add("button_disabled");
+    button.classList.add(fc.inactiveButtonClass);
   }
 }
 
@@ -40,19 +42,19 @@ function isValid(form, input) {
 }
 
 function setFormEventListeners(form) {
-  const inputs = Array.from(form.querySelectorAll(".form__input"));
+  const inputs = Array.from(form.querySelectorAll(fc.inputSelector));
   inputs.forEach((input) => {
     input.addEventListener("input", () => {
       isValid(form, input);
 
-      const submitButton = form.querySelector(".form__submit");
+      const submitButton = form.querySelector(fc.submitButtonSelector);
       setButtonState(submitButton, isFormValid(form));
     });
   });
 }
 
-function enableValidation() {
-  const forms = Array.from(document.querySelectorAll(".form"));
+function enableValidation(fc) {
+  const forms = Array.from(document.querySelectorAll(fc.formSelector));
   forms.forEach((form) => setFormEventListeners(form));
 }
 
