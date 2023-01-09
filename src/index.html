@@ -8,14 +8,13 @@
     <meta name="description" content="Делитесь фотографиями мест со всеми." />
     <meta name="keywords" content="фото альбом, делиться фото, mesto" />
     <link rel="shortcut icon" href="favicon.ico?v2" type="image/x-icon" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
         <img
-          src="./images/logo.svg"
+          src="<%=require('./images/logo.svg')%>"
           alt="Mesto логотип."
           class="logo logo_place_header"
         />
@@ -24,7 +23,7 @@
         <section class="profile content__profile">
           <div class="profile__avatar">
             <img
-              src="./images/avatar.jpg"
+              src="<%=require('./images/avatar.jpg')%>"
               alt="Аватар пользователя."
               class="profile__avatar-img"
             />
@@ -230,7 +229,7 @@
           aria-label="Закрыть попап"
           type="button"
         ></button>
-        <img src="/" alt="/" class="popup__image" />
+        <img src="" alt="/" class="popup__image" />
         <p class="popup__image-title" id="popup-image-title"></p>
       </div>
     </div>
@@ -238,11 +237,7 @@
     <!-- Card Template -->
     <template id="card-template">
       <article class="card">
-        <img
-          src="./images/photo-grid/photo-grid_001.jpg"
-          alt="Байкал."
-          class="card__img"
-        />
+        <img src="" alt="Байкал." class="card__img" />
         <button class="card__delete-btn link-hover"></button>
         <div class="card__footer">
           <h2 class="card__title">Байкал</h2>
@@ -254,6 +249,5 @@
         </div>
       </article>
     </template>
-    <script type="module" src="./scripts/script.js"></script>
   </body>
 </html>

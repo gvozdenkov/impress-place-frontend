@@ -1,6 +1,16 @@
-import { getFormInputValues, resetFormAndClosePopup } from "./utils.js";
-import { openPopup, closePopup, setPopupCloseListeners } from "./modal.js";
-import { generateCardElement, renderCard, setCardListeners } from "./card.js";
+import "./pages/index.css"
+
+import { getFormInputValues, resetFormAndClosePopup } from "./scripts/utils.js";
+import {
+  openPopup,
+  closePopup,
+  setPopupCloseListeners,
+} from "./scripts/modal.js";
+import {
+  generateCardElement,
+  renderCard,
+  setCardListeners,
+} from "./scripts/card.js";
 import {
   popupEditProfile,
   profileName,
@@ -18,11 +28,11 @@ import {
   popupAddCard,
   avatarContainer,
   initialCards,
-} from "./constants.js";
+} from "./scripts/constants.js";
 
-import { formConfig as fc } from "./config.js";
+import { formConfig as fc } from "./scripts/config.js";
 
-import { setButtonState, enableValidation } from "./validate.js";
+import { setButtonState, enableValidation } from "./scripts/validate.js";
 
 //=============== Form events =====================================
 
