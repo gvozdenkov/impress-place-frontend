@@ -9,7 +9,7 @@ const formConfig = {
 
 const popupConfig = {
   popupOpenedClass: "popup_opened",
-  popupOpenedSelector: `".popup_opened"`,
+  popupOpenedSelector: ".popup_opened",
   popupCloseButtonClass: ".popup__close-btn",
 };
 
