@@ -13,6 +13,7 @@ import {
 } from "./scripts/card.js";
 import {
   popupEditProfile,
+  popupEditAvatar,
   profileName,
   profileAbout,
   avatarImage,
@@ -56,14 +57,15 @@ const handleAddCardSubmit = (evt) => {
   const card = generateCardElement(data);
 
   renderCard(card, cardsContainer);
-  resetFormAndClosePopup(evt);
+  resetFormAndClosePopup(form);
 };
 
 const handleEditAvatarSubmit = (evt) => {
   evt.preventDefault();
 
+  const form = evt.target;
   avatarImage.src = avatarInput.value;
-  resetFormAndClosePopup(evt);
+  resetFormAndClosePopup(form);
 };
 
 formEditProfile.addEventListener("submit", handleEditProfileSubmit);
