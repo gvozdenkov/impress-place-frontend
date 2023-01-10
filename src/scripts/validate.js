@@ -1,7 +1,8 @@
 import { formConfig as fc } from "./config.js";
+import { getErrorElement, getFormInputs } from "./utils.js";
 
 function showInputError(form, input, message) {
-  const errorElement = form.querySelector(`.${input.id}-error`);
+  const errorElement = getErrorElement(form, input);
 
   input.classList.add(form.inputErrorClass);
   errorElement.textContent = message;
@@ -9,7 +10,7 @@ function showInputError(form, input, message) {
 }
 
 function hideInputError(form, input) {
-  const errorElement = form.querySelector(`.${input.id}-error`);
+  const errorElement = getErrorElement(form, input);
 
   input.classList.remove(fc.inputErrorClass);
   errorElement.classList.remove(fc.errorClass);
@@ -17,7 +18,7 @@ function hideInputError(form, input) {
 }
 
 function isFormValid(form) {
-  const inputs = Array.from(form.querySelectorAll(fc.inputSelector));
+  const inputs = getFormInputs(form);
   return inputs.every((input) => input.validity.valid);
 }
 
@@ -42,7 +43,7 @@ function isValid(form, input) {
 }
 
 function setFormEventListeners(form) {
-  const inputs = Array.from(form.querySelectorAll(fc.inputSelector));
+  const inputs = getFormInputs(form);
   inputs.forEach((input) => {
     input.addEventListener("input", () => {
       isValid(form, input);

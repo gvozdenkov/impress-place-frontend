@@ -55,7 +55,7 @@
     </div>
 
     <!-- Edit Avatar popup -->
-    <div class="popup popup_edit-avatar">
+    <div class="popup popup_type_edit-avatar">
       <div
         class="popup__container"
         role="dialog"
@@ -130,7 +130,7 @@
                 placeholder="Введите своё имя"
                 minlength="2"
                 maxlength="40"
-                pattern="[^a-zа-я -]/gi"
+                pattern="[a-zA-Zа-яА-ЯёЁ\-\s]+"
                 data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
                 required
               />
@@ -148,7 +148,7 @@
                 placeholder="Напишите о себе"
                 minlength="2"
                 maxlength="200"
-                pattern="[^a-zа-я -]/gi"
+                pattern="[a-zA-Zа-яА-ЯёЁ\-\s]+"
                 data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
                 required
               />
@@ -161,7 +161,7 @@
     </div>
 
     <!-- Add card popup -->
-    <div class="popup popup_add-card">
+    <div class="popup popup_type_add-card">
       <div
         class="popup__container"
         role="dialog"
@@ -193,7 +193,7 @@
                 placeholder="Название"
                 minlength="2"
                 maxlength="30"
-                pattern="[^a-zа-я -]/gi"
+                pattern="[a-zA-Zа-яА-ЯёЁ\-\s]+"
                 data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
                 required
               />

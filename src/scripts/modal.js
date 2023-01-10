@@ -1,32 +1,36 @@
-const openPopup = (popup) => {
-  popup.classList.add("popup_opened");
-};
+import {
+  popupOpenedClass,
+  popupOpenedSelector,
+  popupCloseBtnClass,
+} from "./constants.js";
 
-const closePopup = (popup) => {
-  popup.classList.remove("popup_opened");
-};
+function openPopup(popup) {
+  popup.classList.add(popupOpenedClass);
+}
 
-const setPopupCloseListeners = () => {
-  document.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("popup__close-btn")) {
-      const openedPopup = evt.currentTarget.querySelector(".popup_opened");
+function closePopup(popup) {
+  popup.classList.remove(popupOpenedClass);
+}
+
+function setPopupCloseListeners() {
+  document.addEventListener("mousedown", (evt) => {
+    const classList = evt.target.classList;
+    if (
+      classList.contains(popupCloseBtnClass) ||
+      classList.contains(popupOpenedClass)
+    ) {
+      const openedPopup = document.querySelector(popupOpenedSelector);
       closePopup(openedPopup);
     }
   });
 
-  document.addEventListener("mousedown", (evt) => {
-    if (evt.target.classList.contains("popup_opened")) {
-      closePopup(evt.target);
-    }
-  });
-
   document.addEventListener("keydown", (evt) => {
-    const openedPopup = document.querySelector(".popup_opened");
+    const openedPopup = document.querySelector(popupOpenedSelector);
 
     if (openedPopup && evt.key === "Escape") {
       closePopup(openedPopup);
     }
   });
-};
+}
 
 export { openPopup, closePopup, setPopupCloseListeners };
