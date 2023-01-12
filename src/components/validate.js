@@ -17,7 +17,7 @@ export function enableValidation(validationConfig) {
   function showInputError(form, input, message) {
     const errorElement = getErrorElement(form, input);
     errorElement.textContent = message;
-    errorElement.classList.add(validationConfig.errorClassActive);
+    errorElement.classList.add(validationConfig.errorElementClassActive);
 
     input.classList.add(validationConfig.inputErrorClass);
     input.setAttribute("aria-describedby", `${input.id}-error`);
@@ -29,18 +29,21 @@ export function enableValidation(validationConfig) {
     input.classList.remove(validationConfig.inputErrorClass);
     input.removeAttribute("aria-describedby");
 
-    errorElement.classList.remove(validationConfig.errorClassActive);
+    errorElement.classList.remove(validationConfig.errorElementClassActive);
     errorElement.textContent = "";
   }
 
   function handleFormInput(form, input) {
+    const errorElement = input.parentNode.querySelector(
+      validationConfig.errorElementSelector
+    );
+
     input.validity.patternMismatch
       ? input.setCustomValidity(input.dataset.errorMessage)
       : input.setCustomValidity("");
 
     if (!input.validity.valid) {
-      const errorElement = input.parentNode.querySelector(".form__input-error");
-
+      // if no error element -> create error DOM node and then show
       if (!errorElement) {
         const errorElement = generateErrorForInput(input);
         input.parentNode.insertBefore(errorElement, input.nextSibling);
@@ -48,7 +51,9 @@ export function enableValidation(validationConfig) {
 
       showInputError(form, input, input.validationMessage);
     } else {
-      hideInputError(form, input);
+      if (errorElement) {
+        hideInputError(form, input);
+      }
     }
   }
 
@@ -74,7 +79,7 @@ export function isFormValid(form) {
 
 function generateErrorForInput(input) {
   const errorElement = errorTemplate
-    .querySelector(validationConfig.errorSelector)
+    .querySelector(validationConfig.errorElementSelector)
     .cloneNode(true);
 
   errorElement.classList.add(`${input.id}-error`);
