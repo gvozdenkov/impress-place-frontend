@@ -1,11 +1,4 @@
-import { closePopup } from "../components/modal.js";
-import { popupOpenedSelector } from "./constants.js";
 import { formConfig as fc } from "./config.js";
-
-export function resetFormAndClosePopup(form) {
-  form.reset();
-  closePopup(form.closest(popupOpenedSelector));
-}
 
 export function getFormInputValues(form) {
   const formData = new FormData(form);

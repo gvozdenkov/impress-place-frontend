@@ -1,6 +1,6 @@
 import "../pages/index.css";
 
-import { getFormInputValues, resetFormAndClosePopup } from "../utils/utils.js";
+import { getFormInputValues } from "../utils/utils.js";
 
 import { openPopup, closePopup } from "./modal.js";
 
@@ -9,6 +9,8 @@ import { generateCardElement, renderCard } from "./card.js";
 import {
   popupEditProfile,
   popupEditAvatar,
+  popupAddCard,
+  popupOpenedSelector,
   profileName,
   profileAbout,
   avatarImage,
@@ -21,7 +23,6 @@ import {
   nameInput,
   aboutInput,
   btnOpenPopupAddCard,
-  popupAddCard,
   avatarContainer,
   initialCards,
 } from "../utils/constants.js";
@@ -56,7 +57,8 @@ const handleAddCardSubmit = (evt) => {
   const card = generateCardElement(data);
 
   renderCard(card, cardsContainer);
-  resetFormAndClosePopup(form);
+  form.reset();
+  closePopup(form.closest(popupOpenedSelector));
 };
 
 const handleEditAvatarSubmit = (evt) => {
@@ -64,7 +66,8 @@ const handleEditAvatarSubmit = (evt) => {
 
   const form = evt.target;
   avatarImage.src = avatarInput.value;
-  resetFormAndClosePopup(form);
+  form.reset();
+  closePopup(form.closest(popupOpenedSelector));
 };
 
 formEditProfile.addEventListener("submit", handleEditProfileSubmit);
