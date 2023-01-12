@@ -17,6 +17,16 @@ function hideInputError(form, input) {
   errorElement.textContent = "";
 }
 
+function hideAllInputErrors(form) {
+  const inputs = form.querySelectorAll("input");
+  inputs.forEach((input) => {
+    const errorElement = getErrorElement(form, input);
+    input.classList.remove(fc.inputErrorClass);
+    errorElement.classList.remove(fc.errorClass);
+    errorElement.textContent = "";
+  });
+}
+
 function isFormValid(form) {
   const inputs = getFormInputs(form);
   return inputs.every((input) => input.validity.valid);
@@ -59,4 +69,4 @@ function enableValidation(fc) {
   forms.forEach((form) => setFormEventListeners(form));
 }
 
-export { enableValidation, setButtonState };
+export { enableValidation, setButtonState, hideAllInputErrors };

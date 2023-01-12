@@ -28,7 +28,11 @@ import {
 
 import { formConfig as fc } from "../utils/config.js";
 
-import { setButtonState, enableValidation } from "./validate.js";
+import {
+  setButtonState,
+  enableValidation,
+  hideAllInputErrors,
+} from "./validate.js";
 
 //=============== Form events =====================================
 
@@ -69,6 +73,7 @@ formEditAvatar.addEventListener("submit", handleEditAvatarSubmit);
 
 // ============== popup events ======================================
 btnOpenPopupEditProfile.addEventListener("click", () => {
+  hideAllInputErrors(formEditProfile);
   openPopup(popupEditProfile);
 
   nameInput.value = profileName.textContent;
@@ -76,12 +81,14 @@ btnOpenPopupEditProfile.addEventListener("click", () => {
 });
 
 btnOpenPopupAddCard.addEventListener("click", () => {
+  hideAllInputErrors(formAddCard);
   const submitButton = popupAddCard.querySelector(fc.submitButtonSelector);
   setButtonState(submitButton, false);
   openPopup(popupAddCard);
 });
 
 avatarContainer.addEventListener("click", () => {
+  hideAllInputErrors(formEditAvatar);
   const submitButton = popupEditAvatar.querySelector(fc.submitButtonSelector);
   setButtonState(submitButton, false);
   openPopup(popupEditAvatar);
