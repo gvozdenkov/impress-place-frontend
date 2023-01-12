@@ -7,9 +7,9 @@ import {
   cardSelector,
   cardImageSelector,
   cardTitleSelector,
-  cardLikeClass,
+  cardLikeSelector,
   cardLikeActiveClass,
-  cardDeleteClass,
+  cardDeleteSelector,
   cardImageClass,
 } from "../utils/constants.js";
 
@@ -19,41 +19,40 @@ function generateCardElement(card) {
   const cardElement = cardTemplate.querySelector(cardSelector).cloneNode(true);
 
   const cardImage = cardElement.querySelector(cardImageSelector);
+  cardElement.querySelector(cardTitleSelector).textContent = card.name;
   cardImage.src = card.link;
   cardImage.alt = `${card.name}.`;
-  cardElement.querySelector(cardTitleSelector).textContent = card.name;
+
+  // card popup with image listener
+  cardImage.addEventListener("click", (evt) => {
+    const cardImage = evt.target;
+    const cardElement = evt.target.closest(cardSelector);
+    const cardTitle = cardElement.querySelector(cardTitleSelector);
+
+    cardPopupImage.src = cardImage.src;
+    cardPopupImage.alt = `${cardTitle.textContent}.`;
+    cardPopupTitle.textContent = cardTitle.textContent;
+
+    openPopup(popupCard);
+  });
+
+  // like listener
+  const cardLikeBtn = cardElement.querySelector(cardLikeSelector);
+  cardLikeBtn.addEventListener("click", (evt) => {
+    evt.target.classList.toggle(cardLikeActiveClass);
+  });
+
+  // delete listener
+  const cardDeleteBtn = cardElement.querySelector(cardDeleteSelector);
+  cardDeleteBtn.addEventListener("click", (evt) => {
+    evt.target.closest(cardSelector).remove();
+  });
 
   return cardElement;
-}
-
-function setCardListeners() {
-  cardsContainer.addEventListener("click", (evt) => {
-    const target = evt.target;
-    const classList = target.classList;
-    if (classList.contains(cardLikeClass)) {
-      classList.toggle(cardLikeActiveClass);
-    }
-
-    if (classList.contains(cardDeleteClass)) {
-      target.closest(cardSelector).remove();
-    }
-
-    if (classList.contains(cardImageClass)) {
-      const cardImageElement = target;
-      const cardElement = target.closest(cardSelector);
-      const cardTitle = cardElement.querySelector(cardTitleSelector);
-
-      cardPopupImage.src = cardImageElement.src;
-      cardPopupImage.alt = `${cardTitle.textContent}.`;
-      cardPopupTitle.textContent = cardTitle.textContent;
-
-      openPopup(popupCard);
-    }
-  });
 }
 
 function renderCard(cardElement, cardsContainer) {
   cardsContainer.prepend(cardElement);
 }
 
-export { generateCardElement, setCardListeners, renderCard };
+export { generateCardElement, renderCard };

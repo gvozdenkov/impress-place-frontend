@@ -4,7 +4,7 @@ import { getFormInputValues, resetFormAndClosePopup } from "../utils/utils.js";
 
 import { openPopup, closePopup, setPopupCloseListeners } from "./modal.js";
 
-import { generateCardElement, renderCard, setCardListeners } from "./card.js";
+import { generateCardElement, renderCard } from "./card.js";
 
 import {
   popupEditProfile,
@@ -99,6 +99,5 @@ initialCards.forEach((data) =>
   renderCard(generateCardElement(data), cardsContainer)
 );
 
-setCardListeners();
 setPopupCloseListeners();
 enableValidation(fc);

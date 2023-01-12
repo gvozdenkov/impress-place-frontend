@@ -42,9 +42,9 @@ export const cardSelector = ".card";
 export const cardImageSelector = ".card__img";
 export const cardImageClass = "card__img";
 export const cardTitleSelector = ".card__title";
-export const cardLikeClass = "card__like-btn";
+export const cardLikeSelector = ".card__like-btn";
 export const cardLikeActiveClass = "card__like-btn_active";
-export const cardDeleteClass = "card__delete-btn";
+export const cardDeleteSelector = ".card__delete-btn";
 
 // popups
 export const popupOpenedClass = "popup_opened";
