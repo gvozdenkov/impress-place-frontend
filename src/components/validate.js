@@ -1,8 +1,12 @@
+import { errorTemplate } from "../utils/constants.js";
+
 import {
   getErrorElement,
   getFormInputs,
   setButtonState,
 } from "../utils/utils.js";
+
+import { validationConfig } from "../utils/config.js";
 
 export function enableValidation(validationConfig) {
   const forms = Array.from(
@@ -12,39 +16,51 @@ export function enableValidation(validationConfig) {
 
   function showInputError(form, input, message) {
     const errorElement = getErrorElement(form, input);
-
-    input.classList.add(form.inputErrorClass);
     errorElement.textContent = message;
-    errorElement.classList.add(validationConfig.errorClass);
+    errorElement.classList.add(validationConfig.errorClassActive);
+
+    input.classList.add(validationConfig.inputErrorClass);
+    input.setAttribute("aria-describedby", `${input.id}-error`);
   }
 
   function hideInputError(form, input) {
     const errorElement = getErrorElement(form, input);
 
     input.classList.remove(validationConfig.inputErrorClass);
-    errorElement.classList.remove(validationConfig.errorClass);
+    input.removeAttribute("aria-describedby");
+
+    errorElement.classList.remove(validationConfig.errorClassActive);
     errorElement.textContent = "";
   }
 
-  function isValid(form, input) {
+  function handleFormInput(form, input) {
     input.validity.patternMismatch
       ? input.setCustomValidity(input.dataset.errorMessage)
       : input.setCustomValidity("");
 
-    !input.validity.valid
-      ? showInputError(form, input, input.validationMessage)
-      : hideInputError(form, input);
+    if (!input.validity.valid) {
+      const errorElement = input.parentNode.querySelector(".form__input-error");
+
+      if (!errorElement) {
+        const errorElement = generateErrorForInput(input);
+        input.parentNode.insertBefore(errorElement, input.nextSibling);
+      }
+
+      showInputError(form, input, input.validationMessage);
+    } else {
+      hideInputError(form, input);
+    }
   }
 
   function setFormEventListeners(form) {
     const inputs = getFormInputs(form);
+    const submitButton = form.querySelector(
+      validationConfig.submitButtonSelector
+    );
+
     inputs.forEach((input) => {
       input.addEventListener("input", () => {
-        isValid(form, input);
-
-        const submitButton = form.querySelector(
-          validationConfig.submitButtonSelector
-        );
+        handleFormInput(form, input);
         setButtonState(submitButton, isFormValid(form));
       });
     });
@@ -54,4 +70,14 @@ export function enableValidation(validationConfig) {
 export function isFormValid(form) {
   const inputs = getFormInputs(form);
   return inputs.every((input) => input.validity.valid);
+}
+
+function generateErrorForInput(input) {
+  const errorElement = errorTemplate
+    .querySelector(validationConfig.errorSelector)
+    .cloneNode(true);
+
+  errorElement.classList.add(`${input.id}-error`);
+
+  return errorElement;
 }

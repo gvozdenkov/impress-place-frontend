@@ -11,17 +11,29 @@ export function getErrorElement(form, input) {
 }
 
 export function getFormInputs(form) {
-  return Array.from(form.querySelectorAll(validationConfig.inputSelector));
+  const inputs = Array.from(form.querySelectorAll("input"));
+
+  const inputsForValidate = inputs.filter((input) => {
+    return (
+      !input.disabled &&
+      input.type !== "file" &&
+      input.type !== "reset" &&
+      input.type !== "submit" &&
+      input.type !== "button"
+    );
+  });
+
+  return inputsForValidate;
 }
 
-export function hideAllInputErrors(form) {
-  const inputs = form.querySelectorAll("input");
+export function removeInputErrors(form) {
+  const inputs = getFormInputs(form);
 
   inputs.forEach((input) => {
     const errorElement = getErrorElement(form, input);
-    input.classList.remove(validationConfig.inputErrorClass);
-    errorElement.classList.remove(validationConfig.errorClass);
-    errorElement.textContent = "";
+    if (errorElement) {
+      errorElement.remove();
+    }
   });
 }
 

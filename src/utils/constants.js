@@ -28,6 +28,9 @@ export const initialCards = [
 export const content = document.querySelector(".content");
 export const cardsContainer = content.querySelector(".photo-grid");
 export const cardTemplate = document.querySelector("#card-template").content;
+export const errorTemplate = document.querySelector(
+  "#form-input-error-template"
+).content;
 
 // DOM elements
 export const avatarContainer = content.querySelector(".profile__avatar");

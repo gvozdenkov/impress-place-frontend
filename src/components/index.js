@@ -2,7 +2,7 @@ import "../pages/index.css";
 
 import {
   getFormInputValues,
-  hideAllInputErrors,
+  removeInputErrors,
   setButtonState,
   getPopupElement,
 } from "../utils/utils.js";
@@ -15,7 +15,6 @@ import {
   popupEditProfile,
   popupEditAvatar,
   popupAddCard,
-  popupOpenedSelector,
   profileName,
   profileAbout,
   avatarImage,
@@ -81,7 +80,7 @@ const handleOpenPopupWithForm = (evt) => {
     validationConfig.submitButtonSelector
   );
 
-  hideAllInputErrors(form);
+  removeInputErrors(form);
   openPopup(popup);
   setButtonState(submitButton, isFormValid(form));
 };

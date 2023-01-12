@@ -90,7 +90,6 @@
                 placeholder="Ссылка на картинку"
                 required
               />
-              <span class="form__input-error avatar-link-error"></span>
             </div>
           </fieldset>
           <button type="submit" class="button form__submit">Сохранить</button>
@@ -134,7 +133,6 @@
                 data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
                 required
               />
-              <span class="form__input-error name-error"></span>
             </div>
             <div class="form__field">
               <label for="about" class="form__label sr-only"
@@ -152,7 +150,6 @@
                 data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
                 required
               />
-              <span class="form__input-error about-error"></span>
             </div>
           </fieldset>
           <button type="submit" class="button form__submit">Сохранить</button>
@@ -173,11 +170,7 @@
           aria-label="Закрыть попап"
           type="button"
         ></button>
-        <form
-          class="form validate add-card-form"
-          name="addCardForm"
-          novalidate
-        >
+        <form class="form validate add-card-form" name="addCardForm" novalidate>
           <h2 class="form__title" id="add-card-form-title">Новое место</h2>
           <fieldset class="form__fieldset">
             <div class="form__field">
@@ -196,7 +189,6 @@
                 data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
                 required
               />
-              <span class="form__input-error place-name-error"></span>
             </div>
 
             <div class="form__field">
@@ -211,7 +203,6 @@
                 placeholder="Ссылка на картинку"
                 required
               />
-              <span class="form__input-error place-link-error"></span>
             </div>
           </fieldset>
           <button type="submit" class="button form__submit">Создать</button>
@@ -251,6 +242,11 @@
           ></button>
         </div>
       </article>
+    </template>
+
+    <!-- Form input error element -->
+    <template id="form-input-error-template">
+      <span class="form__input-error"></span>
     </template>
   </body>
 </html>
