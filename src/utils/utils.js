@@ -1,4 +1,4 @@
-import { validationConfig as validationConfig } from "./config.js";
+import { validationConfig } from "./config.js";
 
 export function getFormInputValues(form) {
   const formData = new FormData(form);
@@ -33,4 +33,9 @@ export function setButtonState(button, isFormValid) {
     button.setAttribute("disabled", true);
     button.classList.add(validationConfig.inactiveButtonClass);
   }
+}
+
+export function getPopupElement(button) {
+  const popupSelector = `.${button.dataset.popup}`;
+  return document.querySelector(popupSelector);
 }

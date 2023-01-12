@@ -40,7 +40,6 @@ export const profileAbout = content.querySelector(".profile__about");
 
 export const cardSelector = ".card";
 export const cardImageSelector = ".card__img";
-export const cardImageClass = "card__img";
 export const cardTitleSelector = ".card__title";
 export const cardLikeSelector = ".card__like-btn";
 export const cardLikeActiveClass = "card__like-btn_active";
@@ -53,7 +52,9 @@ export const popupCloseBtnClass = "popup__close-btn";
 export const popupEditAvatar = document.querySelector(
   ".popup_type_edit-avatar"
 );
-export const popupEditProfile = document.querySelector(".popup_edit-profile");
+export const popupEditProfile = document.querySelector(
+  ".popup_type_edit-profile"
+);
 export const popupAddCard = document.querySelector(".popup_type_add-card");
 export const popupCard = document.querySelector(".popup_type_image");
 export const cardPopupImage = popupCard.querySelector(".popup__image");

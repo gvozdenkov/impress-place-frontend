@@ -1,4 +1,5 @@
 const validationConfig = {
+  formValidateSelector: ".validate",
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit",

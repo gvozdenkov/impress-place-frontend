@@ -1,6 +1,5 @@
 import {
   cardTemplate,
-  cardsContainer,
   cardPopupImage,
   cardPopupTitle,
   popupCard,
@@ -10,7 +9,6 @@ import {
   cardLikeSelector,
   cardLikeActiveClass,
   cardDeleteSelector,
-  cardImageClass,
 } from "../utils/constants.js";
 
 import { openPopup } from "./modal.js";

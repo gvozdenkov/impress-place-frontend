@@ -4,6 +4,7 @@ import {
   getFormInputValues,
   hideAllInputErrors,
   setButtonState,
+  getPopupElement,
 } from "../utils/utils.js";
 
 import { openPopup, closePopup } from "./modal.js";
@@ -33,7 +34,7 @@ import {
 
 import { validationConfig } from "../utils/config.js";
 
-import enableValidation from "./validate.js";
+import { enableValidation, isFormValid } from "./validate.js";
 
 //=============== Form events =====================================
 
@@ -52,22 +53,20 @@ const handleEditProfileSubmit = (evt) => {
 const handleAddCardSubmit = (evt) => {
   evt.preventDefault();
 
-  const form = evt.target;
-  const data = getFormInputValues(form);
+  const data = getFormInputValues(formAddCard);
   const card = generateCardElement(data);
 
   renderCard(card, cardsContainer);
-  form.reset();
-  closePopup(form.closest(popupOpenedSelector));
+  formAddCard.reset();
+  closePopup(popupAddCard);
 };
 
 const handleEditAvatarSubmit = (evt) => {
   evt.preventDefault();
 
-  const form = evt.target;
   avatarImage.src = avatarInput.value;
-  form.reset();
-  closePopup(form.closest(popupOpenedSelector));
+  formEditAvatar.reset();
+  closePopup(popupEditAvatar);
 };
 
 formEditProfile.addEventListener("submit", handleEditProfileSubmit);
@@ -75,31 +74,28 @@ formAddCard.addEventListener("submit", handleAddCardSubmit);
 formEditAvatar.addEventListener("submit", handleEditAvatarSubmit);
 
 // ============== popup events ======================================
-btnOpenPopupEditProfile.addEventListener("click", () => {
-  hideAllInputErrors(formEditProfile);
-  openPopup(popupEditProfile);
+const handleOpenPopupWithForm = (evt) => {
+  const popup = getPopupElement(evt.target);
+  const form = popup.querySelector(validationConfig.formSelector);
+  const submitButton = popup.querySelector(
+    validationConfig.submitButtonSelector
+  );
 
+  hideAllInputErrors(form);
+  openPopup(popup);
+  setButtonState(submitButton, isFormValid(form));
+};
+
+btnOpenPopupEditProfile.addEventListener("click", (evt) => {
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
+
+  handleOpenPopupWithForm(evt);
 });
 
-btnOpenPopupAddCard.addEventListener("click", () => {
-  hideAllInputErrors(formAddCard);
-  const submitButton = popupAddCard.querySelector(
-    validationConfig.submitButtonSelector
-  );
-  setButtonState(submitButton, false);
-  openPopup(popupAddCard);
-});
+btnOpenPopupAddCard.addEventListener("click", handleOpenPopupWithForm);
 
-avatarContainer.addEventListener("click", () => {
-  hideAllInputErrors(formEditAvatar);
-  const submitButton = popupEditAvatar.querySelector(
-    validationConfig.submitButtonSelector
-  );
-  setButtonState(submitButton, false);
-  openPopup(popupEditAvatar);
-});
+avatarContainer.addEventListener("click", handleOpenPopupWithForm);
 
 // ============== Render Initial cards =======================================
 initialCards.forEach((data) =>

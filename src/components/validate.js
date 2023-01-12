@@ -4,8 +4,10 @@ import {
   setButtonState,
 } from "../utils/utils.js";
 
-export default function enableValidation(validationConfig) {
-  const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
+export function enableValidation(validationConfig) {
+  const forms = Array.from(
+    document.querySelectorAll(validationConfig.formValidateSelector)
+  );
   forms.forEach((form) => setFormEventListeners(form));
 
   function showInputError(form, input, message) {
@@ -24,11 +26,6 @@ export default function enableValidation(validationConfig) {
     errorElement.textContent = "";
   }
 
-  function isFormValid(form) {
-    const inputs = getFormInputs(form);
-    return inputs.every((input) => input.validity.valid);
-  }
-
   function isValid(form, input) {
     input.validity.patternMismatch
       ? input.setCustomValidity(input.dataset.errorMessage)
@@ -45,9 +42,16 @@ export default function enableValidation(validationConfig) {
       input.addEventListener("input", () => {
         isValid(form, input);
 
-        const submitButton = form.querySelector(validationConfig.submitButtonSelector);
+        const submitButton = form.querySelector(
+          validationConfig.submitButtonSelector
+        );
         setButtonState(submitButton, isFormValid(form));
       });
     });
   }
+}
+
+export function isFormValid(form) {
+  const inputs = getFormInputs(form);
+  return inputs.every((input) => input.validity.valid);
 }
