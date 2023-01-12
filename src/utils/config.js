@@ -1,4 +1,4 @@
-const formConfig = {
+const validationConfig = {
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit",
@@ -7,4 +7,4 @@ const formConfig = {
   errorClass: "form__input-error_active",
 };
 
-export { formConfig };
+export { validationConfig };

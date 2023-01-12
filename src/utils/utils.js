@@ -1,4 +1,4 @@
-import { formConfig as fc } from "./config.js";
+import { validationConfig as validationConfig } from "./config.js";
 
 export function getFormInputValues(form) {
   const formData = new FormData(form);
@@ -11,5 +11,26 @@ export function getErrorElement(form, input) {
 }
 
 export function getFormInputs(form) {
-  return Array.from(form.querySelectorAll(fc.inputSelector));
+  return Array.from(form.querySelectorAll(validationConfig.inputSelector));
+}
+
+export function hideAllInputErrors(form) {
+  const inputs = form.querySelectorAll("input");
+
+  inputs.forEach((input) => {
+    const errorElement = getErrorElement(form, input);
+    input.classList.remove(validationConfig.inputErrorClass);
+    errorElement.classList.remove(validationConfig.errorClass);
+    errorElement.textContent = "";
+  });
+}
+
+export function setButtonState(button, isFormValid) {
+  if (isFormValid) {
+    button.removeAttribute("disabled");
+    button.classList.remove(validationConfig.inactiveButtonClass);
+  } else {
+    button.setAttribute("disabled", true);
+    button.classList.add(validationConfig.inactiveButtonClass);
+  }
 }

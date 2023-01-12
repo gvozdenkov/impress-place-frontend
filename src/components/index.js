@@ -1,6 +1,10 @@
 import "../pages/index.css";
 
-import { getFormInputValues } from "../utils/utils.js";
+import {
+  getFormInputValues,
+  hideAllInputErrors,
+  setButtonState,
+} from "../utils/utils.js";
 
 import { openPopup, closePopup } from "./modal.js";
 
@@ -27,13 +31,9 @@ import {
   initialCards,
 } from "../utils/constants.js";
 
-import { formConfig as fc } from "../utils/config.js";
+import { validationConfig } from "../utils/config.js";
 
-import {
-  setButtonState,
-  enableValidation,
-  hideAllInputErrors,
-} from "./validate.js";
+import enableValidation from "./validate.js";
 
 //=============== Form events =====================================
 
@@ -85,14 +85,18 @@ btnOpenPopupEditProfile.addEventListener("click", () => {
 
 btnOpenPopupAddCard.addEventListener("click", () => {
   hideAllInputErrors(formAddCard);
-  const submitButton = popupAddCard.querySelector(fc.submitButtonSelector);
+  const submitButton = popupAddCard.querySelector(
+    validationConfig.submitButtonSelector
+  );
   setButtonState(submitButton, false);
   openPopup(popupAddCard);
 });
 
 avatarContainer.addEventListener("click", () => {
   hideAllInputErrors(formEditAvatar);
-  const submitButton = popupEditAvatar.querySelector(fc.submitButtonSelector);
+  const submitButton = popupEditAvatar.querySelector(
+    validationConfig.submitButtonSelector
+  );
   setButtonState(submitButton, false);
   openPopup(popupEditAvatar);
 });
@@ -102,4 +106,4 @@ initialCards.forEach((data) =>
   renderCard(generateCardElement(data), cardsContainer)
 );
 
-enableValidation(fc);
+enableValidation(validationConfig);
