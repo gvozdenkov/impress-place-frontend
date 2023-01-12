@@ -11,7 +11,7 @@ import {
   cardLikeActiveClass,
   cardDeleteClass,
   cardImageClass,
-} from "./constants.js";
+} from "../utils/constants.js";
 
 import { openPopup } from "./modal.js";
 

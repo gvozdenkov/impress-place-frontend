@@ -1,5 +1,5 @@
-import { formConfig as fc } from "./config.js";
-import { getErrorElement, getFormInputs } from "./utils.js";
+import { formConfig as fc } from "../utils/config.js";
+import { getErrorElement, getFormInputs } from "../utils/utils.js";
 
 function showInputError(form, input, message) {
   const errorElement = getErrorElement(form, input);

@@ -1,4 +1,4 @@
-import { closePopup } from "./modal.js";
+import { closePopup } from "../components/modal.js";
 import { popupOpenedSelector } from "./constants.js";
 import { formConfig as fc } from "./config.js";
 

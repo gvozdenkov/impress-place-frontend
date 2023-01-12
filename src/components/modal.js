@@ -2,7 +2,7 @@ import {
   popupOpenedClass,
   popupOpenedSelector,
   popupCloseBtnClass,
-} from "./constants.js";
+} from "../utils/constants.js";
 
 function openPopup(popup) {
   popup.classList.add(popupOpenedClass);

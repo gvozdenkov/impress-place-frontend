@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
-  entry: { main: "./src/index.js" },
+  entry: { main: "./src/components/index.js" },
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "main.js",
@@ -65,10 +65,8 @@ module.exports = {
           implementation: ImageMinimizerPlugin.svgoMinify,
           options: {
             encodeOptions: {
-              // Pass over SVGs multiple times to ensure all optimizations are applied. False by default
               multipass: true,
               plugins: [
-                // set of built-in plugins enabled by default
                 // see: https://github.com/svg/svgo#default-preset
                 "preset-default",
               ],
