@@ -2,7 +2,7 @@ import "../pages/index.css";
 
 import { getFormInputValues, resetFormAndClosePopup } from "../utils/utils.js";
 
-import { openPopup, closePopup, setPopupCloseListeners } from "./modal.js";
+import { openPopup, closePopup } from "./modal.js";
 
 import { generateCardElement, renderCard } from "./card.js";
 
@@ -99,5 +99,4 @@ initialCards.forEach((data) =>
   renderCard(generateCardElement(data), cardsContainer)
 );
 
-setPopupCloseListeners();
 enableValidation(fc);
