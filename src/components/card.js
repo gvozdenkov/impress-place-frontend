@@ -10,16 +10,21 @@ import {
   cardLikeActiveClass,
   cardDeleteSelector,
 } from "../utils/constants.js";
+import { deleteCard, getUserInfo, toggleLike } from "./api.js";
 
 import { openPopup } from "./modal.js";
+
+function isLiked(card) {
+  return card.likes.some((like) => like._id === card.owner._id);
+}
 
 function generateCardElement(card) {
   const cardElement = cardTemplate.querySelector(cardSelector).cloneNode(true);
 
   const cardImage = cardElement.querySelector(cardImageSelector);
-  cardElement.querySelector(cardTitleSelector).textContent = card.name;
   cardImage.src = card.link;
   cardImage.alt = `${card.name}.`;
+  cardElement.querySelector(cardTitleSelector).textContent = card.name;
 
   // card popup with image listener
   cardImage.addEventListener("click", (evt) => {
@@ -34,17 +39,44 @@ function generateCardElement(card) {
     openPopup(popupCard);
   });
 
-  // like listener
+  // like button
   const cardLikeBtn = cardElement.querySelector(cardLikeSelector);
+  isLiked(card) ? cardLikeBtn.classList.add(cardLikeActiveClass) : null;
+
   cardLikeBtn.addEventListener("click", (evt) => {
-    evt.target.classList.toggle(cardLikeActiveClass);
+    toggleLike(card._id, isLiked(card))
+      .then((card) => {
+        evt.target.classList.toggle(cardLikeActiveClass);
+      })
+      .catch((err) => {
+        console.log(`Ошибка ${err.status} лайка карточки: ${err.statusText}`);
+      });
   });
 
-  // delete listener
+  // delete button
   const cardDeleteBtn = cardElement.querySelector(cardDeleteSelector);
-  cardDeleteBtn.addEventListener("click", (evt) => {
-    evt.target.closest(cardSelector).remove();
-  });
+
+  const handleDeleteCard = (evt) => {
+    deleteCard(card._id).then((card) => {
+      console.log(evt.target);
+      evt.target.closest(cardSelector).remove();
+    });
+  };
+
+  // check card owner === account owner to display delete button
+  getUserInfo()
+    .then((user) => {
+      user._id === card.owner._id
+        ? cardDeleteBtn.addEventListener("click", handleDeleteCard)
+        : cardDeleteBtn.remove();
+    })
+    .catch((err) => {
+      cardDeleteBtn.remove();
+      console.log(
+        `Ошибка ${err.status} загрузки данных пользователя: ${err.statusText}
+        Кнопки удаления постов не активированы`
+      );
+    });
 
   return cardElement;
 }

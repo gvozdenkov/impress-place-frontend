@@ -1,6 +1,14 @@
 import "../pages/index.css";
 
 import {
+  addCard,
+  getCards,
+  getUserInfo,
+  setUserAvatar,
+  setUserInfo,
+} from "./api.js";
+
+import {
   getFormInputValues,
   removeInputErrors,
   setButtonState,
@@ -17,7 +25,7 @@ import {
   popupAddCard,
   profileName,
   profileAbout,
-  avatarImage,
+  profileAvatar,
   cardsContainer,
   avatarInput,
   formEditProfile,
@@ -28,12 +36,39 @@ import {
   aboutInput,
   btnOpenPopupAddCard,
   avatarContainer,
-  initialCards,
 } from "../utils/constants.js";
 
 import { validationConfig } from "../utils/config.js";
 
 import { enableValidation, isFormValid } from "./validate.js";
+
+const updateUserInfo = (user) => {
+  profileAbout.textContent = user.about;
+  profileName.textContent = user.name;
+  profileAvatar.src = user.avatar;
+};
+
+function renderUserInfo() {
+  getUserInfo()
+    .then(updateUserInfo)
+    .catch((err) => {
+      console.log(
+        `Ошибка ${err.status} загрузки данных пользователя: ${err.statusText}`
+      );
+    });
+}
+
+function renderCards() {
+  getCards()
+    .then((cards) => {
+      cards.reverse().forEach((card) => {
+        renderCard(generateCardElement(card), cardsContainer);
+      });
+    })
+    .catch((err) => {
+      console.log(`Ошибка ${err.status} загрузки карточек: ${err.statusText}`);
+    });
+}
 
 //=============== Form events =====================================
 
@@ -43,29 +78,49 @@ const handleEditProfileSubmit = (evt) => {
   const form = evt.target;
   const { name, about } = getFormInputValues(form);
 
-  profileName.textContent = name;
-  profileAbout.textContent = about;
-
-  closePopup(popupEditProfile);
+  setUserInfo({ name, about })
+    .then((user) => {
+      updateUserInfo(user);
+      closePopup(popupEditProfile);
+    })
+    .catch((err) => {
+      console.log(
+        `Ошибка ${err.status} редактирования профиля: ${err.statusText}`
+      );
+    });
 };
 
 const handleAddCardSubmit = (evt) => {
   evt.preventDefault();
 
-  const data = getFormInputValues(formAddCard);
-  const card = generateCardElement(data);
-
-  renderCard(card, cardsContainer);
-  formAddCard.reset();
-  closePopup(popupAddCard);
+  const { name, link } = getFormInputValues(formAddCard);
+  addCard({ name, link })
+    .then((card) => {
+      const newCard = generateCardElement(card);
+      renderCard(newCard, cardsContainer);
+      formAddCard.reset();
+      closePopup(popupAddCard);
+    })
+    .catch((err) => {
+      console.log(
+        `Ошибка ${err.status} добавления карточки: ${err.statusText}`
+      );
+    });
 };
 
 const handleEditAvatarSubmit = (evt) => {
   evt.preventDefault();
 
-  avatarImage.src = avatarInput.value;
-  formEditAvatar.reset();
-  closePopup(popupEditAvatar);
+  setUserAvatar(avatarInput.value)
+    .then((user) => {
+      updateUserInfo(user);
+      profileAvatar.src = user.avatar;
+      formEditAvatar.reset();
+      closePopup(popupEditAvatar);
+    })
+    .catch((err) => {
+      console.log(`Ошибка ${err.status} обновления аватара: ${err.statusText}`);
+    });
 };
 
 formEditProfile.addEventListener("submit", handleEditProfileSubmit);
@@ -96,9 +151,8 @@ btnOpenPopupAddCard.addEventListener("click", handleOpenPopupWithForm);
 
 avatarContainer.addEventListener("click", handleOpenPopupWithForm);
 
-// ============== Render Initial cards =======================================
-initialCards.forEach((data) =>
-  renderCard(generateCardElement(data), cardsContainer)
-);
+// ====================================
 
+renderUserInfo();
+renderCards();
 enableValidation(validationConfig);

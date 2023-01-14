@@ -9,4 +9,12 @@ const validationConfig = {
   errorElementClassActive: "form__input-error_active",
 };
 
-export { validationConfig };
+const serverConfig = {
+  baseUrl: `${process.env.HOST}/v1/${process.env.GROUP_ID}`,
+  headers: {
+    authorization: process.env.ACCESS_TOKEN,
+    "Content-Type": "application/json",
+  },
+};
+
+export { validationConfig, serverConfig };

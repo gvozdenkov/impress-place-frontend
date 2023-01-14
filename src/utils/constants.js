@@ -34,7 +34,7 @@ export const errorTemplate = document.querySelector(
 
 // DOM elements
 export const avatarContainer = content.querySelector(".profile__avatar");
-export const avatarImage = content.querySelector(".profile__avatar-img");
+export const profileAvatar = content.querySelector(".profile__avatar-img");
 export const btnOpenPopupEditProfile =
   content.querySelector(".profile__edit-btn");
 export const btnOpenPopupAddCard = content.querySelector(".profile__add-btn");
