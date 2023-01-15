@@ -9,13 +9,19 @@ import {
   cardLikeSelector,
   cardLikeActiveClass,
   cardDeleteSelector,
+  cardLikeWithCountClass,
+  cardLikeCountSelector,
 } from "../utils/constants.js";
 import { deleteCard, getUserInfo, toggleLike } from "./api.js";
 
 import { openPopup } from "./modal.js";
 
-function isLiked(card) {
-  return card.likes.some((like) => like._id === card.owner._id);
+function isOwnerLiked(card) {
+  return Boolean(card.likes.find((like) => like._id === card.owner._id));
+}
+
+function isHasLikes(card) {
+  return card.likes.length > 0;
 }
 
 function generateCardElement(card) {
@@ -41,17 +47,41 @@ function generateCardElement(card) {
 
   // like button
   const cardLikeBtn = cardElement.querySelector(cardLikeSelector);
-  isLiked(card) ? cardLikeBtn.classList.add(cardLikeActiveClass) : null;
+  const cardLikeCount = cardElement.querySelector(cardLikeCountSelector);
 
-  cardLikeBtn.addEventListener("click", (evt) => {
-    toggleLike(card._id, isLiked(card))
+  function renderLikeCount(card) {
+    card.likes.length !== 0
+      ? (cardLikeCount.textContent = card.likes.length)
+      : (cardLikeCount.textContent = "");
+  }
+
+  if (isHasLikes(card)) {
+    renderLikeCount(card);
+    cardLikeBtn.classList.add(cardLikeWithCountClass);
+  }
+
+  isOwnerLiked(card) ? cardLikeBtn.classList.add(cardLikeActiveClass) : null;
+
+  const handleLikeClick = (evt) => {
+    toggleLike(card._id, isOwnerLiked(card))
       .then((card) => {
-        evt.target.classList.toggle(cardLikeActiveClass);
+        const likeButton = evt.target;
+        likeButton.classList.toggle(cardLikeActiveClass);
+
+        if (card.likes.length !== 0) {
+          likeButton.classList.add(cardLikeWithCountClass);
+        } else {
+          likeButton.classList.remove(cardLikeWithCountClass);
+        }
+
+        renderLikeCount(card);
       })
       .catch((err) => {
         console.log(`Ошибка ${err.status} лайка карточки: ${err.statusText}`);
       });
-  });
+  };
+
+  cardLikeBtn.addEventListener("click", handleLikeClick);
 
   // delete button
   const cardDeleteBtn = cardElement.querySelector(cardDeleteSelector);

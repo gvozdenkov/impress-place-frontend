@@ -45,7 +45,9 @@ export const cardSelector = ".card";
 export const cardImageSelector = ".card__img";
 export const cardTitleSelector = ".card__title";
 export const cardLikeSelector = ".card__like-btn";
+export const cardLikeCountSelector = ".card__like-count";
 export const cardLikeActiveClass = "card__like-btn_active";
+export const cardLikeWithCountClass = "card__like-btn_with-count";
 export const cardDeleteSelector = ".card__delete-btn";
 
 // popups

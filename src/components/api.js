@@ -61,8 +61,5 @@ export function toggleLike(cardId, isLiked) {
   return fetch(`${serverConfig.baseUrl}/cards/likes/${cardId}`, {
     method: isLiked ? "DELETE" : "PUT",
     headers: serverConfig.headers,
-    body: JSON.stringify({
-      _id: cardId,
-    }),
   }).then(getResponse);
 }

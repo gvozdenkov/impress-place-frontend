@@ -5,6 +5,11 @@
   border: 0;
   padding: 0;
   cursor: pointer;
+  grid-row: 1 / -1;
+  grid-column: 2;
+  place-self: center end;
+  margin-top: 0;
+  transition: margin-top 0.2s ease-out;
 }
 
 .card__like-btn:active {
