@@ -42,10 +42,14 @@ import { validationConfig } from "../utils/config.js";
 
 import { enableValidation, isFormValid } from "./validate.js";
 
+export let userId;
+
 const updateUserInfo = (user) => {
   profileAbout.textContent = user.about;
   profileName.textContent = user.name;
   profileAvatar.src = user.avatar;
+
+  userId = user._id;
 };
 
 function renderUserInfo() {

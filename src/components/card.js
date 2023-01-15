@@ -12,12 +12,14 @@ import {
   cardLikeWithCountClass,
   cardLikeCountSelector,
 } from "../utils/constants.js";
+
 import { deleteCard, getUserInfo, toggleLike } from "./api.js";
+import { userId } from "./index.js";
 
 import { openPopup } from "./modal.js";
 
 function isOwnerLiked(card) {
-  return Boolean(card.likes.find((like) => like._id === card.owner._id));
+  return card.likes.some((like) => like._id === userId);
 }
 
 function isHasLikes(card) {
@@ -64,15 +66,14 @@ function generateCardElement(card) {
 
   const handleLikeClick = (evt) => {
     toggleLike(card._id, isOwnerLiked(card))
-      .then((card) => {
+      .then((data) => {
+        card = data;
         const likeButton = evt.target;
         likeButton.classList.toggle(cardLikeActiveClass);
 
-        if (card.likes.length !== 0) {
-          likeButton.classList.add(cardLikeWithCountClass);
-        } else {
-          likeButton.classList.remove(cardLikeWithCountClass);
-        }
+        card.likes.length !== 0
+          ? likeButton.classList.add(cardLikeWithCountClass)
+          : likeButton.classList.remove(cardLikeWithCountClass);
 
         renderLikeCount(card);
       })
@@ -88,25 +89,14 @@ function generateCardElement(card) {
 
   const handleDeleteCard = (evt) => {
     deleteCard(card._id).then((card) => {
-      console.log(evt.target);
       evt.target.closest(cardSelector).remove();
     });
   };
 
   // check card owner === account owner to display delete button
-  getUserInfo()
-    .then((user) => {
-      user._id === card.owner._id
-        ? cardDeleteBtn.addEventListener("click", handleDeleteCard)
-        : cardDeleteBtn.remove();
-    })
-    .catch((err) => {
-      cardDeleteBtn.remove();
-      console.log(
-        `Ошибка ${err.status} загрузки данных пользователя: ${err.statusText}
-        Кнопки удаления постов не активированы`
-      );
-    });
+  card.owner._id === userId
+    ? cardDeleteBtn.addEventListener("click", handleDeleteCard)
+    : cardDeleteBtn.remove();
 
   return cardElement;
 }
