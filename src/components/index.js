@@ -13,6 +13,7 @@ import {
   removeInputErrors,
   setButtonState,
   getPopupElement,
+  loadImage,
 } from "../utils/utils.js";
 
 import { openPopup, closePopup } from "./modal.js";
@@ -115,15 +116,22 @@ const handleAddCardSubmit = (evt) => {
 const handleEditAvatarSubmit = (evt) => {
   evt.preventDefault();
 
-  setUserAvatar(avatarInput.value)
-    .then((user) => {
-      updateUserInfo(user);
-      profileAvatar.src = user.avatar;
-      formEditAvatar.reset();
-      closePopup(popupEditAvatar);
+  loadImage(avatarInput.value)
+    .then((url) => {
+      setUserAvatar(url)
+        .then((user) => {
+          updateUserInfo(user);
+          formEditAvatar.reset();
+          closePopup(popupEditAvatar);
+        })
+        .catch((err) => {
+          console.log(
+            `Ошибка загрузки аватара ${err.status}: ${err.statusText}`
+          );
+        });
     })
-    .catch((err) => {
-      console.log(`Ошибка ${err.status} обновления аватара: ${err.statusText}`);
+    .catch((url) => {
+      console.log(`image not found for url ${url}`);
     });
 };
 

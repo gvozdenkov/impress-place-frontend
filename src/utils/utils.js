@@ -51,3 +51,12 @@ export function getPopupElement(button) {
   const popupSelector = `.${button.dataset.popup}`;
   return document.querySelector(popupSelector);
 }
+
+export function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = url;
+    img.onerror = () => reject(url);
+    img.onload = () => resolve(url);
+  });
+}
