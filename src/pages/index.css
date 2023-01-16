@@ -12,6 +12,7 @@
 @import url(../blocks/header/header.css);
 
 @import url(../blocks/sr-only/sr-only.css);
+@import url(../blocks/animated-ellipsis/animated-ellipsis.css);
 
 @import url(../blocks/button/button.css);
 @import url(../blocks/button/_disabled/button_disabled.css);

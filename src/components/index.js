@@ -14,6 +14,8 @@ import {
   setButtonState,
   getPopupElement,
   loadImage,
+  showButtonLoadingEllipsis,
+  hideButtonLoadingEllipsis,
 } from "../utils/utils.js";
 
 import { openPopup, closePopup } from "./modal.js";
@@ -37,6 +39,10 @@ import {
   aboutInput,
   btnOpenPopupAddCard,
   avatarContainer,
+  submitButtonSelector,
+  ellipsisClass,
+  ellipsisContainerSelector,
+  photoGridPreloaderContainer,
 } from "../utils/constants.js";
 
 import { validationConfig } from "../utils/config.js";
@@ -63,7 +69,7 @@ function renderUserInfo() {
     });
 }
 
-function renderCards() {
+function renderInitialCards() {
   getCards()
     .then((cards) => {
       cards.reverse().forEach((card) => {
@@ -80,6 +86,9 @@ function renderCards() {
 const handleEditProfileSubmit = (evt) => {
   evt.preventDefault();
 
+  const submitButton = evt.target.querySelector(submitButtonSelector);
+  showButtonLoadingEllipsis(submitButton, "Сохранение");
+
   const form = evt.target;
   const { name, about } = getFormInputValues(form);
 
@@ -92,11 +101,17 @@ const handleEditProfileSubmit = (evt) => {
       console.log(
         `Ошибка ${err.status} редактирования профиля: ${err.statusText}`
       );
+    })
+    .finally(() => {
+      hideButtonLoadingEllipsis(submitButton, "Сохранить");
     });
 };
 
 const handleAddCardSubmit = (evt) => {
   evt.preventDefault();
+
+  const submitButton = evt.target.querySelector(submitButtonSelector);
+  showButtonLoadingEllipsis(submitButton, "Создание");
 
   const { name, link } = getFormInputValues(formAddCard);
   addCard({ name, link })
@@ -110,11 +125,17 @@ const handleAddCardSubmit = (evt) => {
       console.log(
         `Ошибка ${err.status} добавления карточки: ${err.statusText}`
       );
+    })
+    .finally(() => {
+      hideButtonLoadingEllipsis(submitButton, "Создать");
     });
 };
 
 const handleEditAvatarSubmit = (evt) => {
   evt.preventDefault();
+
+  const submitButton = evt.target.querySelector(submitButtonSelector);
+  showButtonLoadingEllipsis(submitButton, "Сохранение");
 
   loadImage(avatarInput.value)
     .then((url) => {
@@ -132,6 +153,9 @@ const handleEditAvatarSubmit = (evt) => {
     })
     .catch((url) => {
       console.log(`image not found for url ${url}`);
+    })
+    .finally(() => {
+      hideButtonLoadingEllipsis(submitButton, "Сохранить");
     });
 };
 
@@ -166,5 +190,5 @@ avatarContainer.addEventListener("click", handleOpenPopupWithForm);
 // ====================================
 
 renderUserInfo();
-renderCards();
+renderInitialCards();
 enableValidation(validationConfig);

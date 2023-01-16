@@ -14,6 +14,11 @@ export const btnOpenPopupAddCard = content.querySelector(".profile__add-btn");
 export const profileName = content.querySelector(".profile__name");
 export const profileAbout = content.querySelector(".profile__about");
 
+export const submitButtonSelector = ".form__submit";
+export const submitButtonTextSelector = ".button__text";
+export const ellipsisContainerSelector = ".ellipsis";
+export const ellipsisClass = "animated-ellipsis";
+
 export const cardSelector = ".card";
 export const cardImageSelector = ".card__img";
 export const cardTitleSelector = ".card__title";

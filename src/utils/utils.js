@@ -1,5 +1,11 @@
 import { validationConfig } from "./config.js";
 
+import {
+  ellipsisClass,
+  ellipsisContainerSelector,
+  submitButtonTextSelector,
+} from "./constants.js";
+
 export function getFormInputValues(form) {
   const formData = new FormData(form);
   const formProps = Object.fromEntries(formData);
@@ -45,6 +51,20 @@ export function setButtonState(button, isFormValid) {
     button.setAttribute("disabled", true);
     button.classList.add(validationConfig.inactiveButtonClass);
   }
+}
+
+export function showButtonLoadingEllipsis(button, text) {
+  const submitButtonText = button.querySelector(submitButtonTextSelector);
+  const loadingEllipsis = button.querySelector(ellipsisContainerSelector);
+  submitButtonText.textContent = text;
+  loadingEllipsis.classList.add(ellipsisClass);
+}
+
+export function hideButtonLoadingEllipsis(button, text) {
+  const submitButtonText = button.querySelector(submitButtonTextSelector);
+  const loadingEllipsis = button.querySelector(ellipsisContainerSelector);
+  submitButtonText.textContent = text;
+  loadingEllipsis.classList.remove(ellipsisClass);
 }
 
 export function getPopupElement(button) {
