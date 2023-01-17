@@ -96,9 +96,8 @@ function generateCardElement(card) {
 
   // delete button
 
-  function handleConfirmDeleteCard(evt, card, cardEl) {
+  function confirmDeleteCard(evt, card, cardEl) {
     evt.preventDefault();
-    debugger;
 
     const submitButton = evt.currentTarget.querySelector(submitButtonSelector);
     showButtonLoadingEllipsis(submitButton, "Удаление");
@@ -108,7 +107,6 @@ function generateCardElement(card) {
         cardEl.remove();
         closePopup(popupConfirmDelete);
         hideButtonLoadingEllipsis(submitButton, "Да");
-        debugger;
       })
       .catch((err) => {
         console.log(
@@ -118,13 +116,38 @@ function generateCardElement(card) {
   }
 
   const handleDeleteCard = (evt) => {
-    console.log(evt.currentTarget);
+    console.log(evt.target);
     const deletedCardElement = evt.currentTarget.closest(cardSelector);
     openPopup(popupConfirmDelete);
-    debugger;
-    formConfirmDelete.addEventListener("submit", (evt) =>
-      handleConfirmDeleteCard(evt, card, deletedCardElement)
-    );
+
+    if (!formConfirmDelete.hasAttribute("data-event-submit")) {
+      console.log("no submit listener yet");
+      formConfirmDelete.addEventListener(
+        "submit",
+        (evt) => {
+          confirmDeleteCard(evt, card, deletedCardElement);
+        },
+        { once: true }
+      );
+
+      formConfirmDelete.setAttribute("data-event-submit", "true");
+    } else {
+      formConfirmDelete.removeEventListener(
+        "submit",
+        (evt) => confirmDeleteCard(evt, card, deletedCardElement),
+        { once: true }
+      );
+
+      formConfirmDelete.addEventListener(
+        "submit",
+        (evt) => confirmDeleteCard(evt, card, deletedCardElement),
+        { once: true }
+      );
+
+      formConfirmDelete.setAttribute("data-event-submit", "true");
+    }
+
+    formConfirmDelete.removeAttribute("data-event-submit");
   };
 
   // check card owner === account owner to display delete button

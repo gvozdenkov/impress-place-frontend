@@ -15,6 +15,7 @@ export const profileName = content.querySelector(".profile__name");
 export const profileAbout = content.querySelector(".profile__about");
 
 export const submitButtonSelector = ".form__submit";
+export const formSelector = ".form";
 export const submitButtonTextSelector = ".button__text";
 export const ellipsisContainerSelector = ".ellipsis";
 export const ellipsisClass = "animated-ellipsis";
@@ -40,7 +41,9 @@ export const popupEditProfile = document.querySelector(
 );
 export const popupAddCard = document.querySelector(".popup_type_add-card");
 export const popupCard = document.querySelector(".popup_type_image");
-export const popupConfirmDelete = document.querySelector(".popup_type_confirm-delete");
+export const popupConfirmDelete = document.querySelector(
+  ".popup_type_confirm-delete"
+);
 export const cardPopupImage = popupCard.querySelector(".popup__image");
 export const cardPopupTitle = popupCard.querySelector(".popup__image-title");
 
