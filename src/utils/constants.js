@@ -40,6 +40,7 @@ export const popupEditProfile = document.querySelector(
 );
 export const popupAddCard = document.querySelector(".popup_type_add-card");
 export const popupCard = document.querySelector(".popup_type_image");
+export const popupConfirmDelete = document.querySelector(".popup_type_confirm-delete");
 export const cardPopupImage = popupCard.querySelector(".popup__image");
 export const cardPopupTitle = popupCard.querySelector(".popup__image-title");
 
@@ -50,3 +51,4 @@ export const nameInput = document.querySelector("#name");
 export const aboutInput = document.querySelector("#about");
 export const formEditAvatar = document.querySelector(".edit-avatar-form");
 export const avatarInput = document.querySelector("#avatar-link");
+export const formConfirmDelete = document.querySelector(".confirm-delete-form");

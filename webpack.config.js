@@ -14,11 +14,12 @@ module.exports = {
   },
 
   mode: "development",
+  devtool: "eval-source-map",
   devServer: {
     static: path.resolve(__dirname, "./build"),
     compress: true,
     port: 8080,
-    open: true,
+    open: false,
   },
 
   module: {

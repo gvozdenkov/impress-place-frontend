@@ -40,9 +40,6 @@ import {
   btnOpenPopupAddCard,
   avatarContainer,
   submitButtonSelector,
-  ellipsisClass,
-  ellipsisContainerSelector,
-  photoGridPreloaderContainer,
 } from "../utils/constants.js";
 
 import { validationConfig } from "../utils/config.js";
@@ -51,22 +48,25 @@ import { enableValidation, isFormValid } from "./validate.js";
 
 export let userId;
 
-const updateUserInfo = (user) => {
-  profileAbout.textContent = user.about;
-  profileName.textContent = user.name;
-  profileAvatar.src = user.avatar;
-
-  userId = user._id;
-};
-
-function renderUserInfo() {
+function renderInitialPage() {
   getUserInfo()
-    .then(updateUserInfo)
+    .then((user) => {
+      updateUserInfo(user);
+      renderInitialCards();
+    })
     .catch((err) => {
       console.log(
         `Ошибка ${err.status} загрузки данных пользователя: ${err.statusText}`
       );
     });
+}
+
+function updateUserInfo(user) {
+  profileAbout.textContent = user.about;
+  profileName.textContent = user.name;
+  profileAvatar.src = user.avatar;
+
+  userId = user._id;
 }
 
 function renderInitialCards() {
@@ -189,6 +189,5 @@ avatarContainer.addEventListener("click", handleOpenPopupWithForm);
 
 // ====================================
 
-renderUserInfo();
-renderInitialCards();
+renderInitialPage();
 enableValidation(validationConfig);

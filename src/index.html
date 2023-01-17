@@ -237,6 +237,38 @@
       </div>
     </div>
 
+    <!-- Confirm delete popup -->
+    <div class="popup popup_type_confirm-delete">
+      <div
+        class="popup__container"
+        role="dialog"
+        aria-labelledby="confirm-delete-form-title"
+        aria-modal="true"
+      >
+        <button
+          class="popup__close-btn link-hover"
+          aria-label="Закрыть попап"
+          type="button"
+        ></button>
+        <form
+          class="form confirm-delete-form"
+          name="confirmDeleteForm"
+          novalidate
+        >
+          <h2
+            class="form__title form__title_type_no-inputs"
+            id="confirm-delete-form-title"
+          >
+            Вы уверены?
+          </h2>
+          <button type="submit" class="button form__submit">
+            <span class="button__text">Да</span>
+            <span class="ellipsis"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- Card Template -->
     <template id="card-template">
       <article class="card">
