@@ -43,4 +43,24 @@ function removePopupCloseListeners() {
   document.removeEventListener("keydown", handlePopupCloseEsc);
 }
 
-export { openPopup, closePopup };
+// =========== confirm delete popup
+
+function openConfirmPopup(popup) {
+  openPopup(popup);
+  setConfirmPopupCloseListeners();
+}
+
+function closeConfirmPopup(popup) {
+  closePopup(popup);
+  removeConfirmPopupCloseListeners();
+}
+
+function setConfirmPopupCloseListeners() {
+  
+}
+
+function removeConfirmPopupCloseListeners() {
+
+}
+
+export { openPopup, closePopup, openConfirmPopup, closeConfirmPopup };

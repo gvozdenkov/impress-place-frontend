@@ -38,6 +38,8 @@ function isHasLikes(card) {
 function generateCardElement(card) {
   const cardElement = cardTemplate.querySelector(cardSelector).cloneNode(true);
 
+  cardElement.setAttribute("data-card-id", card._id);
+
   const cardImage = cardElement.querySelector(cardImageSelector);
   cardImage.src = card.link;
   cardImage.alt = `${card.name}.`;
@@ -96,15 +98,18 @@ function generateCardElement(card) {
 
   // delete button
 
-  function confirmDeleteCard(evt, card, cardEl) {
+  const handleConfirmDeleteSubmit = (evt) => {
     evt.preventDefault();
 
-    const submitButton = evt.currentTarget.querySelector(submitButtonSelector);
+    const submitButton = evt.submitter;
+    const deletedCardElement = document.querySelector(
+      `[data-card-id="${card._id}"]`
+    );
     showButtonLoadingEllipsis(submitButton, "Удаление");
 
     deleteCard(card._id)
       .then(() => {
-        cardEl.remove();
+        deletedCardElement.remove();
         closePopup(popupConfirmDelete);
         hideButtonLoadingEllipsis(submitButton, "Да");
       })
@@ -113,38 +118,23 @@ function generateCardElement(card) {
           `Ошибка ${err.status} удаления карточки: ${err.statusText}`
         );
       });
-  }
+  };
 
-  const handleDeleteCard = (evt) => {
-    console.log(evt.target);
-    const deletedCardElement = evt.currentTarget.closest(cardSelector);
+  const handleDeleteCard = () => {
     openPopup(popupConfirmDelete);
 
     if (!formConfirmDelete.hasAttribute("data-event-submit")) {
-      console.log("no submit listener yet");
-      formConfirmDelete.addEventListener(
-        "submit",
-        (evt) => {
-          confirmDeleteCard(evt, card, deletedCardElement);
-        },
-        { once: true }
-      );
+      formConfirmDelete.addEventListener("submit", handleConfirmDeleteSubmit, {
+        once: true,
+      });
 
       formConfirmDelete.setAttribute("data-event-submit", "true");
     } else {
       formConfirmDelete.removeEventListener(
         "submit",
-        (evt) => confirmDeleteCard(evt, card, deletedCardElement),
+        handleConfirmDeleteSubmit,
         { once: true }
       );
-
-      formConfirmDelete.addEventListener(
-        "submit",
-        (evt) => confirmDeleteCard(evt, card, deletedCardElement),
-        { once: true }
-      );
-
-      formConfirmDelete.setAttribute("data-event-submit", "true");
     }
 
     formConfirmDelete.removeAttribute("data-event-submit");

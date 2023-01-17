@@ -80,3 +80,9 @@ export function loadImage(url) {
     img.onload = () => resolve(url);
   });
 }
+
+export function confirmSubmit(form) {
+  return new Promise((res, rej) => {
+    
+  })
+}
