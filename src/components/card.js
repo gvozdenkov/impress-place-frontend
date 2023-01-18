@@ -12,10 +12,7 @@ import {
   cardLikeWithCountClass,
   cardLikeCountSelector,
   formConfirmDelete,
-  submitButtonSelector,
   popupConfirmDelete,
-  popupOpenedClass,
-  popupOpenedSelector,
 } from "../utils/constants.js";
 import {
   hideButtonLoadingEllipsis,
@@ -25,7 +22,11 @@ import {
 import { deleteCard, toggleLike } from "./api.js";
 import { userId } from "./index.js";
 
-import { closePopup, openPopup } from "./modal.js";
+import {
+  closeConfirmPopup,
+  openConfirmPopup,
+  openPopup,
+} from "./modal.js";
 
 function isOwnerLiked(card) {
   return card.likes.some((like) => like._id === userId);
@@ -97,7 +98,6 @@ function generateCardElement(card) {
   cardLikeBtn.addEventListener("click", handleLikeClick);
 
   // delete button
-
   const handleConfirmDeleteSubmit = (evt) => {
     evt.preventDefault();
 
@@ -110,7 +110,7 @@ function generateCardElement(card) {
     deleteCard(card._id)
       .then(() => {
         deletedCardElement.remove();
-        closePopup(popupConfirmDelete);
+        closeConfirmPopup(popupConfirmDelete, handleConfirmDeleteSubmit);
         hideButtonLoadingEllipsis(submitButton, "Да");
       })
       .catch((err) => {
@@ -120,29 +120,16 @@ function generateCardElement(card) {
       });
   };
 
-  const handleDeleteCard = () => {
-    openPopup(popupConfirmDelete);
-
-    if (!formConfirmDelete.hasAttribute("data-event-submit")) {
-      formConfirmDelete.addEventListener("submit", handleConfirmDeleteSubmit, {
-        once: true,
-      });
-
-      formConfirmDelete.setAttribute("data-event-submit", "true");
-    } else {
-      formConfirmDelete.removeEventListener(
-        "submit",
-        handleConfirmDeleteSubmit,
-        { once: true }
-      );
-    }
-
-    formConfirmDelete.removeAttribute("data-event-submit");
-  };
-
   // check card owner === account owner to display delete button
   card.owner._id === userId
-    ? cardDeleteBtn.addEventListener("click", handleDeleteCard)
+    ? cardDeleteBtn.addEventListener("click", () => {
+        formConfirmDelete.addEventListener(
+          "submit",
+          handleConfirmDeleteSubmit,
+          { once: true }
+        );
+        openConfirmPopup(popupConfirmDelete, handleConfirmDeleteSubmit);
+      })
     : cardDeleteBtn.remove();
 
   return cardElement;
