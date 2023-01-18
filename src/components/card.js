@@ -13,6 +13,7 @@ import {
   cardLikeCountSelector,
   formConfirmDelete,
   popupConfirmDelete,
+  photoGridItemSelector,
 } from '../utils/constants.js';
 import {
   hideButtonLoadingEllipsis,
@@ -33,9 +34,13 @@ function isHasLikes(card) {
 }
 
 function generateCardElement(card) {
-  const cardElement = cardTemplate.querySelector(cardSelector).cloneNode(true);
+  const listElement = cardTemplate
+    .querySelector(photoGridItemSelector)
+    .cloneNode(true);
 
-  cardElement.setAttribute('data-card-id', card._id);
+  listElement.setAttribute('data-card-id', card._id);
+
+  const cardElement = listElement.querySelector(cardSelector);
 
   const cardImage = cardElement.querySelector(cardImageSelector);
   cardImage.src = card.link;
@@ -128,7 +133,7 @@ function generateCardElement(card) {
       })
     : cardDeleteBtn.remove();
 
-  return cardElement;
+  return listElement;
 }
 
 function renderCard(cardElement, cardsContainer) {

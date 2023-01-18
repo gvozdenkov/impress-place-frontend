@@ -20,6 +20,7 @@ export const submitButtonTextSelector = '.button__text';
 export const ellipsisContainerSelector = '.ellipsis';
 export const ellipsisClass = 'animated-ellipsis';
 
+export const photoGridItemSelector = '.photo-grid__item';
 export const cardSelector = '.card';
 export const cardImageSelector = '.card__img';
 export const cardTitleSelector = '.card__title';

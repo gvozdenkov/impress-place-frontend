@@ -23,8 +23,8 @@
           class="logo logo_place_header"
         />
       </header>
-      <main class="content page__section">
-        <section class="profile content__profile">
+      <main class="content">
+        <section class="profile content__profile page__section">
           <div class="profile__avatar" data-popup="popup_type_edit-avatar">
             <img
               src="<%=require('./images/avatar.jpg')%>"
@@ -47,8 +47,10 @@
             data-popup="popup_type_add-card"
           ></button>
         </section>
-        <section class="photo-grid" aria-label="Фото галерея">
-          <!-- Cards added here -->
+        <section class="places page__section" aria-label="Фото галерея">
+          <ul class="photo-grid">
+            <!-- Cards added here -->
+          </ul>
         </section>
       </main>
       <footer class="footer page__section">
@@ -271,19 +273,21 @@
 
     <!-- Card Template -->
     <template id="card-template">
-      <article class="card">
-        <img src="" alt="" class="card__img" />
-        <button class="card__delete-btn link-hover"></button>
-        <div class="card__footer">
-          <h2 class="card__title"></h2>
-          <button
-            class="card__like-btn link-hover link-hover_place_light"
-            aria-label="Поставить лайк"
-            type="button"
-          ></button>
-          <span class="card__like-count"></span>
-        </div>
-      </article>
+      <li class="photo-grid__item">
+        <article class="card">
+          <img src="" alt="" class="card__img" />
+          <button class="card__delete-btn link-hover"></button>
+          <footer class="card__footer">
+            <h2 class="card__title"></h2>
+            <button
+              class="card__like-btn link-hover link-hover_place_light"
+              aria-label="Поставить лайк"
+              type="button"
+            ></button>
+            <span class="card__like-count"></span>
+          </footer>
+        </article>
+      </li>
     </template>
 
     <!-- Form input error element -->
