@@ -1,4 +1,10 @@
-import { validationConfig } from "./config.js";
+import { validationConfig } from './config.js';
+
+import {
+  ellipsisClass,
+  ellipsisContainerSelector,
+  submitButtonTextSelector,
+} from './constants.js';
 
 export function getFormInputValues(form) {
   const formData = new FormData(form);
@@ -11,15 +17,15 @@ export function getErrorElement(form, input) {
 }
 
 export function getFormInputs(form) {
-  const inputs = Array.from(form.querySelectorAll("input"));
+  const inputs = Array.from(form.querySelectorAll('input'));
 
   const inputsForValidate = inputs.filter((input) => {
     return (
       !input.disabled &&
-      input.type !== "file" &&
-      input.type !== "reset" &&
-      input.type !== "submit" &&
-      input.type !== "button"
+      input.type !== 'file' &&
+      input.type !== 'reset' &&
+      input.type !== 'submit' &&
+      input.type !== 'button'
     );
   });
 
@@ -39,15 +45,42 @@ export function removeInputErrors(form) {
 
 export function setButtonState(button, isFormValid) {
   if (isFormValid) {
-    button.removeAttribute("disabled");
+    button.removeAttribute('disabled');
     button.classList.remove(validationConfig.inactiveButtonClass);
   } else {
-    button.setAttribute("disabled", true);
+    button.setAttribute('disabled', true);
     button.classList.add(validationConfig.inactiveButtonClass);
   }
+}
+
+export function showButtonLoadingEllipsis(button, text) {
+  const submitButtonText = button.querySelector(submitButtonTextSelector);
+  const loadingEllipsis = button.querySelector(ellipsisContainerSelector);
+  submitButtonText.textContent = text;
+  loadingEllipsis.classList.add(ellipsisClass);
+}
+
+export function hideButtonLoadingEllipsis(button, text) {
+  const submitButtonText = button.querySelector(submitButtonTextSelector);
+  const loadingEllipsis = button.querySelector(ellipsisContainerSelector);
+  submitButtonText.textContent = text;
+  loadingEllipsis.classList.remove(ellipsisClass);
 }
 
 export function getPopupElement(button) {
   const popupSelector = `.${button.dataset.popup}`;
   return document.querySelector(popupSelector);
+}
+
+export function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = url;
+    img.onerror = () => reject(url);
+    img.onload = () => resolve(url);
+  });
+}
+
+export function confirmSubmit(form) {
+  return new Promise((res, rej) => {});
 }

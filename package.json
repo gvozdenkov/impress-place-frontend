@@ -1,11 +1,13 @@
 {
   "name": "mesto-project",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Photo sharing service",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,8 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.3",
     "cssnano": "^5.1.14",
+    "dotenv-webpack": "^8.0.1",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "image-minimizer-webpack-plugin": "^3.8.1",
     "mini-css-extract-plugin": "^2.7.2",
