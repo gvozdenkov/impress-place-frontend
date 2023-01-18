@@ -1,23 +1,23 @@
-const path = require("path");
-const Dotenv = require("dotenv-webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const path = require('path');
+const Dotenv = require('dotenv-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 module.exports = {
-  entry: { main: "./src/components/index.js" },
+  entry: { main: './src/components/index.js' },
   output: {
-    path: path.resolve(__dirname, "build"),
-    publicPath: "",
-    filename: "[name].[contenthash].js",
-    assetModuleFilename: "[name]_[hash][ext][query]",
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '',
+    filename: '[name].[contenthash].js',
+    assetModuleFilename: '[name]_[hash][ext][query]',
     clean: true,
   },
 
-  mode: "development",
-  devtool: "eval-cheap-module-source-map", //eval-source-map
+  mode: 'development',
+  devtool: 'eval-cheap-module-source-map', //eval-source-map
   devServer: {
-    static: path.resolve(__dirname, "./build"),
+    static: path.resolve(__dirname, './build'),
     compress: true,
     port: 8080,
     open: false,
@@ -27,32 +27,32 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: "babel-loader",
-        include: path.resolve(__dirname, "src/components"),
-        exclude: "/node_modules/",
+        use: 'babel-loader',
+        include: path.resolve(__dirname, 'src/components'),
+        exclude: '/node_modules/',
       },
       {
         test: /\.(png|jpg|ico|gif|)$/,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "images/[name]_[hash][ext][query]",
+          filename: 'images/[name]_[hash][ext][query]',
         },
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf|)$/,
-        type: "asset",
+        type: 'asset',
         generator: {
-          filename: "fonts/[name]_[hash][ext][query]",
+          filename: 'fonts/[name]_[hash][ext][query]',
         },
       },
       {
         test: /\.svg$/,
-        type: "asset",
+        type: 'asset',
         use: [
           {
-            loader: "svgo-loader",
+            loader: 'svgo-loader',
             options: {
-              configFile: "./svgo.config.js",
+              configFile: './svgo.config.js',
             },
           },
         ],
@@ -62,7 +62,7 @@ module.exports = {
           },
         },
         generator: {
-          filename: "images/[name]_[hash][ext][query]",
+          filename: 'images/[name]_[hash][ext][query]',
         },
       },
       {
@@ -70,29 +70,29 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: { importLoaders: 1 },
           },
-          "postcss-loader",
+          'postcss-loader',
         ],
       },
     ],
   },
 
   optimization: {
-    moduleIds: "deterministic",
-    runtimeChunk: "single",
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
     splitChunks: {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          chunks: "all",
+          name: 'vendors',
+          chunks: 'all',
         },
       },
     },
     minimizer: [
-      "...",
+      '...',
       new ImageMinimizerPlugin({
         minimizer: {
           implementation: ImageMinimizerPlugin.svgoMinify,
@@ -101,7 +101,7 @@ module.exports = {
               multipass: true,
               plugins: [
                 // see: https://github.com/svg/svgo#default-preset
-                "preset-default",
+                'preset-default',
               ],
             },
           },
@@ -112,7 +112,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: './src/index.html',
     }),
     new MiniCssExtractPlugin(),
     new Dotenv(),

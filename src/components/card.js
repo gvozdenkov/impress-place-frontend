@@ -13,20 +13,16 @@ import {
   cardLikeCountSelector,
   formConfirmDelete,
   popupConfirmDelete,
-} from "../utils/constants.js";
+} from '../utils/constants.js';
 import {
   hideButtonLoadingEllipsis,
   showButtonLoadingEllipsis,
-} from "../utils/utils.js";
+} from '../utils/utils.js';
 
-import { deleteCard, toggleLike } from "./api.js";
-import { userId } from "./index.js";
+import { deleteCard, toggleLike } from './api.js';
+import { userId } from './index.js';
 
-import {
-  closeConfirmPopup,
-  openConfirmPopup,
-  openPopup,
-} from "./modal.js";
+import { closeConfirmPopup, openConfirmPopup, openPopup } from './modal.js';
 
 function isOwnerLiked(card) {
   return card.likes.some((like) => like._id === userId);
@@ -39,7 +35,7 @@ function isHasLikes(card) {
 function generateCardElement(card) {
   const cardElement = cardTemplate.querySelector(cardSelector).cloneNode(true);
 
-  cardElement.setAttribute("data-card-id", card._id);
+  cardElement.setAttribute('data-card-id', card._id);
 
   const cardImage = cardElement.querySelector(cardImageSelector);
   cardImage.src = card.link;
@@ -47,7 +43,7 @@ function generateCardElement(card) {
   cardElement.querySelector(cardTitleSelector).textContent = card.name;
 
   // card popup with image listener
-  cardImage.addEventListener("click", (evt) => {
+  cardImage.addEventListener('click', (evt) => {
     const cardImage = evt.target;
     const cardElement = evt.target.closest(cardSelector);
     const cardTitle = cardElement.querySelector(cardTitleSelector);
@@ -67,7 +63,7 @@ function generateCardElement(card) {
   function renderLikeCount(card) {
     card.likes.length !== 0
       ? (cardLikeCount.textContent = card.likes.length)
-      : (cardLikeCount.textContent = "");
+      : (cardLikeCount.textContent = '');
   }
 
   if (isHasLikes(card)) {
@@ -95,7 +91,7 @@ function generateCardElement(card) {
       });
   };
 
-  cardLikeBtn.addEventListener("click", handleLikeClick);
+  cardLikeBtn.addEventListener('click', handleLikeClick);
 
   // delete button
   const handleConfirmDeleteSubmit = (evt) => {
@@ -105,13 +101,13 @@ function generateCardElement(card) {
     const deletedCardElement = document.querySelector(
       `[data-card-id="${card._id}"]`
     );
-    showButtonLoadingEllipsis(submitButton, "Удаление");
+    showButtonLoadingEllipsis(submitButton, 'Удаление');
 
     deleteCard(card._id)
       .then(() => {
         deletedCardElement.remove();
         closeConfirmPopup(popupConfirmDelete, handleConfirmDeleteSubmit);
-        hideButtonLoadingEllipsis(submitButton, "Да");
+        hideButtonLoadingEllipsis(submitButton, 'Да');
       })
       .catch((err) => {
         console.log(
@@ -122,9 +118,9 @@ function generateCardElement(card) {
 
   // check card owner === account owner to display delete button
   card.owner._id === userId
-    ? cardDeleteBtn.addEventListener("click", () => {
+    ? cardDeleteBtn.addEventListener('click', () => {
         formConfirmDelete.addEventListener(
-          "submit",
+          'submit',
           handleConfirmDeleteSubmit,
           { once: true }
         );

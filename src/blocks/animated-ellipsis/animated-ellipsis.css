@@ -10,6 +10,6 @@
 
 .animated-ellipsis::after {
   display: inline-block;
-  content: "...";
+  content: '...';
   animation: animated-ellipsis-keyframes 1.2s steps(4, jump-none) infinite;
 }

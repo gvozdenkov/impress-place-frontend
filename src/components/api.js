@@ -1,4 +1,4 @@
-import { serverConfig } from "../utils/config";
+import { serverConfig } from '../utils/config';
 
 const getResponse = (res) => {
   return res.ok
@@ -14,7 +14,7 @@ export function getUserInfo() {
 
 export function setUserInfo({ name, about }) {
   return fetch(`${serverConfig.baseUrl}/users/me`, {
-    method: "PATCH",
+    method: 'PATCH',
     headers: serverConfig.headers,
     body: JSON.stringify({
       name,
@@ -25,7 +25,7 @@ export function setUserInfo({ name, about }) {
 
 export function setUserAvatar(avatar) {
   return fetch(`${serverConfig.baseUrl}/users/me/avatar`, {
-    method: "PATCH",
+    method: 'PATCH',
     headers: serverConfig.headers,
     body: JSON.stringify({
       avatar,
@@ -41,7 +41,7 @@ export function getCards() {
 
 export function addCard({ name, link }) {
   return fetch(`${serverConfig.baseUrl}/cards`, {
-    method: "POST",
+    method: 'POST',
     headers: serverConfig.headers,
     body: JSON.stringify({
       name,
@@ -52,14 +52,14 @@ export function addCard({ name, link }) {
 
 export function deleteCard(cardId) {
   return fetch(`${serverConfig.baseUrl}/cards/${cardId}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: serverConfig.headers,
   }).then(getResponse);
 }
 
 export function toggleLike(cardId, isLiked) {
   return fetch(`${serverConfig.baseUrl}/cards/likes/${cardId}`, {
-    method: isLiked ? "DELETE" : "PUT",
+    method: isLiked ? 'DELETE' : 'PUT',
     headers: serverConfig.headers,
   }).then(getResponse);
 }

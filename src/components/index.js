@@ -1,4 +1,4 @@
-import "../pages/index.css";
+import '../pages/index.css';
 
 import {
   addCard,
@@ -6,7 +6,7 @@ import {
   getUserInfo,
   setUserAvatar,
   setUserInfo,
-} from "./api.js";
+} from './api.js';
 
 import {
   getFormInputValues,
@@ -16,11 +16,11 @@ import {
   loadImage,
   showButtonLoadingEllipsis,
   hideButtonLoadingEllipsis,
-} from "../utils/utils.js";
+} from '../utils/utils.js';
 
-import { openPopup, closePopup } from "./modal.js";
+import { openPopup, closePopup } from './modal.js';
 
-import { generateCardElement, renderCard } from "./card.js";
+import { generateCardElement, renderCard } from './card.js';
 
 import {
   popupEditProfile,
@@ -40,11 +40,11 @@ import {
   btnOpenPopupAddCard,
   avatarContainer,
   submitButtonSelector,
-} from "../utils/constants.js";
+} from '../utils/constants.js';
 
-import { validationConfig } from "../utils/config.js";
+import { validationConfig } from '../utils/config.js';
 
-import { enableValidation, isFormValid } from "./validate.js";
+import { enableValidation, isFormValid } from './validate.js';
 
 export let userId;
 
@@ -87,7 +87,7 @@ const handleEditProfileSubmit = (evt) => {
   evt.preventDefault();
 
   const submitButton = evt.target.querySelector(submitButtonSelector);
-  showButtonLoadingEllipsis(submitButton, "Сохранение");
+  showButtonLoadingEllipsis(submitButton, 'Сохранение');
 
   const form = evt.target;
   const { name, about } = getFormInputValues(form);
@@ -103,7 +103,7 @@ const handleEditProfileSubmit = (evt) => {
       );
     })
     .finally(() => {
-      hideButtonLoadingEllipsis(submitButton, "Сохранить");
+      hideButtonLoadingEllipsis(submitButton, 'Сохранить');
     });
 };
 
@@ -111,7 +111,7 @@ const handleAddCardSubmit = (evt) => {
   evt.preventDefault();
 
   const submitButton = evt.target.querySelector(submitButtonSelector);
-  showButtonLoadingEllipsis(submitButton, "Создание");
+  showButtonLoadingEllipsis(submitButton, 'Создание');
 
   const { name, link } = getFormInputValues(formAddCard);
   addCard({ name, link })
@@ -127,7 +127,7 @@ const handleAddCardSubmit = (evt) => {
       );
     })
     .finally(() => {
-      hideButtonLoadingEllipsis(submitButton, "Создать");
+      hideButtonLoadingEllipsis(submitButton, 'Создать');
     });
 };
 
@@ -135,7 +135,7 @@ const handleEditAvatarSubmit = (evt) => {
   evt.preventDefault();
 
   const submitButton = evt.target.querySelector(submitButtonSelector);
-  showButtonLoadingEllipsis(submitButton, "Сохранение");
+  showButtonLoadingEllipsis(submitButton, 'Сохранение');
 
   loadImage(avatarInput.value)
     .then((url) => {
@@ -155,13 +155,13 @@ const handleEditAvatarSubmit = (evt) => {
       console.log(`image not found for url ${url}`);
     })
     .finally(() => {
-      hideButtonLoadingEllipsis(submitButton, "Сохранить");
+      hideButtonLoadingEllipsis(submitButton, 'Сохранить');
     });
 };
 
-formEditProfile.addEventListener("submit", handleEditProfileSubmit);
-formAddCard.addEventListener("submit", handleAddCardSubmit);
-formEditAvatar.addEventListener("submit", handleEditAvatarSubmit);
+formEditProfile.addEventListener('submit', handleEditProfileSubmit);
+formAddCard.addEventListener('submit', handleAddCardSubmit);
+formEditAvatar.addEventListener('submit', handleEditAvatarSubmit);
 
 // ============== popup events ======================================
 const handleOpenPopupWithForm = (evt) => {
@@ -176,16 +176,16 @@ const handleOpenPopupWithForm = (evt) => {
   setButtonState(submitButton, isFormValid(form));
 };
 
-btnOpenPopupEditProfile.addEventListener("click", (evt) => {
+btnOpenPopupEditProfile.addEventListener('click', (evt) => {
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
 
   handleOpenPopupWithForm(evt);
 });
 
-btnOpenPopupAddCard.addEventListener("click", handleOpenPopupWithForm);
+btnOpenPopupAddCard.addEventListener('click', handleOpenPopupWithForm);
 
-avatarContainer.addEventListener("click", handleOpenPopupWithForm);
+avatarContainer.addEventListener('click', handleOpenPopupWithForm);
 
 // ====================================
 

@@ -1,12 +1,12 @@
-import { errorTemplate } from "../utils/constants.js";
+import { errorTemplate } from '../utils/constants.js';
 
 import {
   getErrorElement,
   getFormInputs,
   setButtonState,
-} from "../utils/utils.js";
+} from '../utils/utils.js';
 
-import { validationConfig } from "../utils/config.js";
+import { validationConfig } from '../utils/config.js';
 
 export function enableValidation(validationConfig) {
   const forms = Array.from(
@@ -20,17 +20,17 @@ export function enableValidation(validationConfig) {
     errorElement.classList.add(validationConfig.errorElementClassActive);
 
     input.classList.add(validationConfig.inputErrorClass);
-    input.setAttribute("aria-describedby", `${input.id}-error`);
+    input.setAttribute('aria-describedby', `${input.id}-error`);
   }
 
   function hideInputError(form, input) {
     const errorElement = getErrorElement(form, input);
 
     input.classList.remove(validationConfig.inputErrorClass);
-    input.removeAttribute("aria-describedby");
+    input.removeAttribute('aria-describedby');
 
     errorElement.classList.remove(validationConfig.errorElementClassActive);
-    errorElement.textContent = "";
+    errorElement.textContent = '';
   }
 
   function handleFormInput(form, input) {
@@ -40,7 +40,7 @@ export function enableValidation(validationConfig) {
 
     input.validity.patternMismatch
       ? input.setCustomValidity(input.dataset.errorMessage)
-      : input.setCustomValidity("");
+      : input.setCustomValidity('');
 
     if (!input.validity.valid) {
       // if no error element -> create error DOM node and then show
@@ -64,7 +64,7 @@ export function enableValidation(validationConfig) {
     );
 
     inputs.forEach((input) => {
-      input.addEventListener("input", () => {
+      input.addEventListener('input', () => {
         handleFormInput(form, input);
         setButtonState(submitButton, isFormValid(form));
       });

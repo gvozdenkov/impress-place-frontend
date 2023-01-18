@@ -2,7 +2,7 @@
   padding: 25px 20px 30px;
   display: grid;
   grid-template:
-    "title like"
-    "title count"
+    'title like'
+    'title count'
     / auto max-content;
 }
