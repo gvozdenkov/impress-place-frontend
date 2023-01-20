@@ -18,14 +18,11 @@ import {
   hideButtonLoadingEllipsis,
 } from '../utils/utils.js';
 
-import { openPopup, closePopup } from './modal.js';
+import { openPopup, closeAllPopups } from './modal.js';
 
 import { generateCardElement, renderCard } from './card.js';
 
 import {
-  popupEditProfile,
-  popupEditAvatar,
-  popupAddCard,
   profileName,
   profileAbout,
   profileAvatar,
@@ -95,7 +92,7 @@ const handleEditProfileSubmit = (evt) => {
   setUserInfo({ name, about })
     .then((user) => {
       updateUserInfo(user);
-      closePopup(popupEditProfile);
+      closeAllPopups();
     })
     .catch((err) => {
       console.log(
@@ -119,7 +116,7 @@ const handleAddCardSubmit = (evt) => {
       const newCard = generateCardElement(card);
       renderCard(newCard, cardsContainer);
       formAddCard.reset();
-      closePopup(popupAddCard);
+      closeAllPopups();
     })
     .catch((err) => {
       console.log(
@@ -143,7 +140,7 @@ const handleEditAvatarSubmit = (evt) => {
         .then((user) => {
           updateUserInfo(user);
           formEditAvatar.reset();
-          closePopup(popupEditAvatar);
+          closeAllPopups();
         })
         .catch((err) => {
           console.log(

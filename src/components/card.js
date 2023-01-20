@@ -11,9 +11,9 @@ import {
   cardDeleteSelector,
   cardLikeWithCountClass,
   cardLikeCountSelector,
-  formConfirmDelete,
   popupConfirmDelete,
   photoGridItemSelector,
+  submitButtonSelector,
 } from '../utils/constants.js';
 import {
   hideButtonLoadingEllipsis,
@@ -23,7 +23,7 @@ import {
 import { deleteCard, toggleLike } from './api.js';
 import { userId } from './index.js';
 
-import { closeConfirmPopup, openConfirmPopup, openPopup } from './modal.js';
+import { closeAllPopups, openPopup } from './modal.js';
 
 function isOwnerLiked(card) {
   return card.likes.some((like) => like._id === userId);
@@ -99,38 +99,38 @@ function generateCardElement(card) {
   cardLikeBtn.addEventListener('click', handleLikeClick);
 
   // delete button
-  const handleConfirmDeleteSubmit = (evt) => {
-    evt.preventDefault();
-
-    const submitButton = evt.submitter;
+  function handleConfirmDeleteSubmit(popup) {
+    const submitButton = popup.querySelector(submitButtonSelector);
     const deletedCardElement = document.querySelector(
       `[data-card-id="${card._id}"]`
     );
+
     showButtonLoadingEllipsis(submitButton, 'Удаление');
 
     deleteCard(card._id)
       .then(() => {
         deletedCardElement.remove();
-        closeConfirmPopup(popupConfirmDelete, handleConfirmDeleteSubmit);
-        hideButtonLoadingEllipsis(submitButton, 'Да');
+        closeAllPopups(popup);
       })
       .catch((err) => {
         console.log(
           `Ошибка ${err.status} удаления карточки: ${err.statusText}`
         );
+      })
+      .finally(() => {
+        hideButtonLoadingEllipsis(submitButton, 'Да');
       });
-  };
+  }
 
   // check card owner === account owner to display delete button
+  const handleCardDeleteBtnClick = (evt) => {
+    openPopup(popupConfirmDelete).then((cardDelete) => {
+      cardDelete ? handleConfirmDeleteSubmit(popupConfirmDelete) : null;
+    });
+  };
+
   card.owner._id === userId
-    ? cardDeleteBtn.addEventListener('click', () => {
-        formConfirmDelete.addEventListener(
-          'submit',
-          handleConfirmDeleteSubmit,
-          { once: true }
-        );
-        openConfirmPopup(popupConfirmDelete, handleConfirmDeleteSubmit);
-      })
+    ? cardDeleteBtn.addEventListener('click', handleCardDeleteBtnClick)
     : cardDeleteBtn.remove();
 
   return listElement;
