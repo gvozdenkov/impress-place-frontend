@@ -1,10 +1,26 @@
 import { serverConfig } from '../utils/config';
 
+export let API_ERROR_MESSAGE = '';
+
 const getResponse = (res) => {
-  return res.ok
-    ? res.json()
-    : Promise.reject({ status: res.status, statusText: res.statusText });
+  if (res.ok) {
+    return res.json();
+  } else {
+    return res
+      .json()
+      .then((err) => (API_ERROR_MESSAGE = err.message))
+      .then(() =>
+        Promise.reject({
+          status: res.status,
+          statusText: res.statusText,
+        })
+      );
+  }
 };
+
+export function getAppInfo() {
+  return Promise.all([getUserInfo(), getCards()]);
+}
 
 export function getUserInfo() {
   return fetch(`${serverConfig.baseUrl}/users/me`, {

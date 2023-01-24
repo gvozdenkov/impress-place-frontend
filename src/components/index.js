@@ -3,6 +3,8 @@ import '../pages/index.css';
 import {
   addCard,
   deleteLike,
+  API_ERROR_MESSAGE,
+  getAppInfo,
   getCards,
   getUserInfo,
   setLike,
@@ -48,14 +50,20 @@ import { enableValidation, isFormValid } from './validate.js';
 export let userId;
 
 function renderInitialPage() {
-  getUserInfo()
-    .then((user) => {
+  getAppInfo()
+    .then(([user, cards]) => {
       updateUserInfo(user);
-      renderInitialCards();
+
+      cards.reverse().forEach((card) => {
+        renderCard(
+          createCardElement(card, userId, handleLikeCard),
+          cardsContainer
+        );
+      });
     })
     .catch((err) => {
       console.log(
-        `Ошибка ${err.status} загрузки данных пользователя: ${err.statusText}`
+        `Ошибка ${err.status} при инициализации приложения: ${API_ERROR_MESSAGE}`
       );
     });
 }
@@ -76,7 +84,7 @@ function handleLikeCard(card, isLiked) {
         })
         .catch((err) => {
           console.log(
-            `Ошибка ${err.status} удаления лайка карточки: ${err.statusText}`
+            `Ошибка ${err.status} удаления лайка карточки: ${API_ERROR_MESSAGE}`
           );
         })
     : setLike(card._id)
@@ -84,23 +92,10 @@ function handleLikeCard(card, isLiked) {
           changeLike(card);
         })
         .catch((err) => {
-          console.log(`Ошибка ${err.status} лайка карточки: ${err.statusText}`);
+          console.log(
+            `Ошибка ${err.status} лайка карточки: ${API_ERROR_MESSAGE}`
+          );
         });
-}
-
-function renderInitialCards() {
-  getCards()
-    .then((cards) => {
-      cards.reverse().forEach((card) => {
-        renderCard(
-          createCardElement(card, userId, handleLikeCard),
-          cardsContainer
-        );
-      });
-    })
-    .catch((err) => {
-      console.log(`Ошибка ${err.status} загрузки карточек: ${err.statusText}`);
-    });
 }
 
 //=============== Form events =====================================
@@ -121,7 +116,7 @@ const handleEditProfileSubmit = (evt) => {
     })
     .catch((err) => {
       console.log(
-        `Ошибка ${err.status} редактирования профиля: ${err.statusText}`
+        `Ошибка ${err.status} редактирования профиля: ${API_ERROR_MESSAGE}`
       );
     })
     .finally(() => {
@@ -145,7 +140,7 @@ const handleAddCardSubmit = (evt) => {
     })
     .catch((err) => {
       console.log(
-        `Ошибка ${err.status} добавления карточки: ${err.statusText}`
+        `Ошибка ${err.status} добавления карточки: ${API_ERROR_MESSAGE}`
       );
     })
     .finally(() => {
@@ -169,7 +164,7 @@ const handleEditAvatarSubmit = (evt) => {
         })
         .catch((err) => {
           console.log(
-            `Ошибка загрузки аватара ${err.status}: ${err.statusText}`
+            `Ошибка загрузки аватара ${err.status}: ${API_ERROR_MESSAGE}`
           );
         });
     })
