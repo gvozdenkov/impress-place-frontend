@@ -57,9 +57,16 @@ export function deleteCard(cardId) {
   }).then(getResponse);
 }
 
-export function toggleLike(cardId, isLiked) {
+export function setLike(cardId) {
   return fetch(`${serverConfig.baseUrl}/cards/likes/${cardId}`, {
-    method: isLiked ? 'DELETE' : 'PUT',
+    method: 'PUT',
+    headers: serverConfig.headers,
+  }).then(getResponse);
+}
+
+export function deleteLike(cardId) {
+  return fetch(`${serverConfig.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
     headers: serverConfig.headers,
   }).then(getResponse);
 }

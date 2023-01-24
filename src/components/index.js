@@ -2,8 +2,10 @@ import '../pages/index.css';
 
 import {
   addCard,
+  deleteLike,
   getCards,
   getUserInfo,
+  setLike,
   setUserAvatar,
   setUserInfo,
 } from './api.js';
@@ -20,7 +22,7 @@ import {
 
 import { openPopup, closeAllPopups } from './modal.js';
 
-import { generateCardElement, renderCard } from './card.js';
+import { changeLike, createCardElement, renderCard } from './card.js';
 
 import {
   profileName,
@@ -66,11 +68,34 @@ function updateUserInfo(user) {
   userId = user._id;
 }
 
+function handleLikeCard(card, isLiked) {
+  isLiked
+    ? deleteLike(card._id)
+        .then((card) => {
+          changeLike(card);
+        })
+        .catch((err) => {
+          console.log(
+            `Ошибка ${err.status} удаления лайка карточки: ${err.statusText}`
+          );
+        })
+    : setLike(card._id)
+        .then((card) => {
+          changeLike(card);
+        })
+        .catch((err) => {
+          console.log(`Ошибка ${err.status} лайка карточки: ${err.statusText}`);
+        });
+}
+
 function renderInitialCards() {
   getCards()
     .then((cards) => {
       cards.reverse().forEach((card) => {
-        renderCard(generateCardElement(card), cardsContainer);
+        renderCard(
+          createCardElement(card, userId, handleLikeCard),
+          cardsContainer
+        );
       });
     })
     .catch((err) => {
@@ -113,7 +138,7 @@ const handleAddCardSubmit = (evt) => {
   const { name, link } = getFormInputValues(formAddCard);
   addCard({ name, link })
     .then((card) => {
-      const newCard = generateCardElement(card);
+      const newCard = createCardElement(card);
       renderCard(newCard, cardsContainer);
       formAddCard.reset();
       closeAllPopups();

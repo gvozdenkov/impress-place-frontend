@@ -20,20 +20,44 @@ import {
   showButtonLoadingEllipsis,
 } from '../utils/utils.js';
 
-import { deleteCard, toggleLike } from './api.js';
+import { deleteCard } from './api.js';
 import { userId } from './index.js';
 
 import { closeAllPopups, openPopup } from './modal.js';
 
-function isOwnerLiked(card) {
-  return card.likes.some((like) => like._id === userId);
+function isLiked(card) {
+  const cardElement = document.querySelector(`[data-card-id="${card._id}"]`);
+  const cardLikeBtn = cardElement.querySelector(cardLikeSelector);
+  const liked = cardLikeBtn.classList.contains(cardLikeActiveClass);
+
+  return liked;
 }
 
 function isHasLikes(card) {
   return card.likes.length > 0;
 }
 
-function generateCardElement(card) {
+function changeLike(card) {
+  const cardElement = document.querySelector(`[data-card-id="${card._id}"]`);
+  const cardLikeBtn = cardElement.querySelector(cardLikeSelector);
+  const cardLikeCount = cardElement.querySelector(cardLikeCountSelector);
+
+  if (isHasLikes(card)) {
+    cardLikeCount.textContent = card.likes.length;
+    cardLikeBtn.classList.add(cardLikeWithCountClass);
+  } else {
+    cardLikeCount.textContent = '';
+    cardLikeBtn.classList.remove(cardLikeWithCountClass);
+  }
+
+  if (isLiked(card)) {
+    cardLikeBtn.classList.remove(cardLikeActiveClass);
+  } else {
+    cardLikeBtn.classList.add(cardLikeActiveClass);
+  }
+}
+
+function createCardElement(card, userId, handleLikeCard) {
   const listElement = cardTemplate
     .querySelector(photoGridItemSelector)
     .cloneNode(true);
@@ -48,15 +72,14 @@ function generateCardElement(card) {
   cardElement.querySelector(cardTitleSelector).textContent = card.name;
 
   // card popup with image listener
-  cardImage.addEventListener('click', (evt) => {
-    const cardImage = evt.target;
-    const cardElement = evt.target.closest(cardSelector);
-    const cardTitle = cardElement.querySelector(cardTitleSelector);
+  function handleCardImageClick({ link, name }) {
+    cardPopupImage.src = link;
+    cardPopupImage.alt = `${name}.`;
+    cardPopupTitle.textContent = name;
+  }
 
-    cardPopupImage.src = cardImage.src;
-    cardPopupImage.alt = `${cardTitle.textContent}.`;
-    cardPopupTitle.textContent = cardTitle.textContent;
-
+  cardImage.addEventListener('click', () => {
+    handleCardImageClick(card);
     openPopup(popupCard);
   });
 
@@ -65,38 +88,20 @@ function generateCardElement(card) {
   const cardLikeCount = cardElement.querySelector(cardLikeCountSelector);
   const cardDeleteBtn = cardElement.querySelector(cardDeleteSelector);
 
-  function renderLikeCount(card) {
-    card.likes.length !== 0
-      ? (cardLikeCount.textContent = card.likes.length)
-      : (cardLikeCount.textContent = '');
-  }
-
   if (isHasLikes(card)) {
-    renderLikeCount(card);
+    cardLikeCount.textContent = card.likes.length;
     cardLikeBtn.classList.add(cardLikeWithCountClass);
+  } else {
+    cardLikeCount.textContent = '';
   }
 
-  isOwnerLiked(card) ? cardLikeBtn.classList.add(cardLikeActiveClass) : null;
+  card.likes.some((like) => like._id === userId)
+    ? cardLikeBtn.classList.add(cardLikeActiveClass)
+    : null;
 
-  const handleLikeClick = (evt) => {
-    toggleLike(card._id, isOwnerLiked(card))
-      .then((data) => {
-        card = data;
-        const likeButton = evt.target;
-        likeButton.classList.toggle(cardLikeActiveClass);
-
-        card.likes.length !== 0
-          ? likeButton.classList.add(cardLikeWithCountClass)
-          : likeButton.classList.remove(cardLikeWithCountClass);
-
-        renderLikeCount(card);
-      })
-      .catch((err) => {
-        console.log(`Ошибка ${err.status} лайка карточки: ${err.statusText}`);
-      });
-  };
-
-  cardLikeBtn.addEventListener('click', handleLikeClick);
+  cardLikeBtn.addEventListener('click', () => {
+    handleLikeCard(card, isLiked(card));
+  });
 
   // delete button
   function handleConfirmDeleteSubmit(popup) {
@@ -140,4 +145,4 @@ function renderCard(cardElement, cardsContainer) {
   cardsContainer.prepend(cardElement);
 }
 
-export { generateCardElement, renderCard };
+export { createCardElement, renderCard, changeLike };
