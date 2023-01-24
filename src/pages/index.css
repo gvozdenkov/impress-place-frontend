@@ -2,10 +2,6 @@
 @import url(../vendor/fonts.css);
 @import url(../vendor/variables.css);
 
-@import url(../blocks/page/page.css);
-@import url(../blocks/page/__content/page__content.css);
-@import url(../blocks/page/__section/page__section.css);
-
 @import url(../blocks/link-hover/link-hover.css);
 @import url(../blocks/link-hover/_place/link-hover_place_light.css);
 
@@ -69,3 +65,7 @@
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__input/_type/form__input_type_error.css);
 @import url(../blocks/form/__input-error/form__input-error.css);
+
+@import url(../blocks/page/page.css);
+@import url(../blocks/page/__content/page__content.css);
+@import url(../blocks/page/__section/page__section.css);

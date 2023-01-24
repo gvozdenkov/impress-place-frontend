@@ -53,6 +53,8 @@
 @media (max-width: 767px) {
   .profile__avatar {
     width: 42.5%;
+    aspect-ratio: 1;
+    height: initial;
     place-self: center;
   }
 }
