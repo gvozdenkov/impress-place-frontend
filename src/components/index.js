@@ -5,11 +5,10 @@ import {
   deleteLike,
   API_ERROR_MESSAGE,
   getAppInfo,
-  getCards,
-  getUserInfo,
   setLike,
   setUserAvatar,
   setUserInfo,
+  deleteCard,
 } from './api.js';
 
 import {
@@ -22,9 +21,19 @@ import {
   hideButtonLoadingEllipsis,
 } from '../utils/utils.js';
 
-import { openPopup, closeAllPopups } from './modal.js';
+import {
+  openPopup,
+  closePopup,
+  openedPopupWithForm,
+  closePopupWithForm,
+} from './modal.js';
 
-import { changeLike, createCardElement, renderCard } from './card.js';
+import {
+  changeLike,
+  createCardElement,
+  removeCard,
+  renderCard,
+} from './card.js';
 
 import {
   profileName,
@@ -41,6 +50,10 @@ import {
   btnOpenPopupAddCard,
   avatarContainer,
   submitButtonSelector,
+  popupConfirmDelete,
+  popupEditProfile,
+  popupAddCard,
+  popupEditAvatar,
 } from '../utils/constants.js';
 
 import { validationConfig } from '../utils/config.js';
@@ -56,7 +69,7 @@ function renderInitialPage() {
 
       cards.reverse().forEach((card) => {
         renderCard(
-          createCardElement(card, userId, handleLikeCard),
+          createCardElement(card, userId, handleLikeCard, handleDeleteCard),
           cardsContainer
         );
       });
@@ -98,6 +111,31 @@ function handleLikeCard(card, isLiked) {
         });
 }
 
+function handleDeleteCard(card) {
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    const submitButton = popupConfirmDelete.querySelector(submitButtonSelector);
+    showButtonLoadingEllipsis(submitButton, 'Удаление');
+
+    deleteCard(card._id)
+      .then(() => {
+        removeCard(card);
+        closePopupWithForm(popupConfirmDelete, handleSubmit);
+      })
+      .catch((err) => {
+        console.log(
+          `Ошибка ${err.status} удаления карточки: ${API_ERROR_MESSAGE}`
+        );
+      })
+      .finally(() => {
+        hideButtonLoadingEllipsis(submitButton, 'Да');
+      });
+  };
+
+  openedPopupWithForm(popupConfirmDelete, handleSubmit);
+}
+
 //=============== Form events =====================================
 
 const handleEditProfileSubmit = (evt) => {
@@ -112,7 +150,7 @@ const handleEditProfileSubmit = (evt) => {
   setUserInfo({ name, about })
     .then((user) => {
       updateUserInfo(user);
-      closeAllPopups();
+      closePopup(popupEditProfile);
     })
     .catch((err) => {
       console.log(
@@ -136,7 +174,7 @@ const handleAddCardSubmit = (evt) => {
       const newCard = createCardElement(card);
       renderCard(newCard, cardsContainer);
       formAddCard.reset();
-      closeAllPopups();
+      closePopup(popupAddCard);
     })
     .catch((err) => {
       console.log(
@@ -160,7 +198,7 @@ const handleEditAvatarSubmit = (evt) => {
         .then((user) => {
           updateUserInfo(user);
           formEditAvatar.reset();
-          closeAllPopups();
+          closePopup(popupEditAvatar);
         })
         .catch((err) => {
           console.log(
