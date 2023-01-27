@@ -1,0 +1,18 @@
+@use '../../../abstract/mixins.scss' as *;
+
+.profile__about {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.22;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  grid-area: about;
+  align-self: start;
+
+  @include width-md {
+    font-size: 14px;
+    text-align: center;
+  }
+}

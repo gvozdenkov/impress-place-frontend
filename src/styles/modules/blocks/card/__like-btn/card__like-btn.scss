@@ -1,0 +1,17 @@
+.card__like-btn {
+  background: url('../../../../../images/like_btn.svg') center no-repeat;
+  width: 22px;
+  height: 19px;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  grid-row: 1 / -1;
+  grid-column: 2;
+  place-self: center end;
+  margin-top: 0;
+  transition: margin-top 0.2s ease-out;
+}
+
+.card__like-btn:active {
+  scale: 1.2;
+}

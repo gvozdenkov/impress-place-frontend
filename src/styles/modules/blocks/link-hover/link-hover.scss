@@ -1,0 +1,10 @@
+@use '../../abstract/variables.scss' as *;
+
+.link-hover {
+  cursor: pointer;
+  transition: all $trans-short ease-out;
+}
+
+.link-hover:hover {
+  opacity: 0.6;
+}
