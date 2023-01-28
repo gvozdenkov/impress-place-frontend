@@ -1,0 +1,19 @@
+@use '../../../abstract/mixins.scss' as *;
+
+.popup__close-btn {
+  background: url('../../../../../images/close-icon.svg') center no-repeat;
+  background-size: 100%;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  border: 0;
+  padding: 0;
+
+  @include width-sm {
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
+}

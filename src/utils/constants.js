@@ -2,7 +2,7 @@ export const content = document.querySelector('.content');
 export const cardsContainer = content.querySelector('.photo-grid');
 export const cardTemplate = document.querySelector('#card-template').content;
 export const errorTemplate = document.querySelector(
-  '#form-input-error-template'
+  '#form-input-error-template',
 ).content;
 
 // DOM elements
@@ -35,15 +35,15 @@ export const popupOpenedClass = 'popup_opened';
 export const popupOpenedSelector = '.popup_opened';
 export const popupCloseBtnClass = 'popup__close-btn';
 export const popupEditAvatar = document.querySelector(
-  '.popup_type_edit-avatar'
+  '.popup_type_edit-avatar',
 );
 export const popupEditProfile = document.querySelector(
-  '.popup_type_edit-profile'
+  '.popup_type_edit-profile',
 );
 export const popupAddCard = document.querySelector('.popup_type_add-card');
 export const popupCard = document.querySelector('.popup_type_image');
 export const popupConfirmDelete = document.querySelector(
-  '.popup_type_confirm-delete'
+  '.popup_type_confirm-delete',
 );
 export const cardPopupImage = popupCard.querySelector('.popup__image');
 export const cardPopupTitle = popupCard.querySelector('.popup__image-title');

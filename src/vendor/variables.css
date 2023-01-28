@@ -1,5 +1,4 @@
 :root {
-  --border-radius: 10px;
   --color-content-primary: #fff;
   --color-content-primary-inverted: #000;
   --color-content-secondary: #545454;
@@ -8,9 +7,6 @@
   --color-background-inverted: #fff;
   --color-background-glassy-a: rgba(0 0 0 / 0.2);
   --color-background-glassy-b: rgba(0 0 0 / 0.7);
-
-  --trans-short: 0.2s;
-  --trans-medium: 0.3s;
 
   --gutter-side: 0px;
 

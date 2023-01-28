@@ -4,8 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
+const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+const devMode = mode === 'development';
+
 module.exports = {
-  entry: { main: './src/components/index.js' },
+  entry: { main: './src/index.js' },
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '',
@@ -14,12 +17,12 @@ module.exports = {
     clean: true,
   },
 
-  mode: 'development',
+  mode,
   devtool: 'eval-cheap-module-source-map', //eval-source-map
   devServer: {
     static: path.resolve(__dirname, './build'),
     compress: true,
-    port: 8080,
+    port: 8081,
     open: false,
   },
 
@@ -52,10 +55,11 @@ module.exports = {
           {
             loader: 'svgo-loader',
             options: {
-              configFile: './svgo.config.js',
+              configFile: false,
             },
           },
         ],
+        include: path.resolve(__dirname, 'src/images'),
         parser: {
           dataUrlCondition: {
             maxSize: 4 * 1024, // 4kb
@@ -66,14 +70,34 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
+        test: /\.(sa|sc|c)ss$/,
+        include: path.resolve(__dirname, 'src/styles'),
         use: [
-          MiniCssExtractPlugin.loader,
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 1 },
+            options: {
+              sourceMap: true,
+            },
           },
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
         ],
       },
     ],
@@ -114,7 +138,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[contenthash].css',
+    }),
     new Dotenv(),
   ],
 };

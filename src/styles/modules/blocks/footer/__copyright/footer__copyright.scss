@@ -1,0 +1,22 @@
+@use '../../../abstract/mixins.scss' as *;
+
+.footer__copyright {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.22;
+  margin: 0;
+  color: var(--color-content-secondary);
+
+  @include width-lg {
+    text-align: center;
+  }
+
+  @include width-sm {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+
+  @include width-xs {
+    text-align: left;
+  }
+}

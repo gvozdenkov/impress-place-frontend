@@ -1,0 +1,17 @@
+@use '../../../abstract/mixins.scss' as *;
+
+.page__content {
+  max-width: 1280px;
+  min-width: 320px;
+  margin: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  min-height: 100vh;
+  padding: 45px 0 56px;
+  box-sizing: border-box;
+
+  @include width-sm {
+    padding: 28px 0 36px;
+  }
+}

@@ -10,7 +10,7 @@ import { validationConfig } from '../utils/config.js';
 
 export function enableValidation(validationConfig) {
   const forms = Array.from(
-    document.querySelectorAll(validationConfig.formValidateSelector)
+    document.querySelectorAll(validationConfig.formValidateSelector),
   );
   forms.forEach((form) => setFormEventListeners(form));
 
@@ -35,7 +35,7 @@ export function enableValidation(validationConfig) {
 
   function handleFormInput(form, input) {
     const errorElement = input.parentNode.querySelector(
-      validationConfig.errorElementSelector
+      validationConfig.errorElementSelector,
     );
 
     input.validity.patternMismatch
@@ -60,7 +60,7 @@ export function enableValidation(validationConfig) {
   function setFormEventListeners(form) {
     const inputs = getFormInputs(form);
     const submitButton = form.querySelector(
-      validationConfig.submitButtonSelector
+      validationConfig.submitButtonSelector,
     );
 
     inputs.forEach((input) => {

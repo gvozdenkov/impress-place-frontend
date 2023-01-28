@@ -1,0 +1,26 @@
+@use '../../../abstract/mixins.scss' as *;
+
+.profile__edit-btn {
+  background-image: url('../../../../../images/edit_btn.svg');
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: var(--profile-edit-btn-size);
+  height: var(--profile-edit-btn-size);
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  grid-area: edit;
+  align-self: end;
+  margin-left: var(--profile-edit-btn-space);
+  margin-bottom: 12px;
+
+  @include width-lg {
+    margin-bottom: 6px;
+  }
+
+  @include width-md {
+    margin-bottom: 0;
+    align-self: center;
+  }
+}

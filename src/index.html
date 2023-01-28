@@ -10,8 +10,7 @@
     <link
       rel="shortcut icon"
       href="<%=require('./favicon.ico')%>"
-      type="image/x-icon"
-    />
+      type="image/x-icon" />
     <title>Mesto</title>
   </head>
   <body class="page">
@@ -20,8 +19,7 @@
         <img
           src="<%=require('./images/logo.svg')%>"
           alt="Mesto логотип."
-          class="logo logo_place_header"
-        />
+          class="logo logo_place_header" />
       </header>
       <main class="content">
         <section class="profile content__profile page__section">
@@ -29,23 +27,20 @@
             <img
               src=""
               alt="Аватар пользователя."
-              class="profile__avatar-img"
-            />
+              class="profile__avatar-img" />
           </div>
           <h1 class="profile__name">Arty Gvozdenkov</h1>
           <button
             class="profile__edit-btn link-hover"
             aria-label="Редактировать профиль"
             type="button"
-            data-popup="popup_type_edit-profile"
-          ></button>
+            data-popup="popup_type_edit-profile"></button>
           <p class="profile__about">web разработчик</p>
           <button
             class="profile__add-btn link-hover"
             aria-label="Добавить место"
             type="button"
-            data-popup="popup_type_add-card"
-          ></button>
+            data-popup="popup_type_add-card"></button>
         </section>
         <section class="places page__section" aria-label="Фото галерея">
           <ul class="photo-grid">
@@ -64,18 +59,15 @@
         class="popup__container"
         role="dialog"
         aria-labelledby="edit-avatar-form-title"
-        aria-modal="true"
-      >
+        aria-modal="true">
         <button
           class="popup__close-btn link-hover"
           aria-label="Закрыть попап"
-          type="button"
-        ></button>
+          type="button"></button>
         <form
           class="form validate edit-avatar-form"
           name="editAvatarForm"
-          novalidate
-        >
+          novalidate>
           <h2 class="form__title" id="edit-avatar-form-title">
             Обновить аватар
           </h2>
@@ -90,8 +82,7 @@
                 id="avatar-link"
                 class="form__input form__input_type_url"
                 placeholder="Ссылка на картинку"
-                required
-              />
+                required />
             </div>
           </fieldset>
           <button type="submit" class="button form__submit">
@@ -108,18 +99,15 @@
         class="popup__container"
         role="dialog"
         aria-labelledby="edit-profile-form-title"
-        aria-modal="true"
-      >
+        aria-modal="true">
         <button
           class="popup__close-btn link-hover"
           aria-label="Закрыть попап"
-          type="button"
-        ></button>
+          type="button"></button>
         <form
           class="form validate edit-profile-form"
           name="editProfileForm"
-          novalidate
-        >
+          novalidate>
           <h2 class="form__title" id="edit-profile-form-title">
             Редактировать профиль
           </h2>
@@ -136,8 +124,7 @@
                 maxlength="40"
                 pattern="[a-zA-Zа-яА-ЯёЁ\-\s]+"
                 data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
-                required
-              />
+                required />
             </div>
             <div class="form__field">
               <label for="about" class="form__label sr-only"
@@ -153,8 +140,7 @@
                 maxlength="200"
                 pattern="[a-zA-Zа-яА-ЯёЁ\-\s]+"
                 data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
-                required
-              />
+                required />
             </div>
           </fieldset>
           <button type="submit" class="button form__submit">
@@ -171,13 +157,11 @@
         class="popup__container"
         role="dialog"
         aria-labelledby="add-card-form-title"
-        aria-modal="true"
-      >
+        aria-modal="true">
         <button
           class="popup__close-btn link-hover"
           aria-label="Закрыть попап"
-          type="button"
-        ></button>
+          type="button"></button>
         <form class="form validate add-card-form" name="addCardForm" novalidate>
           <h2 class="form__title" id="add-card-form-title">Новое место</h2>
           <fieldset class="form__fieldset">
@@ -195,8 +179,7 @@
                 maxlength="30"
                 pattern="[a-zA-Zа-яА-ЯёЁ\-\s]+"
                 data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
-                required
-              />
+                required />
             </div>
 
             <div class="form__field">
@@ -209,8 +192,7 @@
                 id="place-link"
                 class="form__input form__input_type_url"
                 placeholder="Ссылка на картинку"
-                required
-              />
+                required />
             </div>
           </fieldset>
           <button type="submit" class="button form__submit">
@@ -227,13 +209,11 @@
         class="popup__container popup__container_type_image"
         role="dialog"
         aria-labelledby="popup-image-title"
-        aria-modal="true"
-      >
+        aria-modal="true">
         <button
           class="popup__close-btn link-hover"
           aria-label="Закрыть попап"
-          type="button"
-        ></button>
+          type="button"></button>
         <img src="" alt="/" class="popup__image" />
         <p class="popup__image-title" id="popup-image-title"></p>
       </div>
@@ -245,22 +225,18 @@
         class="popup__container"
         role="dialog"
         aria-labelledby="confirm-delete-form-title"
-        aria-modal="true"
-      >
+        aria-modal="true">
         <button
           class="popup__close-btn link-hover"
           aria-label="Закрыть попап"
-          type="button"
-        ></button>
+          type="button"></button>
         <form
           class="form confirm-delete-form"
           name="confirmDeleteForm"
-          novalidate
-        >
+          novalidate>
           <h2
             class="form__title form__title_type_no-inputs"
-            id="confirm-delete-form-title"
-          >
+            id="confirm-delete-form-title">
             Вы уверены?
           </h2>
           <button type="submit" class="button form__submit">
@@ -282,8 +258,7 @@
             <button
               class="card__like-btn link-hover link-hover_place_light"
               aria-label="Поставить лайк"
-              type="button"
-            ></button>
+              type="button"></button>
             <span class="card__like-count"></span>
           </footer>
         </article>

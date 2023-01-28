@@ -1,0 +1,9 @@
+@use '../../abstract/mixins.scss' as *;
+
+.footer {
+  padding-top: 66px;
+
+  @include width-sm {
+    padding-top: 48px;
+  }
+}

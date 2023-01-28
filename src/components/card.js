@@ -104,7 +104,7 @@ function createCardElement(card, userId, handleLikeCard, handleDeleteCard) {
 
 function removeCard(card) {
   const deletedCardElement = document.querySelector(
-    `[data-card-id="${card._id}"]`
+    `[data-card-id="${card._id}"]`,
   );
   deletedCardElement.remove();
 }
