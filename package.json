@@ -4,6 +4,7 @@
   "description": "Photo sharing service",
   "main": "index.js",
   "scripts": {
+    "format": "npx prettier src --write",
     "build": "set NODE NODE_ENV=production&&webpack",
     "dev": "set NODE NODE_ENV=development&&webpack serve",
     "predeploy": "npm run build",
