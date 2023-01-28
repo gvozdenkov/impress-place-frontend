@@ -4,8 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
-const mode =
-  process.env.NODE_ENV === 'production' ? 'production' : 'development';
+const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 const devMode = mode === 'development';
 
 module.exports = {
@@ -79,26 +78,26 @@ module.exports = {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-            }
+            },
           },
           {
             loader: 'postcss-loader',
             options: {
               sourceMap: true,
-            }
+            },
           },
           {
             loader: 'resolve-url-loader',
             options: {
               sourceMap: true,
-            }
+            },
           },
           {
             loader: 'sass-loader',
             options: {
-                sourceMap: true,
+              sourceMap: true,
             },
-        },
+          },
         ],
       },
     ],

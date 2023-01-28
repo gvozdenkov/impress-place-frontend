@@ -13,7 +13,7 @@ const getResponse = (res) => {
         Promise.reject({
           status: res.status,
           statusText: res.statusText,
-        })
+        }),
       );
   }
 };

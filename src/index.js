@@ -70,13 +70,13 @@ function renderInitialPage() {
       cards.reverse().forEach((card) => {
         renderCard(
           createCardElement(card, userId, handleLikeCard, handleDeleteCard),
-          cardsContainer
+          cardsContainer,
         );
       });
     })
     .catch((err) => {
       console.log(
-        `Ошибка ${err.status} при инициализации приложения: ${API_ERROR_MESSAGE}`
+        `Ошибка ${err.status} при инициализации приложения: ${API_ERROR_MESSAGE}`,
       );
     });
 }
@@ -98,7 +98,7 @@ function handleLikeCard(card, isLiked) {
         })
         .catch((err) => {
           console.log(
-            `Ошибка ${err.status} удаления лайка карточки: ${API_ERROR_MESSAGE}`
+            `Ошибка ${err.status} удаления лайка карточки: ${API_ERROR_MESSAGE}`,
           );
         })
     : setLike(card._id)
@@ -107,7 +107,7 @@ function handleLikeCard(card, isLiked) {
         })
         .catch((err) => {
           console.log(
-            `Ошибка ${err.status} лайка карточки: ${API_ERROR_MESSAGE}`
+            `Ошибка ${err.status} лайка карточки: ${API_ERROR_MESSAGE}`,
           );
         });
 }
@@ -126,7 +126,7 @@ function handleDeleteCard(card) {
       })
       .catch((err) => {
         console.log(
-          `Ошибка ${err.status} удаления карточки: ${API_ERROR_MESSAGE}`
+          `Ошибка ${err.status} удаления карточки: ${API_ERROR_MESSAGE}`,
         );
       })
       .finally(() => {
@@ -155,7 +155,7 @@ const handleEditProfileSubmit = (evt) => {
     })
     .catch((err) => {
       console.log(
-        `Ошибка ${err.status} редактирования профиля: ${API_ERROR_MESSAGE}`
+        `Ошибка ${err.status} редактирования профиля: ${API_ERROR_MESSAGE}`,
       );
     })
     .finally(() => {
@@ -179,7 +179,7 @@ const handleAddCardSubmit = (evt) => {
     })
     .catch((err) => {
       console.log(
-        `Ошибка ${err.status} добавления карточки: ${API_ERROR_MESSAGE}`
+        `Ошибка ${err.status} добавления карточки: ${API_ERROR_MESSAGE}`,
       );
     })
     .finally(() => {
@@ -203,7 +203,7 @@ const handleEditAvatarSubmit = (evt) => {
         })
         .catch((err) => {
           console.log(
-            `Ошибка загрузки аватара ${err.status}: ${API_ERROR_MESSAGE}`
+            `Ошибка загрузки аватара ${err.status}: ${API_ERROR_MESSAGE}`,
           );
         });
     })
@@ -224,7 +224,7 @@ const handleOpenPopupWithForm = (evt) => {
   const popup = getPopupElement(evt.target);
   const form = popup.querySelector(validationConfig.formSelector);
   const submitButton = popup.querySelector(
-    validationConfig.submitButtonSelector
+    validationConfig.submitButtonSelector,
   );
 
   removeInputErrors(form);
