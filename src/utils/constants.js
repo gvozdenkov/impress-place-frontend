@@ -56,3 +56,9 @@ export const aboutInput = document.querySelector('#about');
 export const formEditAvatar = document.querySelector('.edit-avatar-form');
 export const avatarInput = document.querySelector('#avatar-link');
 export const formConfirmDelete = document.querySelector('.confirm-delete-form');
+
+export const profileConfig = {
+  profileNameSelector: 'profile__name',
+  profileAboutSelector: 'profile__about',
+  profileAvatarSelector: 'profile__avatar-img',
+};

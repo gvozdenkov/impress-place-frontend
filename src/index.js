@@ -37,7 +37,6 @@ import {
 import {
   profileName,
   profileAbout,
-  profileAvatar,
   cardsContainer,
   avatarInput,
   formEditProfile,
@@ -53,36 +52,37 @@ import {
   popupEditProfile,
   popupAddCard,
   popupEditAvatar,
+  profileConfig,
 } from './utils/constants.js';
 
 import { validationConfig } from './utils/config.js';
 
 import { enableValidation, isFormValid } from './components/validate.js';
+import { User } from './components/user';
+import { UserProfile } from './components/userProfile';
 
-export let userId;
+let user;
+let profile;
 
-async function renderInitialPage() {
+renderInitApp();
+enableValidation(validationConfig);
+
+async function renderInitApp() {
   try {
-    const [user, cards] = await getAppInfo();
-    updateUserInfo(user);
+    const [userData, cards] = await getAppInfo();
+    user = User(userData);
+    profile = UserProfile(user, profileConfig);
+    profile.render();
 
     cards.reverse().forEach((card) => {
       renderCard(
-        createCardElement(card, userId, handleLikeCard, handleDeleteCard),
+        createCardElement(card, user.id(), handleLikeCard, handleDeleteCard),
         cardsContainer,
       );
     });
   } catch (err) {
     handleError(err);
   }
-}
-
-function updateUserInfo(user) {
-  profileAbout.textContent = user.about;
-  profileName.textContent = user.name;
-  profileAvatar.src = user.avatar;
-
-  userId = user._id;
 }
 
 async function handleLikeCard(card, isLiked) {
@@ -126,8 +126,9 @@ const handleEditProfileSubmit = async (evt) => {
   const { name, about } = getFormInputValues(form);
 
   try {
-    const user = await setUserInfo({ name, about });
-    updateUserInfo(user);
+    const updatedUser = await setUserInfo({ name, about });
+    user.setUserData(updatedUser);
+    profile.render();
     closePopup(popupEditProfile);
   } catch (err) {
     handleError(err);
@@ -148,7 +149,7 @@ const handleAddCardSubmit = async (evt) => {
     const card = await addCard({ name, link });
     const newCard = createCardElement(
       card,
-      userId,
+      user.id(),
       handleLikeCard,
       handleDeleteCard,
     );
@@ -170,8 +171,9 @@ const handleEditAvatarSubmit = async (evt) => {
 
   try {
     const url = await loadImage(avatarInput.value);
-    const user = await setUserAvatar(url);
-    updateUserInfo(user);
+    const updatedUser = await setUserAvatar(url);
+    user.setUserData(updatedUser);
+    profile.render();
     formEditAvatar.reset();
     closePopup(popupEditAvatar);
   } catch (err) {
@@ -208,8 +210,3 @@ btnOpenPopupEditProfile.addEventListener('click', (evt) => {
 btnOpenPopupAddCard.addEventListener('click', handleOpenPopupWithForm);
 
 avatarContainer.addEventListener('click', handleOpenPopupWithForm);
-
-// ====================================
-
-renderInitialPage();
-enableValidation(validationConfig);
