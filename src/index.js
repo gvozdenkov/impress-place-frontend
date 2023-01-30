@@ -2,13 +2,11 @@ import '../src/styles/index.scss';
 
 import {
   addCard,
-  deleteLike,
-  API_ERROR_MESSAGE,
   getAppInfo,
-  setLike,
   setUserAvatar,
   setUserInfo,
   deleteCard,
+  toggleLike,
 } from './components/api.js';
 
 import {
@@ -19,6 +17,7 @@ import {
   loadImage,
   showButtonLoadingEllipsis,
   hideButtonLoadingEllipsis,
+  handleError,
 } from './utils/utils.js';
 
 import {
@@ -62,23 +61,20 @@ import { enableValidation, isFormValid } from './components/validate.js';
 
 export let userId;
 
-function renderInitialPage() {
-  getAppInfo()
-    .then(([user, cards]) => {
-      updateUserInfo(user);
+async function renderInitialPage() {
+  try {
+    const [user, cards] = await getAppInfo();
+    updateUserInfo(user);
 
-      cards.reverse().forEach((card) => {
-        renderCard(
-          createCardElement(card, userId, handleLikeCard, handleDeleteCard),
-          cardsContainer,
-        );
-      });
-    })
-    .catch((err) => {
-      console.log(
-        `Ошибка ${err.status} при инициализации приложения: ${API_ERROR_MESSAGE}`,
+    cards.reverse().forEach((card) => {
+      renderCard(
+        createCardElement(card, userId, handleLikeCard, handleDeleteCard),
+        cardsContainer,
       );
     });
+  } catch (err) {
+    handleError(err);
+  }
 }
 
 function updateUserInfo(user) {
@@ -89,49 +85,30 @@ function updateUserInfo(user) {
   userId = user._id;
 }
 
-function handleLikeCard(card, isLiked) {
-  // debugger;
-  isLiked
-    ? deleteLike(card._id)
-        .then((card) => {
-          changeLike(card);
-        })
-        .catch((err) => {
-          console.log(
-            `Ошибка ${err.status} удаления лайка карточки: ${API_ERROR_MESSAGE}`,
-          );
-        })
-    : setLike(card._id)
-        .then((card) => {
-          changeLike(card);
-        })
-        .catch((err) => {
-          console.log(
-            `Ошибка ${err.status} лайка карточки: ${API_ERROR_MESSAGE}`,
-          );
-        });
+async function handleLikeCard(card, isLiked) {
+  try {
+    changeLike(await toggleLike(card._id, isLiked));
+  } catch (err) {
+    handleError(err);
+  }
 }
 
 function handleDeleteCard(card) {
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
 
     const submitButton = popupConfirmDelete.querySelector(submitButtonSelector);
     showButtonLoadingEllipsis(submitButton, 'Удаление');
 
-    deleteCard(card._id)
-      .then(() => {
-        removeCard(card);
-        closePopupWithForm(popupConfirmDelete, handleSubmit);
-      })
-      .catch((err) => {
-        console.log(
-          `Ошибка ${err.status} удаления карточки: ${API_ERROR_MESSAGE}`,
-        );
-      })
-      .finally(() => {
-        hideButtonLoadingEllipsis(submitButton, 'Да');
-      });
+    try {
+      await deleteCard(card._id);
+      removeCard(card);
+      closePopupWithForm(popupConfirmDelete, handleSubmit);
+    } catch (err) {
+      handleError(err);
+    } finally {
+      hideButtonLoadingEllipsis(submitButton, 'Да');
+    }
   };
 
   openedPopupWithForm(popupConfirmDelete, handleSubmit);
@@ -139,80 +116,69 @@ function handleDeleteCard(card) {
 
 //=============== Form events =====================================
 
-const handleEditProfileSubmit = (evt) => {
+const handleEditProfileSubmit = async (evt) => {
   evt.preventDefault();
 
-  const submitButton = evt.target.querySelector(submitButtonSelector);
+  const submitButton = evt.submitter;
   showButtonLoadingEllipsis(submitButton, 'Сохранение');
 
   const form = evt.target;
   const { name, about } = getFormInputValues(form);
 
-  setUserInfo({ name, about })
-    .then((user) => {
-      updateUserInfo(user);
-      closePopup(popupEditProfile);
-    })
-    .catch((err) => {
-      console.log(
-        `Ошибка ${err.status} редактирования профиля: ${API_ERROR_MESSAGE}`,
-      );
-    })
-    .finally(() => {
-      hideButtonLoadingEllipsis(submitButton, 'Сохранить');
-    });
+  try {
+    const user = await setUserInfo({ name, about });
+    updateUserInfo(user);
+    closePopup(popupEditProfile);
+  } catch (err) {
+    handleError(err);
+  } finally {
+    hideButtonLoadingEllipsis(submitButton, 'Сохранить');
+  }
 };
 
-const handleAddCardSubmit = (evt) => {
+const handleAddCardSubmit = async (evt) => {
   evt.preventDefault();
 
-  const submitButton = evt.target.querySelector(submitButtonSelector);
+  const submitButton = evt.submitter;
   showButtonLoadingEllipsis(submitButton, 'Создание');
 
   const { name, link } = getFormInputValues(formAddCard);
-  addCard({ name, link })
-    .then((card) => {
-      const newCard = createCardElement(card);
-      renderCard(newCard, cardsContainer);
-      formAddCard.reset();
-      closePopup(popupAddCard);
-    })
-    .catch((err) => {
-      console.log(
-        `Ошибка ${err.status} добавления карточки: ${API_ERROR_MESSAGE}`,
-      );
-    })
-    .finally(() => {
-      hideButtonLoadingEllipsis(submitButton, 'Создать');
-    });
+
+  try {
+    const card = await addCard({ name, link });
+    const newCard = createCardElement(
+      card,
+      userId,
+      handleLikeCard,
+      handleDeleteCard,
+    );
+    renderCard(newCard, cardsContainer);
+    formAddCard.reset();
+    closePopup(popupAddCard);
+  } catch (err) {
+    handleError(err);
+  } finally {
+    hideButtonLoadingEllipsis(submitButton, 'Сохранить');
+  }
 };
 
-const handleEditAvatarSubmit = (evt) => {
+const handleEditAvatarSubmit = async (evt) => {
   evt.preventDefault();
 
   const submitButton = evt.target.querySelector(submitButtonSelector);
   showButtonLoadingEllipsis(submitButton, 'Сохранение');
 
-  loadImage(avatarInput.value)
-    .then((url) => {
-      setUserAvatar(url)
-        .then((user) => {
-          updateUserInfo(user);
-          formEditAvatar.reset();
-          closePopup(popupEditAvatar);
-        })
-        .catch((err) => {
-          console.log(
-            `Ошибка загрузки аватара ${err.status}: ${API_ERROR_MESSAGE}`,
-          );
-        });
-    })
-    .catch((url) => {
-      console.log(`image not found for url ${url}`);
-    })
-    .finally(() => {
-      hideButtonLoadingEllipsis(submitButton, 'Сохранить');
-    });
+  try {
+    const url = await loadImage(avatarInput.value);
+    const user = await setUserAvatar(url);
+    updateUserInfo(user);
+    formEditAvatar.reset();
+    closePopup(popupEditAvatar);
+  } catch (err) {
+    handleError(err);
+  } finally {
+    hideButtonLoadingEllipsis(submitButton, 'Сохранить');
+  }
 };
 
 formEditProfile.addEventListener('submit', handleEditProfileSubmit);

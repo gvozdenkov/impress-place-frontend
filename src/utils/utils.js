@@ -76,11 +76,21 @@ export function loadImage(url) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.src = url;
-    img.onerror = () => reject(url);
+    img.onerror = () =>
+      reject({
+        status: 404,
+        message: `Не удалось загрузить картинку по этому URL`,
+      });
     img.onload = () => resolve(url);
   });
 }
 
-export function confirmSubmit(form) {
-  return new Promise((res, rej) => {});
+function createErrorMessage(err) {
+  return err.text
+    ? `Ошибка ${err.status}: ${err.statusText}. ${err.message}}`
+    : `Ошибка ${err.status}: ${err.message}`;
+}
+
+export function handleError(err) {
+  console.log(createErrorMessage(err));
 }

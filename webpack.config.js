@@ -20,7 +20,7 @@ module.exports = {
   mode,
   devtool: 'eval-cheap-module-source-map', //eval-source-map
   devServer: {
-    static: path.resolve(__dirname, './build'),
+    static: path.resolve(__dirname, 'build'),
     compress: true,
     port: 8081,
     open: false,
