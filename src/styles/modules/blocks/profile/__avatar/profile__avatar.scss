@@ -9,6 +9,7 @@
   height: 120px;
   overflow: hidden;
 
+  // dark overlay
   &::before {
     content: '';
     position: absolute;
@@ -26,6 +27,7 @@
     cursor: pointer;
   }
 
+  // edit avatar icon
   &::after {
     content: '';
     position: absolute;
@@ -36,7 +38,7 @@
     mask-image: url('../../../../../images/avatar_edit.svg');
     mask-repeat: no-repeat;
     mask-position: center;
-    mask-size: 40px 40px;
+    mask-size: 26px 26px;
     background-color: white;
     opacity: 0;
     transition: opacity 0.3s ease-out;

@@ -32,17 +32,6 @@ export function getFormInputs(form) {
   return inputsForValidate;
 }
 
-export function removeInputErrors(form) {
-  const inputs = getFormInputs(form);
-
-  inputs.forEach((input) => {
-    const errorElement = getErrorElement(form, input);
-    if (errorElement) {
-      errorElement.remove();
-    }
-  });
-}
-
 export function setButtonState(button, isFormValid) {
   if (isFormValid) {
     button.removeAttribute('disabled');

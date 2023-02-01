@@ -11,7 +11,6 @@ import {
 
 import {
   getFormInputValues,
-  removeInputErrors,
   setButtonState,
   getPopupElement,
   loadImage,
@@ -52,12 +51,15 @@ import {
   popupEditProfile,
   popupAddCard,
   popupEditAvatar,
-  profileConfig,
 } from './utils/constants.js';
 
-import { validationConfig } from './utils/config.js';
+import { validationConfig, profileConfig } from './utils/config.js';
 
-import { enableValidation, isFormValid } from './components/validate.js';
+import {
+  enableValidation,
+  isFormValid,
+  removeInputErrors,
+} from './components/validate.js';
 import { User } from './components/user';
 import { UserProfile } from './components/userProfile';
 

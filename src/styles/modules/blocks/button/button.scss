@@ -1,5 +1,5 @@
 @use '../../abstract/mixins.scss' as *;
-@use '../../abstract/variables.scss' as *;
+@use '../../abstract/variables.module.scss' as *;
 
 .button {
   height: 50px;

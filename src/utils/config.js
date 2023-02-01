@@ -1,6 +1,7 @@
 const validationConfig = {
   formValidateSelector: '.validate',
   formSelector: '.form',
+  formFieldSelector: '.form__field',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit',
   inactiveButtonClass: 'button_disabled',
@@ -17,4 +18,10 @@ const serverConfig = {
   },
 };
 
-export { validationConfig, serverConfig };
+const profileConfig = {
+  profileNameSelector: 'profile__name',
+  profileAboutSelector: 'profile__about',
+  profileAvatarSelector: 'profile__avatar-img',
+};
+
+export { validationConfig, serverConfig, profileConfig };

@@ -1,4 +1,5 @@
 import { errorTemplate } from '../utils/constants.js';
+import variables from '../styles/modules/abstract/variables.module.scss';
 
 import {
   getErrorElement,
@@ -17,20 +18,20 @@ export function enableValidation(validationConfig) {
   function showInputError(form, input, message) {
     const errorElement = getErrorElement(form, input);
     errorElement.textContent = message;
-    errorElement.classList.add(validationConfig.errorElementClassActive);
 
-    input.classList.add(validationConfig.inputErrorClass);
+    const formField = errorElement.closest(validationConfig.formFieldSelector);
+
+    // if err text too high for fixed .form__field spacing
+    const fieldMarginBottom = Number(variables.formFieldMarginBottom);
+
+    if (errorElement.offsetHeight > fieldMarginBottom) {
+      errorElement.style.position = 'initial';
+      formField.style.marginBottom = 0;
+    }
+
     input.setAttribute('aria-describedby', `${input.id}-error`);
-  }
-
-  function hideInputError(form, input) {
-    const errorElement = getErrorElement(form, input);
-
-    input.classList.remove(validationConfig.inputErrorClass);
-    input.removeAttribute('aria-describedby');
-
-    errorElement.classList.remove(validationConfig.errorElementClassActive);
-    errorElement.textContent = '';
+    input.classList.add(validationConfig.inputErrorClass);
+    errorElement.classList.add(validationConfig.errorElementClassActive);
   }
 
   function handleFormInput(form, input) {
@@ -52,7 +53,7 @@ export function enableValidation(validationConfig) {
       showInputError(form, input, input.validationMessage);
     } else {
       if (errorElement) {
-        hideInputError(form, input);
+        hideInputError(input);
       }
     }
   }
@@ -72,9 +73,33 @@ export function enableValidation(validationConfig) {
   }
 }
 
+function hideInputError(input) {
+  const formField = input.parentNode;
+  formField.removeAttribute('style');
+
+  const errorElement = formField.querySelector(
+    validationConfig.errorElementSelector,
+  );
+  if (errorElement) {
+    errorElement.removeAttribute('style');
+    errorElement.classList.remove(validationConfig.errorElementClassActive);
+    errorElement.textContent = '';
+    errorElement.remove();
+  }
+
+  input.removeAttribute('aria-describedby');
+  input.classList.remove(validationConfig.inputErrorClass);
+}
+
 export function isFormValid(form) {
   const inputs = getFormInputs(form);
   return inputs.every((input) => input.validity.valid);
+}
+
+export function removeInputErrors(form) {
+  const inputs = getFormInputs(form);
+
+  inputs.forEach((input) => hideInputError(input));
 }
 
 function generateErrorForInput(input) {
