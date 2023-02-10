@@ -1,6 +1,6 @@
 import { serverConfig } from '../utils/config';
 
-class Api {
+export default class Api {
   #baseUrl;
   #headers;
 
@@ -10,9 +10,7 @@ class Api {
   }
 
   #getResponse(res) {
-    return res.ok
-      ? res.json()
-      : Promise.reject(`Ошибка! ${res.statusText} Код ошибки: ${res.status}.`);
+    return (res.ok) ? res.json() : Promise.reject(res);
   }
 
   async #request(endpoint, options = {}) {
@@ -26,7 +24,7 @@ class Api {
   }
 
   getUser() {
-    this.#request(`users/me`);
+    return this.#request(`users/me`);
   }
 
   updateUser({ name, about }) {
@@ -47,7 +45,7 @@ class Api {
   }
 
   getCards() {
-    this.#request(`cards`, {});
+    return this.#request(`cards`, {});
   }
 
   addCard({ name, link }) {
@@ -71,8 +69,9 @@ class Api {
       method: isLiked ? 'DELETE' : 'PUT',
     });
   }
+
+  getAppData() {
+    return Promise.all([this.getUser(), this.getCards()]);
+  }
 }
 
-const api = new Api(serverConfig);
-
-export { api };

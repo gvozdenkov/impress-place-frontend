@@ -4,7 +4,6 @@ export const cardTemplate = document.querySelector('#card-template').content;
 export const errorTemplate = document.querySelector(
   '#form-input-error-template',
 ).content;
-
 // DOM elements
 export const avatarContainer = content.querySelector('.profile__avatar');
 export const profileAvatar = content.querySelector('.profile__avatar-img');
