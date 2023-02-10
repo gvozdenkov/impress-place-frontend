@@ -62,16 +62,25 @@ import {
 } from './components/validate.js';
 import { User } from './components/user';
 import { UserProfile } from './components/userProfile';
+import { api } from './components/Api-dev';
 
 let user;
 let profile;
+console.log(api);
 
 renderInitApp();
 enableValidation(validationConfig);
 
+async function getAppInitData(...promises) {
+  return Promise.all(promises);
+}
+
 async function renderInitApp() {
   try {
-    const [userData, cards] = await getAppInfo();
+    const [userData, cards] = await getAppInitData(
+      api.getUser(),
+      api.getCards(),
+    );
     user = User(userData);
     profile = UserProfile(user, profileConfig);
     profile.render();
