@@ -67,6 +67,8 @@ import { UserProfile } from '../components/UserProfile';
 import Api from '../components/Api';
 import User from '../components/User.js';
 import { Section } from '../components/Section';
+import { Popup } from '../components/Popup.js';
+import { POPUP } from '../utils/enum.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const api = new Api(serverConfig);
@@ -104,11 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const handleImageClick = (card) => {
-    const { name, link } = card.getData();
-    cardPopupImage.src = link;
-    cardPopupImage.alt = `${name}.`;
-    cardPopupTitle.textContent = name;
-    popupCard.classList.add(popupOpenedClass);
+    // const { name, link } = card.getData();
+    // cardPopupImage.src = link;
+    // cardPopupImage.alt = `${name}.`;
+    // cardPopupTitle.textContent = name;
+    const popup = new Popup(POPUP.TYPE_IMAGE)
+    popup.open();
   };
 
   async function renderInitApp() {
