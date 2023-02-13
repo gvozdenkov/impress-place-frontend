@@ -1,22 +1,16 @@
-  import {
-  cardTemplate,
-  cardPopupImage,
-  cardPopupTitle,
-  popupCard,
-  cardSelector,
-  cardImageSelector,
-  cardTitleSelector,
-  cardLikeSelector,
-  cardLikeActiveClass,
-  cardDeleteSelector,
-  cardLikeWithCountClass,
-  cardLikeCountSelector,
-  photoGridItemSelector,
-  popupOpenedClass,
+import {
   cardDeleteDisabledClass,
+  cardDeleteSelector,
+  cardImageSelector,
+  cardLikeActiveClass,
+  cardLikeCountSelector,
+  cardLikeSelector,
+  cardLikeWithCountClass,
+  cardSelector,
+  cardTitleSelector,
+  photoGridItemSelector,
 } from '../utils/constants.js';
 
-import { openPopup } from './modal.js';
 
 export class Card {
   #selector;
@@ -72,12 +66,10 @@ export class Card {
   }
 
   #getElement() {
-    const cardElement = document
+    return document
       .querySelector(this.#selector)
       .content.querySelector(photoGridItemSelector)
       .cloneNode(true);
-
-    return cardElement;
   }
 
   generate() {
@@ -92,7 +84,7 @@ export class Card {
       this.#cardLikeCount.textContent = '';
     }
 
-    if (this.#isLiked()) {
+    if (this.isLiked()) {
       this.#cardLikeBtn.classList.add(cardLikeActiveClass);
     }
 
@@ -104,7 +96,7 @@ export class Card {
     return this.#listElement;
   }
 
-  getCardData() {
+  getData() {
     return {
       name: this.#name,
       link: this.#link,
@@ -114,12 +106,36 @@ export class Card {
     };
   }
 
+  remove() {
+    this.#cardElement.remove();
+  }
+
   #isHasLikes() {
+    console.log(this.#likes.length > 0);
     return this.#likes.length > 0;
   }
 
-  #isLiked() {
+  isLiked() {
     return this.#likes.some((like) => like._id === this.#userId);
+  }
+
+  changeLike(card) {
+    this.#likes = card.likes;
+    console.log(this.#likes, this.isLiked(), this.#isHasLikes());
+
+    if (this.#isHasLikes()) {
+      this.#cardLikeCount.textContent = this.#likes.length;
+      this.#cardLikeBtn.classList.add(cardLikeWithCountClass);
+    } else {
+      this.#cardLikeCount.textContent = '';
+      this.#cardLikeBtn.classList.remove(cardLikeWithCountClass);
+    }
+
+    if (this.isLiked()) {
+      this.#cardLikeBtn.classList.add(cardLikeActiveClass);
+    } else {
+      this.#cardLikeBtn.classList.remove(cardLikeActiveClass);
+    }
   }
 
   #setEventListeners() {
@@ -131,7 +147,8 @@ export class Card {
       this.#handleLike(this);
     });
 
-    this.#cardDeleteBtn.addEventListener('click', () => {
+    this.#cardDeleteBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       this.#handleDelete(this);
     });
   }

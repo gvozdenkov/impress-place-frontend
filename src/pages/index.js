@@ -68,61 +68,88 @@ import Api from '../components/Api';
 import User from '../components/User.js';
 import { Section } from '../components/Section';
 
-renderInitApp();
-// enableValidation(validationConfig);
+document.addEventListener('DOMContentLoaded', () => {
+  const api = new Api(serverConfig);
 
-const handleLike = (card) => {
-  const { name } = card.getCardData();
-  console.log(`like ${name} card`);
-};
+  const handleLike = async (card) => {
+    try {
+      const { id } = card.getData();
+      const newCard = await api.toggleLike(id, card.isLiked());
+      console.log(newCard);
+      card.changeLike(newCard)
+    } catch (err) {
+      handleError(err);
+    }
+  };
 
-const handleDelete = (card) => {
-  const { name } = card.getCardData();
-  console.log(`delete ${name} card`);
-};
+  const handleDelete = async (card) => {
 
-const handleImageClick = (card) => {
-  const { name, link } = card.getCardData();
-  cardPopupImage.src = link;
-  cardPopupImage.alt = `${name}.`;
-  cardPopupTitle.textContent = name;
-  popupCard.classList.add(popupOpenedClass);
-};
+    // const submitButton = popupConfirmDelete.querySelector(submitButtonSelector);
+    // showButtonLoadingEllipsis(submitButton, 'Удаление');
+    // try {
+    //   const { id } = card.getData();
+    //   await api.deleteCard(id);
+    //
+    //   closePopupWithForm(popupConfirmDelete, handleDelete);
+    // } catch (err) {
+    //   handleError(err);
+    // } finally {
+    //   hideButtonLoadingEllipsis(submitButton, 'Да');
+    // }
 
-async function renderInitApp() {
-  try {
-    const api = new Api(serverConfig);
-    const [userData, cards] = await api.getAppData();
+    openedPopupWithForm(popupConfirmDelete, handleDelete);
+    console.log(`delete ${name} card`);
+  };
 
-    const user = new User(userData);
-    const profile = new UserProfile(profileConfig);
-    profile.render(user.getInfo());
 
-    const cardList = new Section(
-      {
-        data: cards,
-        renderer: (cardData) => {
-          const card = new Card(
-            cardTemplate,
-            cardData,
-            user.id(),
-            handleLike,
-            handleDelete,
-            handleImageClick,
-          );
-          const cardElement = card.generate();
-          cardList.setItem(cardElement);
+
+  const handleImageClick = (card) => {
+    const { name, link } = card.getData();
+    cardPopupImage.src = link;
+    cardPopupImage.alt = `${name}.`;
+    cardPopupTitle.textContent = name;
+    popupCard.classList.add(popupOpenedClass);
+  };
+
+  async function renderInitApp() {
+    try {
+      const [userData, cards] = await api.getAppData();
+
+      const user = new User(userData);
+      const profile = new UserProfile(profileConfig);
+      profile.render(user.getInfo());
+
+      const cardList = new Section(
+        {
+          data: cards,
+          renderer: (cardData) => {
+            const card = new Card(
+              cardTemplate,
+              cardData,
+              user.id(),
+              handleLike,
+              handleDelete,
+              handleImageClick,
+            );
+            const cardElement = card.generate();
+            cardList.setItem(cardElement);
+          },
         },
-      },
-      cardsContainerSelector,
-    );
+        cardsContainerSelector,
+      );
 
-    cardList.renderItems();
-  } catch (err) {
-    console.log(err);
-    // handleError(err);
+      cardList.renderItems();
+    } catch (err) {
+      console.log(err);
+      // handleError(err);
+    }
   }
-}
+
+  renderInitApp();
+
+})
+
+// enableValidation(validationConfig);
 
 //
 // async function handleLikeCard(card, isLiked) {

@@ -28,7 +28,7 @@ export default class Api {
   }
 
   updateUser({ name, about }) {
-    this.#request(`users/me`, {
+    return this.#request(`users/me`, {
       method: 'PATCH',
       body: JSON.stringify({
         name,
@@ -38,7 +38,7 @@ export default class Api {
   }
 
   updateUserAvatar(avatar) {
-    this.#request(`users/me/avatar`, {
+    return this.#request(`users/me/avatar`, {
       method: 'PATCH',
       body: JSON.stringify({ avatar }),
     });
@@ -49,7 +49,7 @@ export default class Api {
   }
 
   addCard({ name, link }) {
-    this.#request('cards', {
+    return this.#request('cards', {
       method: 'POST',
       body: JSON.stringify({
         name,
@@ -59,13 +59,13 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    this.#request(`cards/${cardId}`, {
+    return this.#request(`cards/${cardId}`, {
       method: 'DELETE',
     });
   }
 
   toggleLike(cardId, isLiked) {
-    this.#request(`cards/likes/${cardId}`, {
+    return this.#request(`cards/likes/${cardId}`, {
       method: isLiked ? 'DELETE' : 'PUT',
     });
   }
