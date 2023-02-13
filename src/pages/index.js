@@ -69,6 +69,7 @@ import User from '../components/User.js';
 import { Section } from '../components/Section';
 import { Popup } from '../components/Popup.js';
 import { POPUP } from '../utils/enum.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const api = new Api(serverConfig);
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const { id } = card.getData();
       const newCard = await api.toggleLike(id, card.isLiked());
       console.log(newCard);
-      card.changeLike(newCard)
+      card.changeLike(newCard);
     } catch (err) {
       handleError(err);
     }
@@ -104,13 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
-
   const handleImageClick = (card) => {
-    // const { name, link } = card.getData();
-    // cardPopupImage.src = link;
-    // cardPopupImage.alt = `${name}.`;
-    // cardPopupTitle.textContent = name;
-    const popup = new Popup(POPUP.TYPE_IMAGE)
+    const { name, link } = card.getData();
+    const popup = new PopupWithImage(POPUP.TYPE_IMAGE, POPUP.IMAGE_SELECTOR, POPUP.TITLE_SELECTOR);
+    popup.fill({ link, name });
     popup.open();
   };
 
@@ -150,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderInitApp();
 
-})
+});
 
 // enableValidation(validationConfig);
 
