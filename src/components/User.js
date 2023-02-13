@@ -4,23 +4,22 @@ export default class User {
   #about;
   #avatar;
 
-
-  constructor({ id, name, about, avatar }) {
-    this.#id = id;
+  constructor({ _id, name, about, avatar }) {
+    this.#id = _id;
     this.#name = name;
     this.#about = about;
     this.#avatar = avatar;
   }
 
-  getUserId() {
+  id() {
     return this.#id;
   }
 
-  getUserInfo() {
+  getInfo() {
     return {
       name: this.#name,
       about: this.#about,
-      avatar: this.#avatar
-    }
-  };
+      avatar: this.#avatar,
+    };
+  }
 }

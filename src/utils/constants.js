@@ -1,6 +1,7 @@
 export const content = document.querySelector('.content');
 export const cardsContainer = content.querySelector('.photo-grid');
-export const cardTemplate = document.querySelector('#card-template').content;
+export const cardsContainerSelector = '.photo-grid';
+export const cardTemplate = '#card-template';
 export const errorTemplate = document.querySelector(
   '#form-input-error-template',
 ).content;
@@ -28,6 +29,7 @@ export const cardLikeCountSelector = '.card__like-count';
 export const cardLikeActiveClass = 'card__like-btn_active';
 export const cardLikeWithCountClass = 'card__like-btn_with-count';
 export const cardDeleteSelector = '.card__delete-btn';
+export const cardDeleteDisabledClass = 'card__delete-btn_disabled';
 
 // popups
 export const popupOpenedClass = 'popup_opened';

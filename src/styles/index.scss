@@ -35,6 +35,7 @@
 @use './modules/blocks/card/__like-btn/_with-count/card__like-btn_with-count.scss';
 @use './modules/blocks/card/__like-count/card__like-count.scss';
 @use './modules/blocks/card/__delete-btn/card__delete-btn.scss';
+@use './modules/blocks/card/__delete-btn/_disabled/card__delete-btn_disabled.scss';
 
 @use './modules/blocks/footer/footer.scss';
 @use './modules/blocks/footer/__copyright/footer__copyright.scss';

@@ -1,4 +1,6 @@
-import '../src/styles/index.scss';
+'use strict';
+
+import '../styles/index.scss';
 
 import {
   getFormInputValues,
@@ -8,21 +10,21 @@ import {
   showButtonLoadingEllipsis,
   hideButtonLoadingEllipsis,
   handleError,
-} from './utils/utils.js';
+} from '../utils/utils.js';
 
 import {
   openPopup,
   closePopup,
   openedPopupWithForm,
   closePopupWithForm,
-} from './components/modal.js';
+} from '../components/modal.js';
 
 import {
+  Card,
   changeLike,
   createCardElement,
   removeCard,
-  renderCard,
-} from './components/card.js';
+} from '../components/Card.js';
 
 import {
   profileName,
@@ -42,49 +44,86 @@ import {
   popupEditProfile,
   popupAddCard,
   popupEditAvatar,
-} from './utils/constants.js';
+  cardTemplate,
+  cardsContainerSelector,
+  cardPopupImage,
+  cardPopupTitle,
+  popupCard,
+  popupOpenedClass,
+} from '../utils/constants.js';
 
 import {
   validationConfig,
   profileConfig,
-  serverConfig
-} from './utils/config.js';
+  serverConfig,
+} from '../utils/config.js';
 
 import {
   enableValidation,
   isFormValid,
   removeInputErrors,
-} from './components/validate.js';
-// import { UserOld } from './components/user-old.js';
-import { UserProfile } from './components/userProfile';
-import Api from './components/Api-dev';
-import User from './components/User.js';
-
-// console.log(api);
-
+} from '../components/validate.js';
+import { UserProfile } from '../components/UserProfile';
+import Api from '../components/Api';
+import User from '../components/User.js';
+import { Section } from '../components/Section';
 
 renderInitApp();
 // enableValidation(validationConfig);
+
+const handleLike = (card) => {
+  const { name } = card.getCardData();
+  console.log(`like ${name} card`);
+};
+
+const handleDelete = (card) => {
+  const { name } = card.getCardData();
+  console.log(`delete ${name} card`);
+};
+
+const handleImageClick = (card) => {
+  const { name, link } = card.getCardData();
+  cardPopupImage.src = link;
+  cardPopupImage.alt = `${name}.`;
+  cardPopupTitle.textContent = name;
+  popupCard.classList.add(popupOpenedClass);
+};
 
 async function renderInitApp() {
   try {
     const api = new Api(serverConfig);
     const [userData, cards] = await api.getAppData();
-    const user = new User(userData);
-    console.log(user.getUserInfo(), cards);
-    // profile = UserProfile(user, profileConfig);
-    // profile.render();
 
-    // cards.reverse().forEach((card) => {
-    //   renderCard(
-    //     createCardElement(card, user.id(), handleLikeCard, handleDeleteCard),
-    //     cardsContainer,
-    //   );
-    // });
+    const user = new User(userData);
+    const profile = new UserProfile(profileConfig);
+    profile.render(user.getInfo());
+
+    const cardList = new Section(
+      {
+        data: cards,
+        renderer: (cardData) => {
+          const card = new Card(
+            cardTemplate,
+            cardData,
+            user.id(),
+            handleLike,
+            handleDelete,
+            handleImageClick,
+          );
+          const cardElement = card.generate();
+          cardList.setItem(cardElement);
+        },
+      },
+      cardsContainerSelector,
+    );
+
+    cardList.renderItems();
   } catch (err) {
+    console.log(err);
     // handleError(err);
   }
 }
+
 //
 // async function handleLikeCard(card, isLiked) {
 //   try {

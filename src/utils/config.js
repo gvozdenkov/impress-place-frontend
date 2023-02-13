@@ -19,9 +19,9 @@ const serverConfig = {
 };
 
 const profileConfig = {
-  profileNameSelector: 'profile__name',
-  profileAboutSelector: 'profile__about',
-  profileAvatarSelector: 'profile__avatar-img',
+  profileNameSelector: '.profile__name',
+  profileAboutSelector: '.profile__about',
+  profileAvatarSelector: '.profile__avatar-img',
 };
 
 export { validationConfig, serverConfig, profileConfig };
