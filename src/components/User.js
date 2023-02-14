@@ -11,11 +11,17 @@ export default class User {
     this.#avatar = avatar;
   }
 
+  update({ name, about, avatar }) {
+    this.#name = name;
+    this.#about = about;
+    this.#avatar = avatar;
+  }
+
   id() {
     return this.#id;
   }
 
-  getInfo() {
+  getData() {
     return {
       name: this.#name,
       about: this.#about,

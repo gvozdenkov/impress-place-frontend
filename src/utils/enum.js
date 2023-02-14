@@ -1,7 +1,10 @@
-export const POPUP = {
-  TYPE_IMAGE: '.popup_type_image',
-  TITLE_SELECTOR: '.popup__image-title',
-  IMAGE_SELECTOR: '.popup__image'
-  // TYPE_: '.popup_type_image',
-  // TYPE_IMAGE: '.popup_type_image',
-}
+export const IMAGE_POPUP_SELECTORS = {
+  popupSelector: '.popup_type_image',
+  imageSelector: '.popup__image',
+  titleSelector: '.popup__image-title',
+};
+
+// export const FORM_POPUP_SELECTORS = {
+//   formSelector: '.form',
+
+// }

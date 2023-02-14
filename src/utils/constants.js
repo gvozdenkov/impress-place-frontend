@@ -38,14 +38,11 @@ export const popupCloseBtnClass = 'popup__close-btn';
 export const popupEditAvatar = document.querySelector(
   '.popup_type_edit-avatar',
 );
-export const popupEditProfile = document.querySelector(
-  '.popup_type_edit-profile',
-);
+export const popupEditProfileSelector = '.popup_type_edit-profile';
 export const popupAddCard = document.querySelector('.popup_type_add-card');
 export const popupCard = document.querySelector('.popup_type_image');
-export const popupConfirmDelete = document.querySelector(
-  '.popup_type_confirm-delete',
-);
+export const popupDelete = document.querySelector('.popup_type_delete');
+export const popupDeleteSelector = '.popup_type_delete';
 export const cardPopupImage = popupCard.querySelector('.popup__image');
 export const cardPopupTitle = popupCard.querySelector('.popup__image-title');
 

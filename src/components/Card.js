@@ -11,7 +11,6 @@ import {
   photoGridItemSelector,
 } from '../utils/constants.js';
 
-
 export class Card {
   #selector;
   #name;
@@ -107,11 +106,10 @@ export class Card {
   }
 
   remove() {
-    this.#cardElement.remove();
+    this.#listElement.remove();
   }
 
   #isHasLikes() {
-    console.log(this.#likes.length > 0);
     return this.#likes.length > 0;
   }
 
@@ -121,7 +119,6 @@ export class Card {
 
   changeLike(card) {
     this.#likes = card.likes;
-    console.log(this.#likes, this.isLiked(), this.#isHasLikes());
 
     if (this.#isHasLikes()) {
       this.#cardLikeCount.textContent = this.#likes.length;

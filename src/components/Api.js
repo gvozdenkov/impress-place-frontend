@@ -1,5 +1,3 @@
-import { serverConfig } from '../utils/config';
-
 export default class Api {
   #baseUrl = null;
   #headers = null;
@@ -45,7 +43,7 @@ export default class Api {
   }
 
   getCards() {
-    return this.#request(`cards`, {});
+    return this.#request(`cards`);
   }
 
   addCard({ name, link }) {

@@ -3,34 +3,44 @@ import { popupCloseBtnClass, popupOpenedClass } from '../utils/constants.js';
 export class Popup {
   #popup;
 
-  constructor(selector) {
-    this.#popup = document.querySelector(selector);
+  constructor(popupSelector) {
+    this.#popup = document.querySelector(popupSelector);
   }
 
   open() {
-    // добавить класс + listeners
     this.#popup.classList.add(popupOpenedClass);
-    this.#addCloseListeners();
+    this.addEventListeners();
   }
 
-  #addCloseListeners() {
-    this.#popup.addEventListener('mousedown', this.#handleMouseEvent);
-    document.addEventListener('keydown', this.#handleKeyboardEvent);
+  getPopupElement() {
+    return this.#popup;
+  }
+
+  addEventListeners() {
+    this.#popup.addEventListener('mousedown', (evt) => {
+      this.#handlePopupCloseClick(evt);
+    });
+    document.addEventListener('keydown', (evt) => {
+      this.#handlePopupCloseEsc(evt);
+    });
   }
 
   #removeCloseListeners() {
-    document.removeEventListener('mousedown', this.#handleMouseEvent);
-    document.removeEventListener('keydown', this.#handleKeyboardEvent);
+    this.#popup.removeEventListener('mousedown', this.#handlePopupCloseClick);
+    document.removeEventListener('keydown', this.#handlePopupCloseEsc);
   }
 
-  #handleMouseEvent = (e) => {
-    const closeCondition = e.target.classList.contains(popupCloseBtnClass)
-      || e.target.classList.contains(popupOpenedClass);
+  #handlePopupCloseClick = (evt) => {
+    const classList = evt.target.classList;
+    const closeCondition =
+      classList.contains(popupCloseBtnClass) ||
+      classList.contains(popupOpenedClass);
+
     if (closeCondition) this.close();
   };
 
-  #handleKeyboardEvent = (e) => {
-    if (e.key === 'Escape') this.close();
+  #handlePopupCloseEsc = (evt) => {
+    if (evt.key === 'Escape') this.close();
   };
 
   close() {
