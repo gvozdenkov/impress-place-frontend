@@ -72,9 +72,13 @@ import { Popup } from '../components/Popup.js';
 import { IMAGE_POPUP_SELECTORS, POPUP } from '../utils/enum.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm';
+import { PopupWithFormConfirm } from '../components/PopupWithFormConfirm';
 
 const api = new Api(serverConfig);
 const popupWithImage = new PopupWithImage(IMAGE_POPUP_SELECTORS);
+popupWithImage.addEventListeners();
+const popupDelete = new PopupWithFormConfirm(popupDeleteSelector);
+popupDelete.addEventListeners();
 
 document.addEventListener('DOMContentLoaded', () => {
   renderInitApp();
@@ -96,20 +100,45 @@ async function renderInitApp() {
 
     profile.render();
 
+    const crateCard = (cardData) => {
+      const card = new Card(cardTemplate, cardData, user.id(), {
+        handleLike: async (card) => {
+          try {
+            const { id } = card.getData();
+            const likedCard = await api.toggleLike(id, card.isLiked());
+            card.changeLike(likedCard);
+          } catch (err) {
+            handleError(err);
+          }
+        },
+
+        handleDelete: (card) => {
+          popupDelete.setSubmitHandler(async () => {
+            try {
+              const { id } = card.getData();
+              await api.deleteCard(id);
+              card.remove();
+              popupDelete.close();
+            } catch (err) {
+              console.log(err);
+            }
+          });
+          popupDelete.open();
+        },
+
+        handleImageClick: () => {
+          popupWithImage.open(cardData);
+        },
+      });
+
+      return card.generate();
+    };
+
     const cardList = new Section(
       {
         items: cards,
         renderer: (cardData) => {
-          const card = new Card(
-            cardTemplate,
-            cardData,
-            user.id(),
-            handleLike,
-            handleDelete,
-            handleImageClick,
-          );
-          const cardElement = card.generate();
-          cardList.addItem(cardElement);
+          cardList.addItem(crateCard(cardData));
         },
       },
       cardsContainerSelector,
@@ -120,42 +149,6 @@ async function renderInitApp() {
     console.log(err);
     // handleError(err);
   }
-}
-
-async function handleLike(card) {
-  try {
-    const { id } = card.getData();
-    const likedCard = await api.toggleLike(id, card.isLiked());
-    card.changeLike(likedCard);
-  } catch (err) {
-    handleError(err);
-  }
-}
-async function deleteCard(card) {
-  try {
-    const { id } = card.getData();
-    await api.deleteCard(id);
-    card.remove();
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-async function handleDelete(card) {
-  const popupDelete = new PopupWithForm({
-    popupSelector: popupDeleteSelector,
-    handleSubmit: () => {
-      deleteCard(card);
-      popupDelete.close();
-    },
-  });
-
-  popupDelete.open();
-}
-
-function handleImageClick(card) {
-  const { name, link } = card.getData();
-  popupWithImage.open({ link, name });
 }
 
 const popupEditProfile = new PopupWithForm({

@@ -33,14 +33,12 @@ export class Card {
   #cardDeleteBtn;
 
   constructor(
-    selector,
+    cardTemplateSelector,
     { name, link, owner, likes, _id },
     userId,
-    handleLike,
-    handleDelete,
-    handleImageClick,
+    { handleLike, handleDelete, handleImageClick },
   ) {
-    this.#selector = selector;
+    this.#selector = cardTemplateSelector;
     this.#name = name;
     this.#link = link;
     this.#owner = owner;
