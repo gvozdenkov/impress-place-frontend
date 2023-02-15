@@ -8,7 +8,7 @@ export default class Api {
   }
 
   #getResponse(res) {
-    return res.ok ? res.json() : Promise.reject(res);
+    return res.ok ? res.json() : Promise.reject(res.json());
   }
 
   async #request(endpoint, options = {}) {

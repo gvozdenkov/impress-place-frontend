@@ -35,9 +35,7 @@ export const cardDeleteDisabledClass = 'card__delete-btn_disabled';
 export const popupOpenedClass = 'popup_opened';
 export const popupOpenedSelector = '.popup_opened';
 export const popupCloseBtnClass = 'popup__close-btn';
-export const popupEditAvatar = document.querySelector(
-  '.popup_type_edit-avatar',
-);
+export const popupEditAvatar = '.popup_type_edit-avatar';
 export const popupEditProfileSelector = '.popup_type_edit-profile';
 export const popupAddCard = document.querySelector('.popup_type_add-card');
 export const popupCard = document.querySelector('.popup_type_image');

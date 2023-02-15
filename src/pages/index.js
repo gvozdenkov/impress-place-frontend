@@ -1,4 +1,4 @@
-'use strict';
+// todo: loader, error, состояние кнопки
 
 import '../styles/index.scss';
 
@@ -75,10 +75,47 @@ import { PopupWithForm } from '../components/PopupWithForm';
 import { PopupWithFormConfirm } from '../components/PopupWithFormConfirm';
 
 const api = new Api(serverConfig);
+let user;
+let profile;
 const popupWithImage = new PopupWithImage(IMAGE_POPUP_SELECTORS);
 popupWithImage.addEventListeners();
 const popupDelete = new PopupWithFormConfirm(popupDeleteSelector);
 popupDelete.addEventListeners();
+const popupAvatar = new PopupWithForm({
+  popupSelector: popupEditAvatar,
+  handleSubmit: async () => {
+    try {
+      const url = await loadImage(avatarInput.value);
+      const updatedUser = await api.updateUserAvatar(url);
+      const { name, about, avatar } = updatedUser;
+      user.update({ name, about, avatar });
+      profile.update(updatedUser);
+      profile.render();
+      popupAvatar.close();
+    } catch (err) {
+      handleError(err);
+    }
+  }
+});
+popupAvatar.addEventListeners();
+const popupEditProfile = new PopupWithForm({
+  popupSelector: popupEditProfileSelector,
+  handleSubmit: async () => {
+    const form = popupEditProfile.getFormElement();
+    try {
+      const { name, about } = getFormInputValues(form);
+      const updatedUser = await api.updateUser({ name, about });
+      user.update(updatedUser);
+      profile.update(updatedUser);
+      profile.render();
+      popupEditProfile.close();
+    } catch (err) {
+      handleError(err);
+    } finally {
+    }
+  },
+});
+popupEditProfile.addEventListeners();
 
 document.addEventListener('DOMContentLoaded', () => {
   renderInitApp();
@@ -88,8 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
 async function renderInitApp() {
   try {
     const [userData, cards] = await api.getAppData();
-    const user = new User(userData);
-    const profile = new Profile({
+    user = new User(userData);
+    profile = new Profile({
       userData: user.getData(),
       renderer: (userData) => {
         profileName.textContent = userData.name;
@@ -151,18 +188,16 @@ async function renderInitApp() {
   }
 }
 
-const popupEditProfile = new PopupWithForm({
-  popupSelector: popupEditProfileSelector,
-  handleSubmit: () => {
-    console.log('edit');
-  },
+btnOpenPopupEditProfile.addEventListener('click', (evt) => {
+  // nameInput.value = profileName.textContent;
+  // aboutInput.value = profileAbout.textContent;
+  const { name, about } = user.getData();
+  popupEditProfile.fillInputs([name, about]);
+  popupEditProfile.open();
 });
 
-btnOpenPopupEditProfile.addEventListener('click', (evt) => {
-  nameInput.value = profileName.textContent;
-  aboutInput.value = profileAbout.textContent;
-
-  popupEditProfile.open();
+avatarContainer.addEventListener('click', () => {
+  popupAvatar.open();
 });
 
 //

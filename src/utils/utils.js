@@ -75,7 +75,7 @@ export function loadImage(url) {
 }
 
 function createErrorMessage(err) {
-  return err.text
+  return err
     ? `Ошибка ${err.status}: ${err.statusText}. ${err.message}}`
     : `Ошибка ${err.status}: ${err.message}`;
 }
