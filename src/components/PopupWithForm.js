@@ -1,31 +1,25 @@
-import {
-  ellipsisClass,
-  ellipsisContainerSelector,
-  formSelector, submitButtonTextSelector
-} from '../utils/constants';
 import { Popup } from './Popup';
-import { handleError } from '../utils/utils.js';
+import { getFormInputs } from '../utils/utils.js';
 
 export class PopupWithForm extends Popup {
   #form;
   #handleSubmit;
-  #submitButton;
-  #submitButtonText;
-  #ellipsis;
-  constructor({ popupSelector, handleSubmit }) {
+
+  constructor({ popupSelector }) {
     super(popupSelector);
-    this.#form = super.getPopupElement().querySelector(formSelector);
-    this.#handleSubmit = handleSubmit;
-    this.#submitButton = this.#form.querySelector('.button');
-    console.log(this.#submitButton);
-    this.#submitButtonText = this.#form.querySelector(submitButtonTextSelector);
-    console.log(this.#submitButtonText);
-    this.#ellipsis = this.#submitButton.querySelector(ellipsisContainerSelector);
-    console.log(this.#ellipsis);
+    this.#form = super.getPopupElement().querySelector('form');
+    this.#handleSubmit = () => {};
   }
 
-  fillInputs(args) {
-    this.#form.querySelectorAll('.form__input').forEach((input, index) => input.value = args[index]);
+  updateHandleSubmit(handler) {
+    this.#handleSubmit = handler;
+  }
+
+  fillInputs(userData) {
+    const keys = Object.keys(userData);
+    keys.forEach(
+      (input) => (this.#form.elements[input].value = userData[input]),
+    );
   }
 
   getFormElement() {
@@ -36,23 +30,18 @@ export class PopupWithForm extends Popup {
     super.addEventListeners();
     this.#form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this.showButtonLoadingEllipsis('Сохранение');
       this.#handleSubmit();
-      this.hideButtonLoadingEllipsis('Сохранить');
     });
+  }
+
+  open() {
+    super.open();
+    this.addEventListeners();
   }
 
   close() {
     super.close();
     this.#form.reset();
-  }
-
-  showButtonLoadingEllipsis(text) {
-    this.#submitButtonText.textContent = text;
-    this.#ellipsis.classList.add(ellipsisClass);
-  }
-  hideButtonLoadingEllipsis(text) {
-    this.#submitButtonText.textContent = text;
-    this.#ellipsis.classList.remove(ellipsisClass);
+    this.#handleSubmit = () => {};
   }
 }

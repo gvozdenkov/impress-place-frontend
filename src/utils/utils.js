@@ -6,12 +6,6 @@ import {
   submitButtonTextSelector,
 } from './constants.js';
 
-export function getFormInputValues(form) {
-  const formData = new FormData(form);
-  const formProps = Object.fromEntries(formData);
-  return formProps;
-}
-
 export function getErrorElement(form, input) {
   return form.querySelector(`.${input.id}-error`);
 }
@@ -32,6 +26,12 @@ export function getFormInputs(form) {
   return inputsForValidate;
 }
 
+export function getFormInputValues(form) {
+  const formData = new FormData(form);
+  const formProps = Object.fromEntries(formData);
+  return formProps;
+}
+
 export function setButtonState(button, isFormValid) {
   if (isFormValid) {
     button.removeAttribute('disabled');
@@ -42,18 +42,18 @@ export function setButtonState(button, isFormValid) {
   }
 }
 
-export function showButtonLoadingEllipsis(button, text) {
+export function renderLoadingEllipsis(form, text, isLoading = false) {
+  const button = form.querySelector('button[type="submit"]');
   const submitButtonText = button.querySelector(submitButtonTextSelector);
   const loadingEllipsis = button.querySelector(ellipsisContainerSelector);
-  submitButtonText.textContent = text;
-  loadingEllipsis.classList.add(ellipsisClass);
-}
 
-export function hideButtonLoadingEllipsis(button, text) {
-  const submitButtonText = button.querySelector(submitButtonTextSelector);
-  const loadingEllipsis = button.querySelector(ellipsisContainerSelector);
-  submitButtonText.textContent = text;
-  loadingEllipsis.classList.remove(ellipsisClass);
+  if (isLoading) {
+    submitButtonText.textContent = text;
+    loadingEllipsis.classList.add(ellipsisClass);
+  } else {
+    submitButtonText.textContent = text;
+    loadingEllipsis.classList.remove(ellipsisClass);
+  }
 }
 
 export function getPopupElement(button) {
@@ -76,7 +76,7 @@ export function loadImage(url) {
 
 function createErrorMessage(err) {
   return err
-    ? `Ошибка ${err.status}: ${err.statusText}. ${err.message}}`
+    ? `Ошибка ${err.status}: ${err.statusText}. ${err.message}`
     : `Ошибка ${err.status}: ${err.message}`;
 }
 

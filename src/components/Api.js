@@ -1,4 +1,4 @@
-export default class Api {
+export class Api {
   #baseUrl = null;
   #headers = null;
 

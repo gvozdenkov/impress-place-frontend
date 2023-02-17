@@ -1,17 +1,37 @@
 export class Profile {
-  #userData;
-  #renderer;
+  #nameEl;
+  #aboutEl;
+  #avatarEl;
+  #userId;
 
-  constructor({ userData, renderer }) {
-    this.#userData = userData;
-    this.#renderer = renderer;
+  constructor({ nameSelector, aboutSelector, avatarSelector }) {
+    this.#nameEl = document.querySelector(nameSelector);
+    this.#aboutEl = document.querySelector(aboutSelector);
+    this.#avatarEl = document.querySelector(avatarSelector);
   }
 
-  update(userData) {
-    this.#userData = userData;
+  setUserInfo(userData) {
+    const { name, about, avatar, _id } = userData;
+    if (name) this.#nameEl.textContent = name;
+    if (about) this.#aboutEl.textContent = about;
+    if (avatar) this.#avatarEl.src = avatar;
+    if (_id) this.#userId = _id;
   }
 
-  render() {
-    this.#renderer(this.#userData);
+  getUserInfo() {
+    return {
+      name: this.#nameEl.textContent,
+      about: this.#aboutEl.textContent,
+      avatar: this.#avatarEl.src,
+      _id: this.#userId,
+    };
+  }
+
+  addEventListeners(config) {
+    config.forEach((element) => {
+      document
+        .querySelector(element.selector)
+        .addEventListener('click', element.handleClick);
+    });
   }
 }

@@ -65,8 +65,7 @@ export class Card {
   #getElement() {
     return document
       .querySelector(this.#selector)
-      .content.querySelector(photoGridItemSelector)
-      .cloneNode(true);
+      .content.children[0].cloneNode(true);
   }
 
   generate() {
