@@ -8,6 +8,8 @@ import { Section } from '../components/Section';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { Validate } from '../components/Validate.js';
+import { Error } from '../components/Error.js';
+import { Profile } from '../components/Profile';
 
 import {
   getFormInputValues,
@@ -28,7 +30,6 @@ import {
   popupConfig,
   profileConfig,
 } from '../utils/config.js';
-import { Profile } from '../components/Profile';
 
 document.addEventListener('DOMContentLoaded', () => {
   const api = new Api(serverConfig);
@@ -79,7 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
       validate.enableValidation();
     } catch (err) {
       console.error(err);
-      // err.then((res) => console.error(res.message));
+      const error = new Error({ code: err, body: 'Ошибка' });
+      error.createError();
       // handleError(err);
     }
   }

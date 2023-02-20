@@ -22,7 +22,7 @@ export class Api {
   }
 
   getUser() {
-    return this.#request(`users/me`);
+    return this.#request(`users/ame`);
   }
 
   updateUser({ name, about }) {

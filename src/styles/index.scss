@@ -1,3 +1,4 @@
+@use '../vendor/normalize';
 @use './modules/blocks/link-hover/link-hover.scss';
 @use './modules/blocks/link-hover/_place/link-hover_place_light.scss';
 
@@ -62,6 +63,13 @@
 @use './modules/blocks/page/__content/page__content.scss';
 @use './modules/blocks/page/__section/page__section.scss';
 
-@import '../vendor/normalize.css';
 @import '../vendor/fonts.css';
 @import '../vendor/variables.css';
+@import './modules/blocks/error/error.css';
+@import './modules/blocks/error/_active/error_active.css';
+@import './modules/blocks/error/__title/error__title.css';
+@import './modules/blocks/error/__list/error__list.css';
+@import './modules/blocks/error/__item/error__item.css';
+@import './modules/blocks/error/__item/_active/error__item_active.css';
+@import './modules/blocks/error/__description/error__description.css';
+@import './modules/blocks/error/__close/error__close.css';

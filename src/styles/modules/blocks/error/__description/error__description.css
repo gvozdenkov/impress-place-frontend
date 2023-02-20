@@ -1,0 +1,12 @@
+.error__description {
+  color: var(--color-content-primary-inverted);
+  margin: 0;
+  text-align: start;
+}
+
+@media (min-width: 880px) {
+  .error__description {
+    font-size: 18px;
+    line-height: 1.22;
+  }
+}

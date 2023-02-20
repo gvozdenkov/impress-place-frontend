@@ -1,0 +1,32 @@
+.error__close {
+  position: absolute;
+  right: 1.5em;
+  top: 1em;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  padding: 0;
+  transition: opacity .5s ease;
+}
+
+.error__close:before, .error__close:after {
+  content: '';
+  display: block;
+  width: 2px;
+  height: 16px;
+  background-color: #545454;
+  position: absolute;
+  left: 50%;
+  top: 0;
+}
+
+.error__close:before {
+  transform: translate(-50%, 0) rotate(45deg);
+}
+
+.error__close:after {
+  transform: translate(-50%, 0) rotate(-45deg);
+}
