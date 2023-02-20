@@ -4,11 +4,13 @@ import { getFormInputs } from '../utils/utils.js';
 export class PopupWithForm extends Popup {
   #form;
   #handleSubmit;
+  #saveSessionData;
 
   constructor({ popupSelector }) {
     super(popupSelector);
     this.#form = super.getPopupElement().querySelector('.form');
     this.#handleSubmit = () => {};
+    this.#saveSessionData = () => {};
   }
 
   updateHandleSubmit(handler) {
@@ -34,14 +36,16 @@ export class PopupWithForm extends Popup {
     });
   }
 
-  open() {
+  open(saveSessionData = () => {}) {
     super.open();
     this.#setEventListeners();
+    this.#saveSessionData = saveSessionData;
   }
 
   close() {
     super.close();
-    this.#form.reset();
+    this.#saveSessionData();
     this.#handleSubmit = () => {};
+    setTimeout(() => this.#form.reset(), 300);
   }
 }

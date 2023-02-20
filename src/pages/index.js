@@ -32,13 +32,12 @@ import { Profile } from '../components/Profile';
 
 document.addEventListener('DOMContentLoaded', () => {
   const api = new Api(serverConfig);
-
   const profile = new Profile(profileConfig, {
     getUser: async () => {
       return await api.getUser();
     },
   });
-
+  const validate = new Validate(validationConfig);
   const cardList = new Section(
     {
       renderer: (cards) => {
@@ -50,8 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cardsContainerSelector,
   );
 
-  const validate = new Validate(validationConfig);
-  validate.enableValidation();
 
   renderApp();
 
@@ -60,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const [userData, cards] = await api.getAppData();
 
       profile.setUserInfo(userData);
+      sessionStorage.setItem('user', JSON.stringify(userData));
       profile.setEventListeners([
         {
           selector: popupConfig.editAvatarButtonSelector,
@@ -78,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const { _id } = await profile.getUserInfo();
       const cardsWithUserId = cards.map((obj) => ({ ...obj, userId: _id }));
       cardList.render(cardsWithUserId);
+      validate.enableValidation();
     } catch (err) {
       console.error(err);
       // err.then((res) => console.error(res.message));
@@ -139,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
       popupSelector: popupConfig.typeEditVatarSelector,
     });
     popup.updateHandleSubmit(() => handleSubmitAvatar(popup));
-
     popup.open();
   }
 
@@ -147,13 +145,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const popup = new PopupWithForm({
       popupSelector: popupConfig.typeEditProfileSelector,
     });
-    const { name, about } = await profile.getUserInfo();
-    popup.fillInputs({ name, about });
-    popup.updateHandleSubmit(() => {
-      handleSubmitEditProfile(popup);
-    });
+    const user = JSON.parse(sessionStorage.user);
+    popup.fillInputs({ name: user.name, about: user.about });
+    popup.updateHandleSubmit(() => handleSubmitEditProfile(popup));
+    popup.open(() => saveSessionData(popup));
+  }
 
-    popup.open();
+  function saveSessionData(popup) {
+    const form = popup.getFormElement();
+    const { name, about } = getFormInputValues(form);
+    const user = JSON.parse(sessionStorage.user);
+    user.name = name;
+    user.about = about;
+    sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   function handleAddCardClick() {

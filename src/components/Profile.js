@@ -22,13 +22,8 @@ export class Profile {
   }
 
   async getUserInfo() {
-    const user = await this.#getUser();
-    return {
-      name: user.name,
-      about: user.about,
-      avatar: user.avatar,
-      _id: user._id,
-    };
+    const { name, about, avatar, _id } = await this.#getUser();
+    return { name, about, avatar, _id };
   }
 
   setEventListeners(config) {
