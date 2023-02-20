@@ -4,10 +4,13 @@ export class Profile {
   #avatarEl;
   #userId;
 
-  constructor({ nameSelector, aboutSelector, avatarSelector }) {
+  #getUser;
+
+  constructor({ nameSelector, aboutSelector, avatarSelector }, { getUser }) {
     this.#nameEl = document.querySelector(nameSelector);
     this.#aboutEl = document.querySelector(aboutSelector);
     this.#avatarEl = document.querySelector(avatarSelector);
+    this.#getUser = getUser;
   }
 
   setUserInfo(userData) {
@@ -18,16 +21,17 @@ export class Profile {
     if (_id) this.#userId = _id;
   }
 
-  getUserInfo() {
+  async getUserInfo() {
+    const user = await this.#getUser();
     return {
-      name: this.#nameEl.textContent,
-      about: this.#aboutEl.textContent,
-      avatar: this.#avatarEl.src,
-      _id: this.#userId,
+      name: user.name,
+      about: user.about,
+      avatar: user.avatar,
+      _id: user._id,
     };
   }
 
-  addEventListeners(config) {
+  setEventListeners(config) {
     config.forEach((element) => {
       document
         .querySelector(element.selector)

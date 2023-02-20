@@ -9,14 +9,14 @@ export class Popup {
 
   open() {
     this.#popup.classList.add(popupOpenedClass);
-    this.addEventListeners();
+    this.setEventListeners();
   }
 
   getPopupElement() {
     return this.#popup;
   }
 
-  addEventListeners() {
+  setEventListeners() {
     this.#popup.addEventListener('mousedown', this.#handlePopupCloseClick);
     document.addEventListener('keyup', this.#handlePopupCloseEsc);
   }

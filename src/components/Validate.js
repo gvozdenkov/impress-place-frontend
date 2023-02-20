@@ -9,9 +9,7 @@ import {
 export class Validate {
   #formValidateSelector;
   #formFieldSelector;
-  #inputSelector;
   #submitButtonSelector;
-  #inactiveButtonClass;
   #inputErrorClass;
   #errorTemplate;
   #errorElementSelector;
@@ -20,9 +18,7 @@ export class Validate {
   constructor(config) {
     this.#formValidateSelector = config.formValidateSelector;
     this.#formFieldSelector = config.formFieldSelector;
-    this.#inputSelector = config.inputSelector;
     this.#submitButtonSelector = config.submitButtonSelector;
-    this.#inactiveButtonClass = config.inactiveButtonClass;
     this.#inputErrorClass = config.inputErrorClass;
     this.#errorTemplate = document.querySelector(
       config.errorElementTemplateId,
