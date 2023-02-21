@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cardsContainerSelector,
   );
 
-
   renderApp();
 
   async function renderApp() {
@@ -80,9 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
       validate.enableValidation();
     } catch (err) {
       console.error(err);
-      const error = new Error({ code: err, body: 'Ошибка' });
-      error.createError();
-      // handleError(err);
+      // const error = new Error(
+      //   { code: err, body: 'Ошибка' },
+      //   '#error-popup-template',
+      // );
+      // error.createError();
     }
   }
 

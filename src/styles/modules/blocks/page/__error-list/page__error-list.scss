@@ -1,0 +1,15 @@
+@use '../../../abstract/mixins.scss' as *;
+
+.page__error-list {
+  $sideGap: 40px;
+
+  min-width: 320px;
+  max-width: calc(100% - $sideGap - var(--gutter-side) * 2);
+  position: fixed;
+  top: 40px;
+  right: $sideGap;
+
+  @include width-sm {
+    right: auto;
+  }
+}

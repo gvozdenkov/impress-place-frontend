@@ -13,6 +13,9 @@
 @use './modules/blocks/logo/logo.scss';
 @use './modules/blocks/logo/_place/logo_place_header.scss';
 
+@use './modules/blocks/title/title.scss';
+@use './modules/blocks/text-basic/text-basic.scss';
+
 @use './modules/blocks/content/content.scss';
 @use './modules/blocks/content/__profile/content__profile.scss';
 
@@ -62,14 +65,17 @@
 @use './modules/blocks/page/page.scss';
 @use './modules/blocks/page/__content/page__content.scss';
 @use './modules/blocks/page/__section/page__section.scss';
+@use './modules/blocks/page/__error-list/page__error-list.scss';
+
+@use './modules/blocks/error-list/error-list.scss';
+@use './modules/blocks/error-list/__item/error-list__item.scss';
+@use './modules/blocks/error-list/__item/_active/error-list__item_active.scss';
+
+@use './modules/blocks/error-popup/error-popup.scss';
+@use './modules/blocks/error-popup/_active/error-popup_active.scss';
+@use './modules/blocks/error-popup/__title/error-popup__title.scss';
+@use './modules/blocks/error-popup/__description/error-popup__description.scss';
+@use './modules/blocks/error-popup/__close/error-popup__close.scss';
 
 @import '../vendor/fonts.css';
 @import '../vendor/variables.css';
-@import './modules/blocks/error/error.css';
-@import './modules/blocks/error/_active/error_active.css';
-@import './modules/blocks/error/__title/error__title.css';
-@import './modules/blocks/error/__list/error__list.css';
-@import './modules/blocks/error/__item/error__item.css';
-@import './modules/blocks/error/__item/_active/error__item_active.css';
-@import './modules/blocks/error/__description/error__description.css';
-@import './modules/blocks/error/__close/error__close.css';
