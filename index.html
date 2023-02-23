@@ -12,7 +12,7 @@
       href="images/favicon_71a9ca462272c56450f0.ico"
       type="image/x-icon" />
     <title>Mesto</title>
-  <script defer src="runtime.df440f979cdb0a139e9b.js"></script><script defer src="main.2eaca367b0e890932421.js"></script></head>
+  <script defer src="runtime.df440f979cdb0a139e9b.js"></script><script defer src="main.58aa0fab2268b1ab116b.js"></script></head>
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
@@ -52,37 +52,7 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
-    <ul class="error-list page__error-list">
-      <li class="error-list__item">
-        <div class="error-popup" role="alert">
-          <h2 class="title error-popup__title">Ошибка</h2>
-          <p class="text-basic error-popup__description">
-            Бла бла бла какая-то ошибка
-          </p>
-          <button
-            aria-label="Закрыть окно ошибки"
-            class="error-popup__close link-hover"
-            type="button"></button>
-        </div>
-      </li>
-      <li class="error-list__item">
-        <div class="error-popup" role="alert">
-          <h2 class="title error-popup__title">
-            Ошибка Ошибка Ошибка Ошибка Ошибка
-          </h2>
-          <p class="text-basic error-popup__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
-            doloremque commodi? Tenetur a nam dolorum fugit sunt, accusamus
-            reiciendis, distinctio ut consequuntur corrupti ad, deserunt
-            assumenda omnis. Minima, dignissimos saepe.
-          </p>
-          <button
-            aria-label="Закрыть окно ошибки"
-            class="error-popup__close link-hover"
-            type="button"></button>
-        </div>
-      </li>
-    </ul>
+    <ul class="error-list page__error-list"></ul>
     <!-- Edit Avatar popup -->
     <div class="popup popup_type_edit-avatar">
       <div
@@ -304,13 +274,13 @@
 
     <!-- Error popup -->
     <template id="error-popup-template">
-      <li class="error__item">
+      <li class="error-list__item">
         <div class="error-popup" role="alert">
-          <h2 class="error-popup__title"></h2>
-          <p class="error-popup__description"></p>
+          <h2 class="title error-popup__title"></h2>
+          <p class="text-basic error-popup__description"></p>
           <button
-            aria-label="Закрыть"
-            class="error-popup__close"
+            aria-label="Закрыть окно ошибки"
+            class="error-popup__close link-hover"
             type="button"></button>
         </div>
       </li>
