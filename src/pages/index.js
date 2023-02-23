@@ -8,13 +8,12 @@ import { Section } from '../components/Section';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { Validate } from '../components/Validate.js';
-import { Error } from '../components/Error.js';
+import { ErrorPopup } from '../components/ErrorPopup.js';
 import { Profile } from '../components/Profile';
 
 import {
   getFormInputValues,
   loadImage,
-  handleError,
   renderLoadingEllipsis,
 } from '../utils/utils.js';
 
@@ -50,6 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
     cardsContainerSelector,
   );
 
+  const errorList = new Section(
+    {
+      renderer: (error) => {
+        errorList.addItem(error);
+      },
+    },
+    '.error-list',
+  );
+
   renderApp();
 
   async function renderApp() {
@@ -78,12 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
       cardList.render(cardsWithUserId);
       validate.enableValidation();
     } catch (err) {
+      showErrorPopup(err);
       console.error(err);
-      // const error = new Error(
-      //   { code: err, body: 'Ошибка' },
-      //   '#error-popup-template',
-      // );
-      // error.createError();
     }
   }
 
@@ -98,7 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const likedCard = await api.toggleLike(id, card.isLiked());
             card.changeLike(likedCard);
           } catch (err) {
-            handleError(err);
+            showErrorPopup(err);
+            console.error(err);
           }
         },
 
@@ -113,8 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
               card.remove();
               popupDelete.close();
             } catch (err) {
-              console.log(err);
-              // handleError(err);
+              showErrorPopup(err);
+              console.error(err);
             }
           });
           popupDelete.open();
@@ -154,15 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
     popup.open(() => saveSessionData(popup));
   }
 
-  function saveSessionData(popup) {
-    const form = popup.getFormElement();
-    const { name, about } = getFormInputValues(form);
-    const user = JSON.parse(sessionStorage.user);
-    user.name = name;
-    user.about = about;
-    sessionStorage.setItem('user', JSON.stringify(user));
-  }
-
   function handleAddCardClick() {
     const popup = new PopupWithForm({
       popupSelector: popupConfig.typeAddCardSelector,
@@ -184,8 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
       profile.setUserInfo({ avatar });
       popup.close();
     } catch (err) {
-      console.log(err);
-      // handleError(err);
+      showErrorPopup(err);
+      console.error(err);
     } finally {
       renderLoadingEllipsis(form, 'Сохранить');
     }
@@ -200,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
       profile.setUserInfo({ name: updatedUser.name, about: updatedUser.about });
       popup.close();
     } catch (err) {
-      // handleError(err);
-      console.log(err);
+      showErrorPopup(err);
+      console.error(err);
     } finally {
       renderLoadingEllipsis(form, 'Сохранить');
     }
@@ -218,9 +214,28 @@ document.addEventListener('DOMContentLoaded', () => {
       cardList.addItem(newCard);
       popup.close();
     } catch (err) {
+      showErrorPopup(err);
       console.error(err);
     } finally {
       renderLoadingEllipsis(form, 'Создать');
     }
+  }
+
+  function saveSessionData(popup) {
+    const form = popup.getFormElement();
+    const { name, about } = getFormInputValues(form);
+    const user = JSON.parse(sessionStorage.user);
+    user.name = name;
+    user.about = about;
+    sessionStorage.setItem('user', JSON.stringify(user));
+  }
+
+  function showErrorPopup(err) {
+    const error = new ErrorPopup(
+      { code: err.code, message: err.message },
+      '#error-popup-template',
+    );
+
+    errorList.addItem(error.createError());
   }
 });

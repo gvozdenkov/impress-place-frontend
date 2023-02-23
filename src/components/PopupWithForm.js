@@ -1,5 +1,4 @@
 import { Popup } from './Popup';
-import { getFormInputs } from '../utils/utils.js';
 
 export class PopupWithForm extends Popup {
   #form;

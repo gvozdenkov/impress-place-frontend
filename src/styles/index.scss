@@ -68,11 +68,11 @@
 @use './modules/blocks/page/__error-list/page__error-list.scss';
 
 @use './modules/blocks/error-list/error-list.scss';
+@use './modules/blocks/error-list/_active/error-list_active.scss';
 @use './modules/blocks/error-list/__item/error-list__item.scss';
 @use './modules/blocks/error-list/__item/_active/error-list__item_active.scss';
 
 @use './modules/blocks/error-popup/error-popup.scss';
-@use './modules/blocks/error-popup/_active/error-popup_active.scss';
 @use './modules/blocks/error-popup/__title/error-popup__title.scss';
 @use './modules/blocks/error-popup/__description/error-popup__description.scss';
 @use './modules/blocks/error-popup/__close/error-popup__close.scss';

@@ -73,13 +73,3 @@ export function loadImage(url) {
     img.onload = () => resolve(url);
   });
 }
-
-function createErrorMessage(err) {
-  return err
-    ? `Ошибка ${err.status}: ${err.statusText}. ${err.message}`
-    : `Ошибка ${err.status}: ${err.message}`;
-}
-
-export function handleError(err) {
-  console.log(createErrorMessage(err));
-}

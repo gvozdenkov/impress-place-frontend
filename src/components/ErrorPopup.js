@@ -1,16 +1,14 @@
-export class Error {
+export class ErrorPopup {
   #code;
-  #body;
+  #message;
   #templateSelector;
-  #listElement;
   #wrapperElement;
 
-  constructor({ code, body }, templateSelector) {
+  constructor({ code, message }, templateSelector) {
     this.#templateSelector = templateSelector;
-    this.#listElement = document.querySelector('.error-popup__list');
-    this.#wrapperElement = document.querySelector('.error');
+    this.#wrapperElement = document.querySelector('.error-list');
     this.#code = code;
-    this.#body = body;
+    this.#message = message;
   }
 
   #getElement() {
@@ -20,23 +18,22 @@ export class Error {
   }
 
   #addErrorActiveClass(errorElement) {
-    errorElement.classList.add('error-popup__item_active');
-    this.#wrapperElement.classList.add('error_active');
+    errorElement.classList.add('error-list__item_active');
+    this.#wrapperElement.classList.add('error-list_active');
   }
 
   #removeErrorActiveClass(errorElement) {
-    errorElement.classList.remove('error-popup__item_active');
-    this.#wrapperElement.classList.remove('error-popup_active');
+    errorElement.classList.remove('error-list__item_active');
+    this.#wrapperElement.classList.remove('error-list_active');
   }
 
   #closeButtonListener = (element) => {
     this.#removeErrorActiveClass(element);
-    setTimeout(() => element.remove(), 500);
+    setTimeout(() => element.remove(), 300);
   };
 
   createError() {
     const errorItem = this.#getElement();
-    console.log(errorItem);
     const errorItemTitle = errorItem.querySelector('.error-popup__title');
     const errorItemBody = errorItem.querySelector('.error-popup__description');
     const errorItemButton = errorItem.querySelector('.error-popup__close');
@@ -44,10 +41,8 @@ export class Error {
     errorItemButton.addEventListener('click', () =>
       this.#closeButtonListener(errorItem),
     );
-    errorItemTitle.textContent = `Код ${this.code}`;
-    errorItemBody.textContent = this.#body;
-    // todo: вынести в section?
-    this.#listElement.prepend(errorItem);
+    errorItemTitle.textContent = `Код ${this.#code}`;
+    errorItemBody.textContent = this.#message;
     return errorItem;
   }
 }

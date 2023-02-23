@@ -7,18 +7,15 @@ export class Api {
     this.#headers = config.headers;
   }
 
-  #getResponse(res) {
-    return res.ok ? res.json() : Promise.reject(res.json());
-  }
-
   async #request(endpoint, options = {}) {
     const url = `${this.#baseUrl}/${endpoint}`;
     const res = await fetch(url, {
       headers: this.#headers,
       ...options,
     });
+    const json = await res.json();
 
-    return this.#getResponse(res);
+    return res.ok ? json : Promise.reject(JSON.parse(JSON.stringify(json)));
   }
 
   getUser() {

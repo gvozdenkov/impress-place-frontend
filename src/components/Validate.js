@@ -38,6 +38,7 @@ export class Validate {
     const inputs = getFormInputs(form);
     const submitButton = form.querySelector(this.#submitButtonSelector);
 
+    setButtonState(submitButton, this.isFormValid(form));
     inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this.#handleFormInput(form, input);
@@ -116,7 +117,9 @@ export class Validate {
 
   isFormValid(form) {
     const inputs = getFormInputs(form);
-    return inputs.every((input) => input.validity.valid);
+    return inputs.every((input) => {
+      return input.validity.valid;
+    });
   }
 
   removeInputErrors(form) {

@@ -2,24 +2,21 @@
 @use '../../abstract/mixins.scss' as *;
 
 .error-popup {
-  width: 100%;
-  box-sizing: border-box;
-
   display: flex;
   flex-flow: column;
-  align-items: flex-end;
   gap: 12px;
 
+  box-sizing: border-box;
   position: relative;
   padding: 25px;
   border-radius: $border-radius;
   word-break: break-word;
-  background-color: var(--color-error);
+  background-color: var(--color-background-inverted);
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
 
-  visibility: visible;
-  opacity: 1;
-  transition: opacity $trans-medium ease;
+  @include width-md {
+    gap: 8px;
+  }
 
   @include width-sm {
     padding: 20px;
