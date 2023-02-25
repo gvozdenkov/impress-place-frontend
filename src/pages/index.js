@@ -49,6 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
     cardsContainerSelector,
   );
 
+  const popupImageDetail = new PopupWithImage({
+    popupSelector: popupConfig.typeImageSelector,
+    imageSelector: popupConfig.imageSelector,
+    titleSelector: popupConfig.imageTitleSelector
+  });
+  popupImageDetail.setEventListeners();
+  const popupCardDelete = new PopupWithForm({ popupSelector: popupConfig.typeDeleteSelector });
+  popupCardDelete.setEventListeners();
+  const popupEditAvatar = new PopupWithForm({ popupSelector: popupConfig.typeEditVatarSelector });
+  popupEditAvatar.setEventListeners();
+  const popupEditProfile = new PopupWithForm({ popupSelector: popupConfig.typeEditProfileSelector });
+  popupEditProfile.setEventListeners();
+  const popupAddCard = new PopupWithForm({ popupSelector: popupConfig.typeAddCardSelector });
+  popupAddCard.setEventListeners();
+
   const errorList = new Section(
     {
       renderer: (error) => {
@@ -108,30 +123,25 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         handleDelete: (card) => {
-          const popupDelete = new PopupWithForm({
-            popupSelector: popupConfig.typeDeleteSelector,
-          });
-          popupDelete.updateHandleSubmit(async () => {
+          console.log('click');
+          popupCardDelete.updateHandleSubmit(async () => {
             try {
+              console.log('submit');
               const { id } = card.getData();
               await api.deleteCard(id);
               card.remove();
-              popupDelete.close();
+              popupCardDelete.close();
+              popupCardDelete.reset();
             } catch (err) {
               showErrorPopup(err);
               console.error(err);
             }
           });
-          popupDelete.open();
+          popupCardDelete.open();
         },
 
         handleImageClick: () => {
-          const popupWithImage = new PopupWithImage({
-            popupSelector: popupConfig.typeImageSelector,
-            imageSelector: popupConfig.imageSelector,
-            titleSelector: popupConfig.imageTitleSelector,
-          });
-          popupWithImage.open(cardData);
+          popupImageDetail.open(cardData);
         },
       },
     );
@@ -142,34 +152,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // Click handlers
 
   function handleEditAvatarClick() {
-    const popup = new PopupWithForm({
-      popupSelector: popupConfig.typeEditVatarSelector,
-    });
-    popup.updateHandleSubmit(() => handleSubmitAvatar(popup));
-    popup.open();
+    popupEditAvatar.updateHandleSubmit(() => handleSubmitAvatar(popupEditAvatar));
+    popupEditAvatar.open();
   }
 
   async function handleEditProfileClick() {
-    const popup = new PopupWithForm({
-      popupSelector: popupConfig.typeEditProfileSelector,
-    });
     const user = JSON.parse(sessionStorage.user);
-    popup.fillInputs({ name: user.name, about: user.about });
-    popup.updateHandleSubmit(() => handleSubmitEditProfile(popup));
-    popup.open(() => saveSessionData(popup));
+    popupEditProfile.fillInputs({ name: user.name, about: user.about });
+    popupEditProfile.updateHandleSubmit(() => handleSubmitEditProfile(popupEditProfile));
+    popupEditProfile.open(() => saveSessionData(popupEditProfile));
   }
 
   function handleAddCardClick() {
-    const popup = new PopupWithForm({
-      popupSelector: popupConfig.typeAddCardSelector,
-    });
-    popup.updateHandleSubmit(() => handleSubmitAddCard(popup));
-
-    popup.open();
+    popupAddCard.updateHandleSubmit(handleSubmitAddCard);
+    popupAddCard.open();
   }
 
   // Submit handlers
-
   async function handleSubmitAvatar(popup) {
     const form = popup.getFormElement();
     try {
@@ -181,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
       popup.close();
     } catch (err) {
       showErrorPopup(err);
-      console.error(err);
     } finally {
       renderLoadingEllipsis(form, 'Сохранить');
     }
@@ -203,21 +201,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  async function handleSubmitAddCard(popup) {
-    const form = popup.getFormElement();
+  async function handleSubmitAddCard() {
     try {
+      const form = popupAddCard.getFormElement();
       const { name, link } = getFormInputValues(form);
       renderLoadingEllipsis(form, 'Создание', true);
       const cardData = await api.addCard({ name, link });
-      const { _id } = await profile.getUserInfo();
+      const { _id } = JSON.parse(sessionStorage.user);
       const newCard = crateCard({ ...cardData, userId: _id });
       cardList.addItem(newCard);
-      popup.close();
+      popupAddCard.close();
+      popupAddCard.reset();
+      renderLoadingEllipsis(form, 'Создать');
     } catch (err) {
       showErrorPopup(err);
-      console.error(err);
-    } finally {
-      renderLoadingEllipsis(form, 'Создать');
     }
   }
 
@@ -232,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showErrorPopup(err) {
     const error = new ErrorPopup(
-      { code: err.code, message: err.message },
+      { code: err.status, message: err.message },
       '#error-popup-template',
     );
 

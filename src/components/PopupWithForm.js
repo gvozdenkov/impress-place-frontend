@@ -8,8 +8,6 @@ export class PopupWithForm extends Popup {
   constructor({ popupSelector }) {
     super(popupSelector);
     this.#form = super.getPopupElement().querySelector('.form');
-    this.#handleSubmit = () => {};
-    this.#saveSessionData = () => {};
   }
 
   updateHandleSubmit(handler) {
@@ -27,24 +25,28 @@ export class PopupWithForm extends Popup {
     return this.#form;
   }
 
-  #setEventListeners() {
+  setEventListeners() {
     super.setEventListeners();
     this.#form.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this.#handleSubmit();
     });
+    // this.#form.addEventListener('submit', this.#handleSubmit);
   }
 
-  open(saveSessionData = () => {}) {
+  open(saveSessionData = () => {
+  }) {
     super.open();
-    this.#setEventListeners();
     this.#saveSessionData = saveSessionData;
+  }
+
+  reset() {
+    this.updateHandleSubmit(() => {});
+    setTimeout(() => this.#form.reset(), 300);
   }
 
   close() {
     super.close();
     this.#saveSessionData();
-    this.#handleSubmit = () => {};
-    setTimeout(() => this.#form.reset(), 300);
   }
 }
