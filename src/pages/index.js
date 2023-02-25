@@ -24,7 +24,6 @@ import {
 } from '../utils/constants.js';
 
 import {
-  validationConfig,
   serverConfig,
   popupConfig,
   profileConfig,
@@ -37,7 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return await api.getUser();
     },
   });
-  const validate = new Validate(validationConfig);
+  const validateEditAvatar = new Validate('.edit-avatar-form');
+  validateEditAvatar.enableValidation();
+  const validateEditProfile = new Validate('.edit-profile-form');
+  validateEditProfile.enableValidation();
+  const validateAddCard = new Validate('.add-card-form');
+  validateAddCard.enableValidation();
   const cardList = new Section(
     {
       renderer: (cards) => {
@@ -99,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const { _id } = await profile.getUserInfo();
       const cardsWithUserId = cards.map((obj) => ({ ...obj, userId: _id }));
       cardList.render(cardsWithUserId);
-      validate.enableValidation();
     } catch (err) {
       showErrorPopup(err);
       console.error(err);

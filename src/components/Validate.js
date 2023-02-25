@@ -5,6 +5,7 @@ import {
   getFormInputs,
   setButtonState,
 } from '../utils/utils.js';
+import { validationConfig as config } from '../utils/config.js';
 
 export class Validate {
   #formValidateSelector;
@@ -15,8 +16,8 @@ export class Validate {
   #errorElementSelector;
   #errorElementClassActive;
 
-  constructor(config) {
-    this.#formValidateSelector = config.formValidateSelector;
+  constructor(formSelector) {
+    this.#formValidateSelector = formSelector;
     this.#formFieldSelector = config.formFieldSelector;
     this.#submitButtonSelector = config.submitButtonSelector;
     this.#inputErrorClass = config.inputErrorClass;
@@ -28,10 +29,8 @@ export class Validate {
   }
 
   enableValidation() {
-    const forms = Array.from(
-      document.querySelectorAll(this.#formValidateSelector),
-    );
-    forms.forEach((form) => this.#setFormEventListeners(form));
+    const form = document.querySelector(this.#formValidateSelector);
+    this.#setFormEventListeners(form);
   }
 
   #setFormEventListeners(form) {
@@ -120,10 +119,5 @@ export class Validate {
     return inputs.every((input) => {
       return input.validity.valid;
     });
-  }
-
-  removeInputErrors(form) {
-    const inputs = getFormInputs(form);
-    inputs.forEach((input) => this.#hideInputError(input));
   }
 }
