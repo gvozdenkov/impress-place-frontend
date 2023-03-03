@@ -5,7 +5,6 @@ import {
   getFormInputs,
   setButtonState,
 } from '../utils/utils.js';
-import { validationConfig as config } from '../utils/config.js';
 
 export class Validate {
   #formValidateSelector;
@@ -16,7 +15,7 @@ export class Validate {
   #errorElementSelector;
   #errorElementClassActive;
 
-  constructor(formSelector) {
+  constructor(formSelector, config) {
     this.#formValidateSelector = formSelector;
     this.#formFieldSelector = config.formFieldSelector;
     this.#submitButtonSelector = config.submitButtonSelector;

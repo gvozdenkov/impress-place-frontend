@@ -24,6 +24,7 @@ import {
 } from '../utils/constants.js';
 
 import {
+  validationConfig,
   serverConfig,
   popupConfig,
   profileConfig,
@@ -36,11 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return await api.getUser();
     },
   });
-  const validateEditAvatar = new Validate('.edit-avatar-form');
+  const validateEditAvatar = new Validate(
+    '.edit-avatar-form',
+    validationConfig,
+  );
   validateEditAvatar.enableValidation();
-  const validateEditProfile = new Validate('.edit-profile-form');
+  const validateEditProfile = new Validate(
+    '.edit-profile-form',
+    validationConfig,
+  );
   validateEditProfile.enableValidation();
-  const validateAddCard = new Validate('.add-card-form');
+  const validateAddCard = new Validate('.add-card-form', validationConfig);
   validateAddCard.enableValidation();
   const cardList = new Section(
     {
@@ -56,17 +63,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const popupImageDetail = new PopupWithImage({
     popupSelector: popupConfig.typeImageSelector,
     imageSelector: popupConfig.imageSelector,
-    titleSelector: popupConfig.imageTitleSelector
+    titleSelector: popupConfig.imageTitleSelector,
   });
   popupImageDetail.setEventListeners();
-  const popupCardDelete = new PopupWithForm({ popupSelector: popupConfig.typeDeleteSelector });
-  popupCardDelete.setEventListeners();
-  const popupEditAvatar = new PopupWithForm({ popupSelector: popupConfig.typeEditVatarSelector });
-  popupEditAvatar.setEventListeners();
-  const popupEditProfile = new PopupWithForm({ popupSelector: popupConfig.typeEditProfileSelector });
-  popupEditProfile.setEventListeners();
-  const popupAddCard = new PopupWithForm({ popupSelector: popupConfig.typeAddCardSelector });
-  popupAddCard.setEventListeners();
+  const popupCardDelete = new PopupWithForm({
+    popupSelector: popupConfig.typeDeleteSelector,
+  });
+  const popupEditAvatar = new PopupWithForm({
+    popupSelector: popupConfig.typeEditVatarSelector,
+  });
+  const popupEditProfile = new PopupWithForm({
+    popupSelector: popupConfig.typeEditProfileSelector,
+  });
+  const popupAddCard = new PopupWithForm({
+    popupSelector: popupConfig.typeAddCardSelector,
+  });
 
   const errorList = new Section(
     {
@@ -126,10 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         handleDelete: (card) => {
-          console.log('click');
           popupCardDelete.updateHandleSubmit(async () => {
             try {
-              console.log('submit');
               const { id } = card.getData();
               await api.deleteCard(id);
               card.remove();
@@ -155,14 +164,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Click handlers
 
   function handleEditAvatarClick() {
-    popupEditAvatar.updateHandleSubmit(() => handleSubmitAvatar(popupEditAvatar));
+    popupEditAvatar.updateHandleSubmit(() =>
+      handleSubmitAvatar(popupEditAvatar),
+    );
     popupEditAvatar.open();
   }
 
   async function handleEditProfileClick() {
     const user = JSON.parse(sessionStorage.user);
     popupEditProfile.fillInputs({ name: user.name, about: user.about });
-    popupEditProfile.updateHandleSubmit(() => handleSubmitEditProfile(popupEditProfile));
+    popupEditProfile.updateHandleSubmit(() =>
+      handleSubmitEditProfile(popupEditProfile),
+    );
     popupEditProfile.open(() => saveSessionData(popupEditProfile));
   }
 
