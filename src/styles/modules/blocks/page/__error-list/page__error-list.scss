@@ -1,0 +1,32 @@
+@use '../../../abstract/mixins.scss' as *;
+
+.page__error-list {
+  $sideGap: 40px;
+
+  min-width: 250px;
+  max-width: calc(30% - $sideGap);
+  position: fixed;
+  top: 40px;
+  right: $sideGap;
+  left: auto;
+
+  @include width-xl {
+    max-width: calc(40% - $sideGap);
+  }
+
+  @include width-lg {
+    max-width: calc(50% - $sideGap);
+  }
+
+  @include width-md {
+    top: var(--gutter-side);
+    right: var(--gutter-side);
+    max-width: calc(70% - var(--gutter-side));
+  }
+
+  @include width-sm {
+    left: var(--gutter-side);
+    right: var(--gutter-side);
+    max-width: 100%;
+  }
+}

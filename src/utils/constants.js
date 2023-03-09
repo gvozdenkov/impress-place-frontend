@@ -1,10 +1,10 @@
 export const content = document.querySelector('.content');
 export const cardsContainer = content.querySelector('.photo-grid');
-export const cardTemplate = document.querySelector('#card-template').content;
+export const cardsContainerSelector = '.photo-grid';
+export const cardTemplate = '#card-template';
 export const errorTemplate = document.querySelector(
   '#form-input-error-template',
 ).content;
-
 // DOM elements
 export const avatarContainer = content.querySelector('.profile__avatar');
 export const profileAvatar = content.querySelector('.profile__avatar-img');
@@ -29,22 +29,18 @@ export const cardLikeCountSelector = '.card__like-count';
 export const cardLikeActiveClass = 'card__like-btn_active';
 export const cardLikeWithCountClass = 'card__like-btn_with-count';
 export const cardDeleteSelector = '.card__delete-btn';
+export const cardDeleteDisabledClass = 'card__delete-btn_disabled';
 
 // popups
 export const popupOpenedClass = 'popup_opened';
 export const popupOpenedSelector = '.popup_opened';
 export const popupCloseBtnClass = 'popup__close-btn';
-export const popupEditAvatar = document.querySelector(
-  '.popup_type_edit-avatar',
-);
-export const popupEditProfile = document.querySelector(
-  '.popup_type_edit-profile',
-);
-export const popupAddCard = document.querySelector('.popup_type_add-card');
+export const popupEditAvatar = '.popup_type_edit-avatar';
+export const popupEditProfileSelector = '.popup_type_edit-profile';
+export const popupAddCardSelector = '.popup_type_add-card';
 export const popupCard = document.querySelector('.popup_type_image');
-export const popupConfirmDelete = document.querySelector(
-  '.popup_type_confirm-delete',
-);
+export const popupDelete = document.querySelector('.popup_type_delete');
+export const popupDeleteSelector = '.popup_type_delete';
 export const cardPopupImage = popupCard.querySelector('.popup__image');
 export const cardPopupTitle = popupCard.querySelector('.popup__image-title');
 

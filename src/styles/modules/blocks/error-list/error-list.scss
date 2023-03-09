@@ -1,0 +1,10 @@
+@use '../../abstract/mixins.scss' as *;
+
+.error-list {
+  @include reset-list;
+
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+  gap: 12px;
+}

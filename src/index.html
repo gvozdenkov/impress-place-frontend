@@ -35,7 +35,7 @@
             aria-label="Редактировать профиль"
             type="button"
             data-popup="popup_type_edit-profile"></button>
-          <p class="profile__about">web разработчик</p>
+          <p class="text-basic profile__about">web разработчик</p>
           <button
             class="profile__add-btn link-hover"
             aria-label="Добавить место"
@@ -52,7 +52,7 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
-
+    <ul class="error-list page__error-list"></ul>
     <!-- Edit Avatar popup -->
     <div class="popup popup_type_edit-avatar">
       <div
@@ -68,7 +68,7 @@
           class="form validate edit-avatar-form"
           name="editAvatarForm"
           novalidate>
-          <h2 class="form__title" id="edit-avatar-form-title">
+          <h2 class="title form__title" id="edit-avatar-form-title">
             Обновить аватар
           </h2>
           <fieldset class="form__fieldset">
@@ -108,7 +108,7 @@
           class="form validate edit-profile-form"
           name="editProfileForm"
           novalidate>
-          <h2 class="form__title" id="edit-profile-form-title">
+          <h2 class="title form__title" id="edit-profile-form-title">
             Редактировать профиль
           </h2>
           <fieldset class="form__fieldset">
@@ -123,7 +123,7 @@
                 minlength="2"
                 maxlength="40"
                 pattern="[a-zA-Zа-яА-ЯёЁ\-\s]+"
-                data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы. Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
+                data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
                 required />
             </div>
             <div class="form__field">
@@ -163,7 +163,9 @@
           aria-label="Закрыть попап"
           type="button"></button>
         <form class="form validate add-card-form" name="addCardForm" novalidate>
-          <h2 class="form__title" id="add-card-form-title">Новое место</h2>
+          <h2 class="title form__title" id="add-card-form-title">
+            Новое место
+          </h2>
           <fieldset class="form__fieldset">
             <div class="form__field">
               <label for="place-name" class="form__label sr-only"
@@ -214,13 +216,13 @@
           class="popup__close-btn link-hover"
           aria-label="Закрыть попап"
           type="button"></button>
-        <img src="" alt="/" class="popup__image" />
+        <img src="" alt="" class="popup__image" />
         <p class="popup__image-title" id="popup-image-title"></p>
       </div>
     </div>
 
     <!-- Confirm delete popup -->
-    <div class="popup popup_type_confirm-delete">
+    <div class="popup popup_type_delete">
       <div
         class="popup__container"
         role="dialog"
@@ -235,7 +237,7 @@
           name="confirmDeleteForm"
           novalidate>
           <h2
-            class="form__title form__title_type_no-inputs"
+            class="title form__title form__title_type_no-inputs"
             id="confirm-delete-form-title">
             Вы уверены?
           </h2>
@@ -268,6 +270,20 @@
     <!-- Form input error element -->
     <template id="form-input-error-template">
       <span class="form__input-error"></span>
+    </template>
+
+    <!-- Error popup -->
+    <template id="error-popup-template">
+      <li class="error-list__item">
+        <div class="error-popup" role="alert">
+          <h2 class="title error-popup__title"></h2>
+          <p class="text-basic error-popup__description"></p>
+          <button
+            aria-label="Закрыть окно ошибки"
+            class="error-popup__close link-hover"
+            type="button"></button>
+        </div>
+      </li>
     </template>
   </body>
 </html>

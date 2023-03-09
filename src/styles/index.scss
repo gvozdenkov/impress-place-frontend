@@ -1,3 +1,4 @@
+@use '../vendor/normalize';
 @use './modules/blocks/link-hover/link-hover.scss';
 @use './modules/blocks/link-hover/_place/link-hover_place_light.scss';
 
@@ -11,6 +12,9 @@
 
 @use './modules/blocks/logo/logo.scss';
 @use './modules/blocks/logo/_place/logo_place_header.scss';
+
+@use './modules/blocks/title/title.scss';
+@use './modules/blocks/text-basic/text-basic.scss';
 
 @use './modules/blocks/content/content.scss';
 @use './modules/blocks/content/__profile/content__profile.scss';
@@ -35,6 +39,7 @@
 @use './modules/blocks/card/__like-btn/_with-count/card__like-btn_with-count.scss';
 @use './modules/blocks/card/__like-count/card__like-count.scss';
 @use './modules/blocks/card/__delete-btn/card__delete-btn.scss';
+@use './modules/blocks/card/__delete-btn/_disabled/card__delete-btn_disabled.scss';
 
 @use './modules/blocks/footer/footer.scss';
 @use './modules/blocks/footer/__copyright/footer__copyright.scss';
@@ -60,7 +65,17 @@
 @use './modules/blocks/page/page.scss';
 @use './modules/blocks/page/__content/page__content.scss';
 @use './modules/blocks/page/__section/page__section.scss';
+@use './modules/blocks/page/__error-list/page__error-list.scss';
 
-@import '../vendor/normalize.css';
+@use './modules/blocks/error-list/error-list.scss';
+@use './modules/blocks/error-list/_active/error-list_active.scss';
+@use './modules/blocks/error-list/__item/error-list__item.scss';
+@use './modules/blocks/error-list/__item/_active/error-list__item_active.scss';
+
+@use './modules/blocks/error-popup/error-popup.scss';
+@use './modules/blocks/error-popup/__title/error-popup__title.scss';
+@use './modules/blocks/error-popup/__description/error-popup__description.scss';
+@use './modules/blocks/error-popup/__close/error-popup__close.scss';
+
 @import '../vendor/fonts.css';
 @import '../vendor/variables.css';

@@ -8,7 +8,7 @@ const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development
 const devMode = mode === 'development';
 
 module.exports = {
-  entry: { main: './src/index.js' },
+  entry: { main: './src/pages/index.js' },
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '',
