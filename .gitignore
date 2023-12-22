@@ -1,7 +1,0 @@
-.vscode
-node_modules
-build
-.env
-.prettierignore
-.eslintignore
-/.idea

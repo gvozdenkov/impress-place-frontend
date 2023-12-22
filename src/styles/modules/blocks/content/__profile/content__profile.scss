@@ -1,9 +1,0 @@
-@use '../../../abstract/mixins.scss' as *;
-
-.content__profile {
-  margin: 40px 0 50px;
-
-  @include width-sm {
-    margin: 42px 0 36px;
-  }
-}

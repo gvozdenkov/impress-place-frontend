@@ -1,9 +1,0 @@
-@use '../../../abstract/mixins.scss' as *;
-
-.form__title {
-  margin-bottom: 54px;
-
-  @include width-sm {
-    margin-bottom: 75px;
-  }
-}
