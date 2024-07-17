@@ -1,0 +1,11 @@
+@use '../../../abstract/mixins.scss' as *;
+
+.logo__image {
+  width: 50px;
+  aspect-ratio: 1;
+  user-select: none;
+
+  @include width-sm {
+    width: 30px;
+  }
+}

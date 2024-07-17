@@ -11,6 +11,8 @@
 @use './modules/blocks/button/_disabled/button_disabled.scss';
 
 @use './modules/blocks/logo/logo.scss';
+@use './modules/blocks/logo/__image/logo__image.scss';
+@use './modules/blocks/logo/__text/logo__text.scss';
 @use './modules/blocks/logo/_place/logo_place_header.scss';
 
 @use './modules/blocks/title/title.scss';

@@ -1,0 +1,11 @@
+@use '../../../abstract/mixins.scss' as *;
+
+.logo__text {
+  font-size: 24px;
+  margin: 0;
+  color: white;
+
+  @include width-sm {
+    font-size: 18px;
+  }
+}

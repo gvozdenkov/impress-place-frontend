@@ -1,12 +1,12 @@
 @use '../../abstract/mixins.scss' as *;
 
 .logo {
-  width: 142px;
-  height: 33px;
-  user-select: none;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 20px;
 
   @include width-sm {
-    width: 104px;
-    height: 24px;
+    gap: 10px;
   }
 }

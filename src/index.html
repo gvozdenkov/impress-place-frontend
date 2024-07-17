@@ -16,10 +16,13 @@
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
-        <img
-          src="<%=require('./images/logo.svg')%>"
-          alt="Mesto логотип."
-          class="logo logo_place_header" />
+        <div class="logo logo_place_header">
+          <img
+            src="<%=require('./images/logo.svg')%>"
+            alt="Impress Place логотип."
+            class="logo__image logo__image_place_header" />
+          <p class="logo__text">Impress Place</p>
+        </div>
       </header>
       <main class="content">
         <section class="profile content__profile page__section">
