@@ -7,4 +7,9 @@
   justify-content: center;
   gap: 20px 17px;
   width: 100%;
+
+  // when any element in grid is hoverd, then select all elements, not hoverd and black and white image
+  &:has(> :hover) .photo-grid__item:not(:hover) .card__img {
+    filter: grayscale(100%);
+  }
 }

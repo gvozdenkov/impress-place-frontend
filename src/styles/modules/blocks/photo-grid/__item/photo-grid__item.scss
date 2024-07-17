@@ -1,0 +1,12 @@
+// .photo-grid__item:hover .card__img {
+//   filter: grayscale(100%);
+// }
+
+// mute all prev images
+// .photo-grid__item:has(~ .photo-grid__item:hover) .card__img {
+//   filter: grayscale(100%);
+// }
+
+// .photo-grid__item:not(:hover) .card__img {
+//   filter: grayscale(100%);
+// }
