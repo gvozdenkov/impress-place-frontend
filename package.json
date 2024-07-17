@@ -1,5 +1,5 @@
 {
-  "name": "mesto-project",
+  "name": "impress-place-frontend",
   "version": "0.0.2",
   "description": "Photo sharing service",
   "main": "index.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gvozdenkov/mesto-project.git"
+    "url": "git+https://github.com/gvozdenkov/impress-place-frontend.git"
   },
   "author": "Arty Gvozdenkov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gvozdenkov/mesto-project/issues"
+    "url": "https://github.com/gvozdenkov/impress-place-frontend/issues"
   },
-  "homepage": "https://github.com/gvozdenkov/mesto-project#readme",
+  "homepage": "https://github.com/gvozdenkov/impress-place-frontend#readme",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
